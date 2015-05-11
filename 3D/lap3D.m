@@ -1,6 +1,8 @@
-aux=H;
+function lap = lap3D(aux)
 
-    
+Nx = 80;
+Ny = 50;
+Nz = 50;    
 
 lap=0*aux;
 LapUx=lap;
@@ -23,7 +25,7 @@ end
      LapUx(Nx,:,:)=0;%aux(:,Ny-1)-aux(:,Ny);
      LapUz(:,:,1)=0;
      LapUz(:,:,Nz)=0;
-     lapH=LapUx+LapUy+LapUz;
+     lap=LapUx+LapUy+LapUz;
      
 % for qq=1:Nx
 %     for rr=1:Ny

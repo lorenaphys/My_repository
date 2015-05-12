@@ -73,12 +73,13 @@ for iter=1:NF
 
     end
 
-    h=isnan(fi(Nx/2,Ny/2,Nz/2));
-    if h==1;
-        break
-    end
+%     h=isnan(fi(Nx/2,Ny/2,Nz/2));
+%     if h==1;
+%         break
+%     end
 
-	save(['/iter' num2str(iter)]);
+	save(['iter' num2str(iter)]);
+    disp(iter)
     
 end
 

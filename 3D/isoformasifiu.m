@@ -127,4 +127,4 @@ end
 
 	save(['/iter' num2str(iter)]);
 
-%exit
+exit

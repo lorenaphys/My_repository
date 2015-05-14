@@ -1,8 +1,10 @@
 function lap = lap3D(aux)
 
-Nx = 80;
-Ny = 50;
-Nz = 50;    
+dimen=size(aux);
+
+Nx=dimen(1);
+Ny=dimen(2);
+Nz=dimen(3);   
 
 lap=0*aux;
 LapUx=lap;

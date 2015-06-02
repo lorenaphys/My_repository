@@ -53,8 +53,8 @@ bet=.1;
 [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
         teta=atan2((Y-Ny/2),(X-Nx/2));
         rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-        %u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-R+2).^2)/20);
-        u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2).^2+(-Y+Ny/2).^2+(-Z+(R+14)).^2)/80));
+        u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-R+2).^2)/20);
+        %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2).^2+(-Y+Ny/2).^2+(-Z+(R+14)).^2)/80));
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/3).^2+(Y-Ny/3).^2+(Z-(R+2)).^2)/50));
         %u=2.5*rand(Nx,Ny,Nz);
 %u=1-u;
@@ -99,73 +99,65 @@ fix0(:,:)=fi(Nx/2,:,:);
 for iter=cont:NF              %time loop
     for iiter=1:step
  
- %%   delficiones 
+ %%   deficiones 
  
-        H=fi;
-        lap3D
-        lapfi=lapH;
+        lapfi=lap3D(fi);
         
         mu=((fi-ep1.*(bet*u.^2)).*((fi).^2-1)-ep*lapfi);        
-        
-        H=mu;
-        lap3D
-        lapmu=lapH;
-        
-        F=Afi*((3*fi.^2-1-2*ep1*fi.*(bet*u.^2)).*mu-ep*lapmu);     
-        
-        
-        H=F;
-        lap3D
-        lapF=lapH;
 
-        H=u;
-        lap3D
-        lapu=lapH;
+        lapmu=lap3D(mu);
+        
+        lapu=lap3D(u);
+        
+        F=Afi*2*((3*fi.^2-1-2*ep1*fi.*(bet*u.^2)).*mu-2*ep*lapmu);     
+
+        lapF=lap3D(F);
         
         Fs=lapfi;
-        
-        
-        H=Fs;
-        lap3D
-        lapFs=lapH;
+
+        lapFs=lap3D(Fs);
 
 
 %%   ahora  la u  %%%%%%%%%%%%%
 
 
-       Gu=-Afi*ep1*bet*u.*mu.*((fi).^2-1)-sifiu*lapfi; 
+       Gu=-Afi*4*ep1*bet*u.*mu.*((fi).^2-1)+duu*lapu-sifiu*lapfi; 
 
        
        Fu=-Av*duu*lapu+Gu;
        gFu=grad3DR(Fu);
-        H=Fu;
-        lap3D
-        lapFu=lapH;
+
+       lapFu=lap3D(Fu);
         
         Ft=-sifiu*lapu; %  surface tension between membrane and u
-        H=Ft;
-        lap3D
-        lapFt=lapH; 
+
+        lapFt=lap3D(Ft); 
+        
 %%   tensor de esfurezos
+		
+		gu = grad3DR(u);
         gfi=grad3DR(fi);
         gmu=grad3DR(mu);
-        P=(Afi*mu.^2-sigma*abs(gfi(:,:,:,1).^2+gfi(:,:,:,2).^2+gfi(:,:,:,3).^2)-fi(:,:,:).*F(:,:,:));
+        
+        E = F-sigma*Fs+Ft;
+        
+        P=(Afi*mu.^2-0.5*sigma*abs(gfi(:,:,:,1).^2+gfi(:,:,:,2).^2+gfi(:,:,:,3).^2)-0.5*Av*duu*abs(gu(:,:,:,1).^2+gu(:,:,:,2).^2+gu(:,:,:,3).^2) + sifiu*gu.*gfi -fi(:,:,:).*(E(:,:,:)));
         ggfi1=grad3DR(gfi(:,:,:,1));
         ggfi2=grad3DR(gfi(:,:,:,2));
         ggfi3=grad3DR(gfi(:,:,:,3));        
         
 
 str=zeros(Nx,Ny,Nz,3,3);
- str(:,:,:,1,1)=eta*(P(:,:,:)+2*sigma*gfi(:,:,:,1).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,1)-2*Afi*ep*ggfi1(:,:,:,1));
- str(:,:,:,2,2)=eta*(P(:,:,:)+2*sigma*gfi(:,:,:,2).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,2)-2*Afi*ep*ggfi2(:,:,:,2));
- str(:,:,:,3,3)=eta*(P(:,:,:)+2*sigma*gfi(:,:,:,3).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,3)-2*Afi*ep*ggfi3(:,:,:,3));
+ str(:,:,:,1,1)=eta*(P(:,:,:)+sigma*gfi(:,:,:,1).*gfi(:,:,:,1)-sifiu*gu(:,:,:,1).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,1)+2*Afi*ep*mu.*ggfi1(:,:,:,1));
+ str(:,:,:,2,2)=eta*(P(:,:,:)+sigma*gfi(:,:,:,2).*gfi(:,:,:,2)-sifiu*gu(:,:,:,2).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,2)+2*Afi*ep*mu.*ggfi2(:,:,:,2));
+ str(:,:,:,3,3)=eta*(P(:,:,:)+sigma*gfi(:,:,:,3).*gfi(:,:,:,3)-sifiu*gu(:,:,:,3).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,3)+2*Afi*ep*mu.*ggfi3(:,:,:,3));
  
- str(:,:,:,1,2)=eta*(2*sigma*gfi(:,:,:,1).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,2)-2*Afi*ep*ggfi2(:,:,:,1));
- str(:,:,:,1,3)=eta*(2*sigma*gfi(:,:,:,1).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,3)-2*Afi*ep*ggfi3(:,:,:,1));
- str(:,:,:,2,1)=eta*(2*sigma*gfi(:,:,:,2).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,2)-2*Afi*ep*ggfi1(:,:,:,2));
- str(:,:,:,2,3)=eta*(2*sigma*gfi(:,:,:,2).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,3)-2*Afi*ep*ggfi3(:,:,:,2));
- str(:,:,:,3,1)=eta*(2*sigma*gfi(:,:,:,3).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,1)-2*Afi*ep*ggfi1(:,:,:,3));
- str(:,:,:,3,2)=eta*(2*sigma*gfi(:,:,:,3).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,2)-2*Afi*ep*ggfi2(:,:,:,3)); 
+ str(:,:,:,1,2)=eta*(sigma*gfi(:,:,:,1).*gfi(:,:,:,2)-sifiu*gu(:,:,:,1).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,2)-2*Afi*ep*ggfi1(:,:,:,2));
+ str(:,:,:,1,3)=eta*(sigma*gfi(:,:,:,1).*gfi(:,:,:,3)-sifiu*gu(:,:,:,1).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,3)-2*Afi*ep*ggfi1(:,:,:,3));
+ str(:,:,:,2,1)=eta*(sigma*gfi(:,:,:,2).*gfi(:,:,:,1)-sifiu*gu(:,:,:,2).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,1)-2*Afi*ep*ggfi2(:,:,:,1));
+ str(:,:,:,2,3)=eta*(sigma*gfi(:,:,:,2).*gfi(:,:,:,3)-sifiu*gu(:,:,:,2).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,3)-2*Afi*ep*ggfi2(:,:,:,3));
+ str(:,:,:,3,1)=eta*(sigma*gfi(:,:,:,3).*gfi(:,:,:,1)-sifiu*gu(:,:,:,3).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,1)-2*Afi*ep*ggfi3(:,:,:,1));
+ str(:,:,:,3,2)=eta*(sigma*gfi(:,:,:,3).*gfi(:,:,:,2)-sifiu*gu(:,:,:,3).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,2)-2*Afi*ep*ggfi3(:,:,:,2)); 
 
  
  
@@ -183,9 +175,8 @@ str=zeros(Nx,Ny,Nz,3,3);
          I=200.*u*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz;
          I(find(abs(fi)>=.9))=0;
          I;
-         H=F-sigma*Fs+Ft;
-         lap3D
-         lapE=lapH;
+
+         lapE=lap3D(E);
 %fi=fi-dt*(F+Fs+Ft);
         fi=fi+Dfi*dt*(lapE+I);
         fi(:,:,1)=fi(:,:,2);

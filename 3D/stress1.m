@@ -4,7 +4,7 @@ clear all
 
 et=.01;
 dx=1;
-NF=800;
+NF=400;
 sig=0*(1:NF);
 ep1=2;
 ep=ep1^2;

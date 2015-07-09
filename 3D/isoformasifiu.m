@@ -2,13 +2,12 @@
 
 clear all
 
-NF=5000;
+NF=400;
 %sig=0*(1:NF);
-ep1=.1;
+ep1=2;
 ep=ep1^2;
 sigma=-5.5;
 beta=0.5;
-gamma=0;
 Nx=60;
 Ny=40;
 Nz=40;
@@ -17,7 +16,16 @@ Afi=1;
 N=5;   %this is the cylindrical symmetry
 step=200;
 iter=1;
-dt=1e-4;
+dt=1e-5;
+Ab = 0.5;
+As = 2;
+Af = 2;
+Dfi = 1;
+Du = 30;
+lambda = 0.5;
+u1 = 0;
+u2 = 1;
+u3 = 0;
 
 
 
@@ -69,16 +77,19 @@ for iter=1:NF
       
         lapmu=lap3D(mu);
 
-        potffi=2*fi.*(((fi).^2-1)).*((beta*u-R1).^2)+2*fi.*((beta.*u).^2);
-        potfu=2*(((fi).^2-1).^2).*(((beta*u-R1)))+2*(fi.^2).*(beta*u);
+		potffi = 2*As*fi.*(fi.^2-1).*((u-u1).^2).*((u-u2).^2) + 2*Af*fi*(u-u3).^2;
+		potfu = 2*As*((fi.^2-1).^2).*(u-u1).*(u-u2).*(2*u-u1-u2) + 2*Af*fi.^2.*(u-u3);
+
+        %potffi=2*fi.*(((fi).^2-1)).*((beta*u-R1).^2)+2*fi.*((beta.*u).^2);
+        %potfu=2*(((fi).^2-1).^2).*(((beta*u-R1)))+2*(fi.^2).*(beta*u);
         
         lapu=lap3D(u);
         
-        F=2*(3*fi.^2-1-2*ep1*beta*fi.*u).*mu-2*ep*lapmu+potffi-gamma*beta*lapu;
+        F=2*Ab*mu.*(3*fi.^2-1-2*ep1*beta*fi.*u)-2*Ab*ep*lapmu+potffi;
           
-        G=2*mu*ep1.*(((fi).^2-1))+potfu-gamma*lapfi;
+        G=-2*Ab*beta*ep1*mu.*(((fi).^2-1))+potfu-2*As*lambda*lapu;
          
-        Fs=1*((sigma.*lapfi));
+        Fs=2*((sigma.*lapfi));
 
         lapF=lap3D(F);
         
@@ -92,7 +103,7 @@ for iter=1:NF
         sigma=I/Is;
         %sig(iter)=sigma;
         
-        I=120*(F)*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz;
+        I=20*(F)*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz;
         I(fi<=0)=0;        
         
         fi=fi+dt*(lapF-lapFs-I);
@@ -112,7 +123,7 @@ for iter=1:NF
         u(:,:,Nz)=u(:,:,Nz-1);
         
         
-        fi(:,:,1)=fiini(:,:,1);
+        %fi(:,:,1)=fiini(:,:,1);
 
     end
     
@@ -121,10 +132,10 @@ for iter=1:NF
         break
     end
     
-	disp(iter)
+	%disp(iter)
    
 end
 
-	save(['/iter' num2str(iter)]);
+	save julio8a;
 
 exit

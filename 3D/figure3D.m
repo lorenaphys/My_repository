@@ -1,16 +1,10 @@
-clear mm
 
-load('julio9b.mat');
+load('julio9c.mat')
 
 fl=size(Fm);
-for ii=1:fl(4)
- %ii  
-%      hold on 
-%      Xn=frame2im(M(ii));
-%      image(Xn)
-
- fi(:,:,:)=Fm(:,:,:,ii);
- u(:,:,:)=U(:,:,:,ii);   
+f = 160;
+ fi(:,:,:)=Fm(:,:,:,f);
+ u(:,:,:)=U(:,:,:,f);   
     clf
        
     cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
@@ -21,11 +15,21 @@ for ii=1:fl(4)
     set(p4,'FaceColor','interp','EdgeColor','none'),
     camlight, lighting phong
     axis equal, view(-14,40), axis off
-    axis([1 Nx 1 Ny 1 Nz/2]),
+    axis([5 35 5 35 2 9]),
     colorbar
-    mm(:,:,ii)=getframe(gcf);
-    disp(ii)
-% 
+     
+
+% figure(2)
+%     fix0(:,:) = Fm(:,Ny/2,:,1);
+%     fix(:,:)=fi(:,Ny/2,:);
+%     contour(fix,[0 0],'k')
+%     hold on
+%     contour(fix0,[0 0],'r')
+%     axis equal
+%     axis([1 25 1 40])
+%     %getframe(gcf);
+%     hold off
+    
 % clf
 % fi = smooth3(fi,'box',5);
 % isosurface(fi,0)
@@ -41,7 +45,7 @@ for ii=1:fl(4)
 % p3=slice(x,y,z,u,xslice,yslice,zslice);
 % set(p3,'FaceColor','interp','EdgeColor','none','FaceAlpha',0.5),
 % axis equal, view(-70,20)
-%  mm(:,:,ii)=getframe(gcf);    
-end
+%  mm(:,:,ii)=getframe(gcf); 
 
-movie2avi(mm,'julio9b','compression','none')
+%exit   
+

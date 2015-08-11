@@ -1,5 +1,5 @@
 
-load('julio9c.mat')
+load('julio9i.mat')
 
 fl=size(Fm);
 f = 160;
@@ -7,28 +7,28 @@ f = 160;
  u(:,:,:)=U(:,:,:,f);   
     clf
        
-    cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
-    fi = smooth3(fi,'box',5);
-    p4=patch(isosurface(fi,0));
-    isonormals(fi,p4);
-    isocolors(cdata,p4);
-    set(p4,'FaceColor','interp','EdgeColor','none'),
-    camlight, lighting phong
-    axis equal, view(-14,40), axis off
-    axis([5 35 5 35 2 9]),
-    colorbar
+%     cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
+%     fi = smooth3(fi,'box',5);
+%     p4=patch(isosurface(fi,0));
+%     isonormals(fi,p4);
+%     isocolors(cdata,p4);
+%     set(p4,'FaceColor','interp','EdgeColor','none'),
+%     camlight, lighting phong
+%     axis equal, view(-14,40), axis off
+%     axis([5 35 5 35 2 9]),
+%     colorbar
      
 
 % figure(2)
-%     fix0(:,:) = Fm(:,Ny/2,:,1);
-%     fix(:,:)=fi(:,Ny/2,:);
-%     contour(fix,[0 0],'k')
-%     hold on
-%     contour(fix0,[0 0],'r')
-%     axis equal
-%     axis([1 25 1 40])
-%     %getframe(gcf);
-%     hold off
+    fix0(:,:) = Fm(:,Ny/2,:,1);
+    fix(:,:)=fi(:,Ny/2,:);
+    contour(fix,[0 0],'k')
+    hold on
+    contour(fix0,[0 0],'r')
+    axis equal
+    axis([1 19 3 37])
+    %getframe(gcf);
+    hold off
     
 % clf
 % fi = smooth3(fi,'box',5);

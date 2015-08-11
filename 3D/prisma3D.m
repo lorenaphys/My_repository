@@ -1,11 +1,4 @@
-% Nx=40;
-% Ny=40;
-% Nz=60;
-%R=10;
-dd=ones(Nx,Ny);
 
-% load initial
-% u0=uout+ues; v0=vout+ves; w0=wout+wes; x0=xout+xes;
 fi=-1*ones(Nx,Ny,Nz);
 
 ancho=2;

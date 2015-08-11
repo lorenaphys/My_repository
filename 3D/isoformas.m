@@ -3,8 +3,7 @@
 clear all
 
 et=1;
-NF=5000;
-%sig=0*(1:NF);
+NF=200;
 ep1=1;
 ep=ep1^2;
 sigma=1;
@@ -15,8 +14,8 @@ Ny=50;
 Nz=50;
 R=11;
 Afi=1;
-N=5;   %this is the cylindrical symmetry
-v = 0.69; %reduce volume
+%N=5;   %this is the cylindrical symmetry
+v = 0.05; %reduce volume
 V = 4000; %Prisma volume
 
 
@@ -29,7 +28,6 @@ fiini=fi;
 
 
 step=200;
-iter=1;
 dt=1e-4;
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %bet=0*fi;
@@ -39,9 +37,11 @@ dt=1e-4;
 
 %%
 ao = 4*pi*(3*V/(4*pi*v))^(2/3);
-vol=.46; 
+%vol=.46; 
 
 %ao=((1-fi.*fi).^2);
+
+Fm = zeros(Nx,Ny,Nz,NF);
 
 
 for iter=1:NF
@@ -56,8 +56,12 @@ for iter=1:NF
         F=Afi*((3*fi.^2-1).*mu-ep*lapmu);
  
         gradfi=gradient(fi);
+        
+        [fix, fiy, fiz] = gradient(fi);
 
-        sigma= sigma+dt*((3/(4*sqrt(2)*ep1))*((1-fi.*fi).^2)-ao);
+        %sigma= sigma+dt*((3/(4*sqrt(2)*ep1))*((1-fi.*fi).^2)-ao);
+        
+        sigma= sigma+dt*((3/(4*sqrt(2)*ep1))*(fix.^2 + fiy.^2 + fiz.^2)-ao);
         
         Fs=((3*sqrt(2)/(4*ep1*kb))*(sigma.*lapfi+gradient(sigma).*gradfi));
 
@@ -70,6 +74,13 @@ for iter=1:NF
         fi=fi+dt*(lapF+lapFs);
 
         fi(:,:,1)=fiini(:,:,1);
+        
+        %fi(1,:,:)=fi(2,:,:);
+        %fi(Nx,:,:)=fi(Nx-1,:,:);
+        %fi(:,1,:)=fi(:,2,:);
+        %fi(:,Ny,:)=fi(:,Ny-1,:);
+        %fi(:,:,1)=fi(:,:,2);
+        %fi(:,:,Nz)=fi(:,:,Nz-1);
 
     end
 
@@ -77,9 +88,12 @@ for iter=1:NF
 %     if h==1;
 %         break
 %     end
-
-	save(['iter' num2str(iter)]);
-    disp(iter)
-    
+	Fm(:,:,:,iter)=fi(:,:,:);
+	%save('test.txt','iter')
+ 
 end
+
+save agosto11a;
+
+exit
 

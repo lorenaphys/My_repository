@@ -3,7 +3,6 @@
 clear all
 
 NF=200;
-%sig=0*(1:NF);
 ep1=2;
 ep=ep1^2;
 sigma=0.1;
@@ -26,7 +25,8 @@ u3 = 0;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% form of fi and initial values
-fi=ones(Nx,Ny,Nz);
+Fi=ones(Nx,Ny,Nz);
+fi = gpuArray(Fi);
 r = zeros(Nx,Ny,Nz);
 
 for i=1:Nx
@@ -44,7 +44,8 @@ end
 %fiini=fi;
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%u = zeros(Nx,Ny,Nz);
+aux = zeros(Nx, Ny, Nz);
+u = gpuArray(u);
 %I = zeros(Nx,Ny,Nz);
 Fm = zeros(Nx,Ny,Nz,NF);
 U = zeros(Nx,Ny,Nz,NF);
@@ -112,7 +113,6 @@ for iter=1:NF
         Bs=sum(sum(sum(gradient(fi).*gradient(lapfi))));
         
         sigma=B/Bs;
-        %sig(iter)=sigma;
         
         I=120*(G)*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz;
         I(fi<=0)=0;        
@@ -145,11 +145,10 @@ for iter=1:NF
 
 	Fm(:,:,:,iter)=fi(:,:,:);
     U(:,:,:,iter)=u(:,:,:);
-    save('test','iter')
-	%disp(iter)
+    %save('test','iter')
    
 end
 
-	save julio9j;
+	save agosto10a;
 
 exit

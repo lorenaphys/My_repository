@@ -1,33 +1,33 @@
 % Program to calculate phase fields in 3 dimensions
 
-clear all
+%clear all
 
 NF=200;
-ep1=2;
-ep=ep1^2;
-sigma=0.1;
-beta=0.5;
-Nx=40;
-Ny=40;
-Nz=70;
+ep1 = gpuArray(2.0);
+epCpu = ep1^2;
+ep = gpuArray(epCpu);
+sigma = gpuArray(0.1);
+beta = gpuArray(0.5);
+Nx = 40;
+Ny = 40;
+Nz = 70;
 step=200;
-dt=1e-5;
-Ab = 0.5;
-As = 2;
-Af = 2;
-Dfi = 1;
-Du = 1;
-lambda = 0.1;
-u1 = 0;
-u2 = 1;
-u3 = 0;
+dt = gpuArray(1e-5);
+Ab = gpuArray(0.5);
+As = gpuArray(2);
+Af = gpuArray(2);
+Dfi = gpuArray(1);
+Du = gpuArray(1);
+lambda = gpuArray(0.1);
+u1 = gpuArray(0);
+u2 = gpuArray(1);
+u3 = gpuArray(0);
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% form of fi and initial values
-Fi=ones(Nx,Ny,Nz);
-fi = gpuArray(Fi);
-r = zeros(Nx,Ny,Nz);
+fi = gpuArray(ones(Nx,Ny,Nz));
+r = gpuArray(zeros(Nx,Ny,Nz));
 
 for i=1:Nx
     for j=1:Ny
@@ -44,38 +44,60 @@ end
 %fiini=fi;
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-aux = zeros(Nx, Ny, Nz);
-u = gpuArray(u);
+u = gpuArray(zeros(Nx,Ny,Nz));
 %I = zeros(Nx,Ny,Nz);
-Fm = zeros(Nx,Ny,Nz,NF);
-U = zeros(Nx,Ny,Nz,NF);
+FmGpu = gpuArray(zeros(Nx,Ny,Nz,NF));
+UmGpu = gpuArray(zeros(Nx,Ny,Nz,NF));
+
+% x = gpuArray.linspace(1,Nx,Nx);
+% y = gpuArray.linspace(1,Ny,Ny);
+% z = gpuArray.linspace(1,Nz,Nz);
 
 %%
 %Rompimiento de simetria
-R = 9;
+%R = gpuArray(9);
     %N = 6;
-    [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
+    %[X,Y,Z]=meshgrid(x,y,z);
         %teta=atan2((Y-Ny/2),(X-Nx/2));
         %rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-        u=1.5*exp(-((X-Nx/3-.5).^2+(Y-Ny/3-5-.5).^2+(Z-R+2).^2)/50);
+         %u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-R+2).^2)/100);
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
         %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
         %u=2.5*rand(Nx,Ny,Nz);
     
 
-% [~,R1]=min(abs(fi(Nx/2,Ny/2,:)));
-% 
-% for i=1:Nx
-%     for j=1:Ny
-%         for k=1:Nz
-%             u(i,j,k)=1+3.5*exp(-((i-Nx/2)^2+(j-Ny/2)^2+(k-R1+8)^2)/200);%primera prueba ancho = 200;
-%         end
-%     end
-% end
+[~,R1]=min(abs(fi(Nx/2,Ny/2,:)));
+
+for i=1:Nx
+    for j=1:Ny
+        for k=1:Nz
+            u(i,j,k)=1+3.5*exp(-((i-Nx/2)^2+(j-Ny/2)^2+(k-R1+8)^2)/200);%primera prueba ancho = 200;
+        end
+    end
+end
 
 %u(fi<=-.9);
 
 u(fi<=-.99)=0;
+
+t = tic(); %comando para visualizar el tiempo de ejecucion
+
+% lapfi = gpuArray(zeros(Nx,Ny,Nz));
+% mu = gpuArray(zeros(Nx,Ny,Nz));
+% lapmu = gpuArray(zeros(Nx,Ny,Nz));
+% potffi = gpuArray(zeros(Nx,Ny,Nz));
+% potfu = gpuArray(zeros(Nx,Ny,Nz));
+% F = gpuArray(zeros(Nx,Ny,Nz));
+% lapF = gpuArray(zeros(Nx,Ny,Nz));
+% lapu = gpuArray(zeros(Nx, Ny, Nz));
+% G = gpuArray(zeros(Nx,Ny,Nz));
+% lapG = gpuArray(zeros(Nx,Ny,Nz));
+% Fs = gpuArray(zeros(Nx,Ny,Nz));
+% lapFs = gpuArray(zeros(Nx,Ny,Nz));
+% B = gpuArray(zeros(Nx,Ny,Nz));
+% Bs = gpuArray(zeros(Nx,Ny,Nz));
+% I = gpuArray(zeros(Nx,Ny,Nz));
+
 
 for iter=1:NF
     for iiter=1:step
@@ -142,13 +164,18 @@ for iter=1:NF
     if h==1;
         break
     end
-
-	Fm(:,:,:,iter)=fi(:,:,:);
-    U(:,:,:,iter)=u(:,:,:);
+	
+	FmGpu(:,:,:,iter)=fi;
+    UmGpu(:,:,:,iter)=u;
     %save('test','iter')
    
 end
 
-	save agosto10a;
+Fm = gather(FmGpu);
+Um = gather(UmGpu);
+
+gpuTime = toc(t);
+
+save agosto20b;
 
 exit

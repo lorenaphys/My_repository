@@ -9,7 +9,7 @@ Nz=dimen(3);
 
     
 
-lap=0*fun;
+lap=gpuArray(zeros(Nx,Ny,Nz));
 LapUx=lap;
 LapUy=lap;
 LapUz=lap;

@@ -1,6 +1,6 @@
 clear mm
 
-load('julio9b.mat');
+load('agosto26b.mat');
 
 fl=size(Fm);
 for ii=1:fl(4)
@@ -10,7 +10,7 @@ for ii=1:fl(4)
 %      image(Xn)
 
  fi(:,:,:)=Fm(:,:,:,ii);
- u(:,:,:)=U(:,:,:,ii);   
+ u(:,:,:)=Um(:,:,:,ii);   
     clf
        
     cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
@@ -21,8 +21,9 @@ for ii=1:fl(4)
     set(p4,'FaceColor','interp','EdgeColor','none'),
     camlight, lighting phong
     axis equal, view(-14,40), axis off
-    axis([1 Nx 1 Ny 1 Nz/2]),
-    colorbar
+    axis([11 45 11 45 1 13]),
+    colormap jet
+    %colorbar
     mm(:,:,ii)=getframe(gcf);
     disp(ii)
 % 
@@ -44,4 +45,4 @@ for ii=1:fl(4)
 %  mm(:,:,ii)=getframe(gcf);    
 end
 
-movie2avi(mm,'julio9b','compression','none')
+movie2avi(mm,'agosto26b','compression','none')

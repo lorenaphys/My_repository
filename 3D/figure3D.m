@@ -1,12 +1,13 @@
 
-load('agosto20a.mat')
+load('sep10c.mat')
 
 fl=size(Fm);
-f = 1;
- fi(:,:,:)=Fm(:,:,:,f);
- u(:,:,:)=Um(:,:,:,f);   
-    clf
+f = 161;
+fi(:,:,:)=Fm(:,:,:,f);
+u(:,:,:)=Um(:,:,:,f);   
+clf
        
+figure(1)   
      cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
      fi = smooth3(fi,'box',5);
      p4=patch(isosurface(fi,0));
@@ -15,8 +16,10 @@ f = 1;
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-14,40), axis off
-     axis([5 35 5 35 2 9]),
-     colorbar
+     %axis([11 45 11 45 1 15]),
+     axis([1 Nx 1 Ny 1 Nz])
+     colormap jet
+     %colorbar
      
 
 % figure(2)
@@ -49,3 +52,9 @@ f = 1;
 
 %exit   
 
+figure(2)
+t = linspace(1,fl(4),fl(4));
+plot(Sm)
+xlabel('t')
+ylabel('\sigma','FontSize',14,'FontWeight','bold')
+axis([0 fl(4) 0 25])

@@ -2,32 +2,32 @@
 
 %clear all
 
-NF=200;
-ep1 = gpuArray(2.0);
-epCpu = ep1^2;
-ep = gpuArray(epCpu);
-sigma = gpuArray(0.1);
-beta = gpuArray(0.5);
+
+NF=160;
+ep1 = 2;
+ep = ep1^2;
+sigma = 0.1;
+beta = 0.5;
 Nx = 40;
 Ny = 40;
 Nz = 70;
 step=200;
-dt = gpuArray(1e-5);
-Ab = gpuArray(0.5);
-As = gpuArray(2);
-Af = gpuArray(2);
-Dfi = gpuArray(1);
-Du = gpuArray(1);
-lambda = gpuArray(0.1);
-u1 = gpuArray(0);
-u2 = gpuArray(1);
-u3 = gpuArray(0);
+dt = 1e-5;
+Ab = 0.5;
+As = 2;
+Af = 2;
+Dfi = 1;
+Du = 1;
+lambda = 0.1;
+u1 = 0;
+u2 = 1;
+u3 = 0;
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% form of fi and initial values
-fi = gpuArray(ones(Nx,Ny,Nz));
-r = gpuArray(zeros(Nx,Ny,Nz));
+fi = ones(Nx,Ny,Nz);
+r = zeros(Nx,Ny,Nz);
 
 for i=1:Nx
     for j=1:Ny
@@ -44,65 +44,50 @@ end
 %fiini=fi;
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-u = gpuArray(zeros(Nx,Ny,Nz));
-%I = zeros(Nx,Ny,Nz);
-FmGpu = gpuArray(zeros(Nx,Ny,Nz,NF));
-UmGpu = gpuArray(zeros(Nx,Ny,Nz,NF));
+Fm = zeros(Nx,Ny,Nz,NF+1);
+Um = zeros(Nx,Ny,Nz,NF+1);
+Sm = zeros(1,NF+1);
 
-% x = gpuArray.linspace(1,Nx,Nx);
-% y = gpuArray.linspace(1,Ny,Ny);
-% z = gpuArray.linspace(1,Nz,Nz);
+Fm(:,:,:,1) = fi;
+
 
 %%
 %Rompimiento de simetria
-%R = gpuArray(9);
-    %N = 6;
-    %[X,Y,Z]=meshgrid(x,y,z);
-        %teta=atan2((Y-Ny/2),(X-Nx/2));
-        %rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
+    R = 9;
+    N = 6;
+    [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
+        teta=atan2((Y-Ny/2),(X-Nx/2));
+        rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
          %u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-R+2).^2)/100);
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
-        %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
+        u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
         %u=2.5*rand(Nx,Ny,Nz);
+       
+     Um(:,:,:,1) = u;
+     Sm(1) = sigma;
     
 
-[~,R1]=min(abs(fi(Nx/2,Ny/2,:)));
+% [~,R1]=min(abs(fi(Nx/2,Ny/2,:)));
 
-for i=1:Nx
-    for j=1:Ny
-        for k=1:Nz
-            u(i,j,k)=1+3.5*exp(-((i-Nx/2)^2+(j-Ny/2)^2+(k-R1+8)^2)/200);%primera prueba ancho = 200;
-        end
-    end
-end
-
-%u(fi<=-.9);
+% u = zeros(Nx,Ny,Nz);
+% 
+%     for i=1:Nx
+%         for j=1:Ny
+%             for k=1:Nz
+%                 u(i,j,k)=1.5*exp(-((i-Nx/3-5)^2+(j-Ny/3-5)^2+(k-13)^2)/20);
+%             end
+%         end
+%     end
 
 u(fi<=-.99)=0;
 
 t = tic(); %comando para visualizar el tiempo de ejecucion
 
-% lapfi = gpuArray(zeros(Nx,Ny,Nz));
-% mu = gpuArray(zeros(Nx,Ny,Nz));
-% lapmu = gpuArray(zeros(Nx,Ny,Nz));
-% potffi = gpuArray(zeros(Nx,Ny,Nz));
-% potfu = gpuArray(zeros(Nx,Ny,Nz));
-% F = gpuArray(zeros(Nx,Ny,Nz));
-% lapF = gpuArray(zeros(Nx,Ny,Nz));
-% lapu = gpuArray(zeros(Nx, Ny, Nz));
-% G = gpuArray(zeros(Nx,Ny,Nz));
-% lapG = gpuArray(zeros(Nx,Ny,Nz));
-% Fs = gpuArray(zeros(Nx,Ny,Nz));
-% lapFs = gpuArray(zeros(Nx,Ny,Nz));
-% B = gpuArray(zeros(Nx,Ny,Nz));
-% Bs = gpuArray(zeros(Nx,Ny,Nz));
-% I = gpuArray(zeros(Nx,Ny,Nz));
-
 
 for iter=1:NF
     for iiter=1:step
             
-		%[~,bb]=min(abs(fi(Nx/2,Ny/2,:)));
+	%[~,bb]=min(abs(fi(Nx/2,Ny/2,:)));
          %R1=bb-5;
 
         lapfi=lap3D(fi);
@@ -111,17 +96,17 @@ for iter=1:NF
       
         lapmu=lap3D(mu);
 
-		potffi = 2*As*fi.*(fi.^2-1).*((u-u1).^2).*((u-u2).^2) + 2*Af*fi.*((u-u3).^2);
-		potfu = 2*As*((fi.^2-1).^2).*(u-u1).*(u-u2).*(2*u-u1-u2) + 2*Af*fi.^2.*(u-u3);
+	potfi = 2*As*fi.*(fi.^2-1).*((u-u1).^2).*((u-u2).^2) + 2*Af*fi.*((u-u3).^2);
+	potu = 2*As*((fi.^2-1).^2).*(u-u1).*(u-u2).*(2*u-u1-u2) + 2*Af*fi.^2.*(u-u3);
 
         %potffi=2*fi.*(((fi).^2-1)).*((beta*u-R1).^2)+2*fi.*((beta.*u).^2);
         %potfu=2*(((fi).^2-1).^2).*(((beta*u-R1)))+2*(fi.^2).*(beta*u);
         
         lapu=lap3D(u);
         
-        F=2*Ab*mu.*(3*fi.^2-1-2*ep1*beta*fi.*u)-2*Ab*ep*lapmu+potffi;
+        F=2*Ab*mu.*(3*fi.^2-1-2*ep1*beta*fi.*u)-2*Ab*ep*lapmu+potfi;
           
-        G=-2*Ab*beta*ep1*mu.*(((fi).^2-1))+potfu-2*As*lambda*lapu;
+        G=-2*Ab*beta*ep1*mu.*(((fi).^2-1))+potu-2*As*lambda*lapu;
          
         Fs=2*((sigma.*lapfi));
 
@@ -165,17 +150,16 @@ for iter=1:NF
         break
     end
 	
-	FmGpu(:,:,:,iter)=fi;
-    UmGpu(:,:,:,iter)=u;
-    %save('test','iter')
+	Fm(:,:,:,iter+1)=fi;
+    Um(:,:,:,iter+1)=u;
+    Sm(iter+1) = sigma;
+    
    
 end
 
-Fm = gather(FmGpu);
-Um = gather(UmGpu);
+cpuTime = toc(t);
+ 
 
-gpuTime = toc(t);
+save('sep10c.mat','Fm','Um','Sm','cpuTime');
 
-save agosto20b;
-
-exit
+%exit

@@ -7,6 +7,7 @@ dd=ones(Nx,Ny);
 % load initial
 % u0=uout+ues; v0=vout+ves; w0=wout+wes; x0=xout+xes;
 fi=ones(Nx,Ny,Nz);
+r = zeros(Nx,Ny,Nz);
 
 
 for i=1:Nx
@@ -22,4 +23,4 @@ for i=1:Nx
 end
 
 
-isosurface(fi,0)
+%isosurface(fi,0)

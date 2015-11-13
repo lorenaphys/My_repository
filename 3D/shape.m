@@ -1,8 +1,5 @@
 % Program to calculate phase fields in 3 dimensions
 
-%clear all
-
-%et=1;
 NF=200;
 ep1=1;
 ep=ep1^2;
@@ -14,16 +11,15 @@ Ny=50;
 Nz=50;
 %R=11;
 Afi=1;
-%N=5;   %this is the cylindrical symmetry 
-V = 4000; %Prisma volume
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% form of fi and initial values
 
-prisma3D
+%prisma3D
+esf3D
 
-a = area(fi);
+a = area(fi,ep1);
 ao = a;
 
 fiini=fi;
@@ -32,20 +28,12 @@ fiini=fi;
 step=100;
 dt=1e-4;
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%bet=0*fi;
-%I=bet;
+v = reducido(fi,ep1);
 
-%fix0(:,:)=fi(:,:,Nz/2);
-
-%%
-%ao = 4*pi*(3*V/(4*pi*v))^(2/3);
-Ro = sqrt(a/4*pi);
-v = V/(4*pi/3)*Ro^3;
-%vol=.46; 
-
-%ao=((1-fi.*fi).^2);
-
-Fm = zeros(Nx,Ny,Nz,NF);
+Fm = zeros(Nx,Ny,Nz,NF+1);
+Fm(:,:,:,1) = fi;
+Vm = zeros(1,NF+1);
+Vm(1) = v;
 
 
 for iter=1:NF
@@ -61,14 +49,9 @@ for iter=1:NF
  
         gradfi=gradient(fi);
         
-        a = area(fi);
+        a = area(fi,ep1);
         
         sigma= sigma+dt*(a-ao);
-        
-        V = sum(sum(sum(fi>0.99)));
-        
-        Ro = sqrt(a/4*pi);
-        v = V/(4*pi/3)*Ro^3;
         
         Fs=((3*sqrt(2)/(4*ep1*kb))*(sigma.*lapfi+gradient(sigma).*gradfi));
 
@@ -77,8 +60,8 @@ for iter=1:NF
 		lapFs = lap3D(Fs);
 
         %I=gradient(F+Fs).^2;
-
-        fi=fi+dt*(lapF+lapFs);
+        
+        v = reducido(fi,ep1);
 
         fi(:,:,1)=fiini(:,:,1);
         
@@ -95,11 +78,12 @@ for iter=1:NF
 %     if h==1;
 %         break
 %     end
-	Fm(:,:,:,iter)=fi(:,:,:);
+	Fm(:,:,:,iter+1)=fi(:,:,:);
+    Vm(iter+1) = v;
 	%save('test.txt','iter')
  
 end
 
-save('oct16a.mat','Fm','v');
+save('oct21b.mat','Fm','Vm');
 
 

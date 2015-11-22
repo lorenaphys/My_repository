@@ -1,7 +1,10 @@
 
-load('sep10c.mat')
+load('agosto24a.mat')
 
 fl=size(Fm);
+Nx = fl(1);
+Ny = fl(2);
+Nz = fl(3);
 f = 161;
 fi(:,:,:)=Fm(:,:,:,f);
 u(:,:,:)=Um(:,:,:,f);   
@@ -16,20 +19,20 @@ figure(1)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-14,40), axis off
-     %axis([11 45 11 45 1 15]),
-     axis([1 Nx 1 Ny 1 Nz])
+     axis([11 45 11 45 1 15]),
+     %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
      
 
-% figure(2)
-%    fix0(:,:) = Fm(:,Ny/2,:,1);
-%    fix(:,:)=fi(:,Ny/2,:);
-%    contour(fix,[0 0],'k')
-%    hold on
-%    contour(fix0,[0 0],'r')
-%    axis equal
-%    axis([1 19 3 37])
+figure(2)
+   fix0(:,:) = Fm(:,Ny/2,:,1);
+   fix(:,:)=fi(:,Ny/2,:);
+   contour(fix,[0 0],'k')
+   hold on
+   contour(fix0,[0 0],'r')
+   axis equal
+   axis([1 13 17 42])
     %getframe(gcf);
 %    hold off
     
@@ -52,9 +55,19 @@ figure(1)
 
 %exit   
 
-figure(2)
-t = linspace(1,fl(4),fl(4));
-plot(Sm)
-xlabel('t')
-ylabel('\sigma','FontSize',14,'FontWeight','bold')
-axis([0 fl(4) 0 25])
+% figure(3)
+% t = linspace(1,fl(4),fl(4));
+% plot(Sm)
+% xlabel('t')
+% ylabel('\sigma','FontSize',14,'FontWeight','bold')
+% axis([0 fl(4) 0 25])
+
+u1 =  Um(:,:,Nz/2,1);
+figure(4)
+%[X,Y] = meshgrid(1:Nx,1:Ny);
+surf(u1)
+
+uf = u(:,:,Nz/2);
+figure(5)
+surf(uf)
+

@@ -1,4 +1,4 @@
-load('dic7b.mat');
+load('prueba.mat');
 
 f = size(Fm);
 Nx = f(1);

@@ -36,7 +36,7 @@ end
      for i=1:Nx
          for j=1:Ny
              for k=1:Nz
-                 u(i,j,k)=1.5*exp(-((i-Nx/2-0.5)^2+(j-Ny/2-0.5)^2+(k-7)^2)/200);%primera prueba
+                 u(i,j,k)=0.05*(1.5*exp(-((i-Nx/2-0.5)^2+(j-Ny/2-0.5)^2+(k-13-0.5)^2)/200)-0.1);%primera prueba
              end
          end
      end

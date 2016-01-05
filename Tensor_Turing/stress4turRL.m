@@ -88,7 +88,7 @@ u = zeros(Nx,Ny,Nz);
      for i=1:Nx
          for j=1:Ny
              for k=1:Nz
-                 u(i,j,k)=1.5*exp(-((i-Nx/2-0.5)^2+(j-Ny/2-0.5)^2+(k-7)^2)/200);%primera prueba
+                 u(i,j,k)=1.5*exp(-((i-Nx/3-0.5)^2+(j-Ny/3-0.5)^2+(k-11-0.5)^2)/20);%primera prueba
              end
          end
      end        
@@ -102,7 +102,7 @@ Um(:,:,:,1) = u;
 
 %fix0(:,:)=fi(Nx/2,:,:);
 %%%%%%%%%%% parameters for iteraion loop %%%%%%%%%%%%%%%%%%%%%%%%
-step=50;
+step=10;
 dt=1e-5;
 %ct=0;
 %%
@@ -250,7 +250,7 @@ end
 
 cpuTime = toc(t);
 
-save('dic17a','Fm','Um','Sm','cpuTime');
+save('dic21a','Fm','Um','Sm','cpuTime');
 
 
 

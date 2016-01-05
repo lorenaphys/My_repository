@@ -1,6 +1,6 @@
 % Program to calculate phase fiels in 3 dimensions
 
-clear all
+%clear all
 
 
 dx=1;
@@ -9,9 +9,9 @@ sig=0*(1:NF);
 ep1=2;
 ep=ep1^2;
 sigma=-.1;
-Nx=30;
-Ny=30;
-Nz=30;
+Nx=40;
+Ny=40;
+Nz=70;
 R=11;
 N=6;
 sifiu=0.;
@@ -38,8 +38,8 @@ Afi=.5;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% form of fi and initial values
 %load dominio
-%semiesf3D
-formas3D
+semiesf3D
+%formas3D
 %prism3D
 fiini=fi;
 
@@ -63,9 +63,9 @@ bet=.1;
 %         teta=atan2((RY-Ny/2),(RX-Nx/2));
 %         rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
 %        u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-(R+2)).^2)/20));
-        u=.05*(1.5*(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-(R+2)).^2)/10))-.1);
-  u=u+.2*(rand(Nx,Ny,Nz)-.5);
-        v=u+.2*(rand(Nx,Ny,Nz)-.5);       
+        u=.05*(1.5*(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-(R+2)).^2)/200))-.1);
+  %u=u+.2*(rand(Nx,Ny,Nz)-.5);
+        %v=u+.2*(rand(Nx,Ny,Nz)-.5);       
 % 
 %         u(fi<=-.9)=0;
  %        v(fi<=-.9)=0;
@@ -75,46 +75,52 @@ bet=.1;
 %load temp
 fix0(:,:)=fi(Nx/2,:,:);
 %%%%%%%%%%% parameters for iteraion loop %%%%%%%%%%%%%%%%%%%%%%%%
-step=20;
+step=100;
 iter=1;
 dt=1e-5;
 cont=iter;
 ct=0;
 %%
 
+Fm = zeros(Nx,Ny,Nz,NF+1);
+Um = zeros(Nx,Ny,Nz,NF+1);
+
+Fm(:,:,:,1) = fi(:,:,:);
+Um(:,:,:,1) = u(:,:,:);
+
 for iter=cont:NF  
-    iter%time loop
+    %iter%time loop
     for iiter=1:step
  
  %%   delficiones 
  
-        H=fi;
-        lap3Dt
-        lapfi=lapH;
+       % H=fi;
+        %lap3Dt
+        lapfi=lapf3D(fi);
         
         mu=((fi-ep1.*(bet*u.^2)).*((fi).^2-1)-ep*lapfi);        
         
-        H=mu;
-        lap3Dt
-        lapmu=lapH;
+        %H=mu;
+        %lap3Dt
+        lapmu=lapf3D(mu);
         
         F=Afi*((3*fi.^2-1-2*ep1*fi.*(bet*u.^2)).*mu-ep*lapmu);     
         
         
-        H=F;
-        lap3Dt
-        lapF=lapH;
+        %H=F;
+        %lap3Dt
+        lapF=lapf3D(F);
 
-        H=u;
-        lap3Dt
-        lapu=lapH;
+        %H=u;
+        %lap3Dt
+        lapu=lapf3D(u);
         
         Fs=lapfi;
         
         
-        H=Fs;
-        lap3Dt
-        lapFs=lapH;
+        %H=Fs;
+        %lap3Dt
+        lapFs=lapf3D(Fs);
 
 
 %%   ahora  la u  %%%%%%%%%%%%%
@@ -124,7 +130,7 @@ for iter=cont:NF
 % end
 % if iter<=cT
 
-            uts
+            %uts
 %        end
 %%        
 
@@ -134,14 +140,14 @@ for iter=cont:NF
        
        Fu=-Av*duu*lapu+Gu;
       gFu=grad3DR(Fu);
-        H=Fu;
-        lap3Dt
-        lapFu=lapH;
+        %H=Fu;
+        %lap3Dt
+        lapFu=lapf3D(Fu);
         
          Ft=-sifiu*lapu; %  surface tension between membrane and u
-        H=Ft;
-        lap3Dt
-        lapFt=lapH; 
+        %H=Ft;
+        %lap3Dt
+        lapFt=lapf3D(Ft); 
 %%   tensor de esfuerzos
         gfi=grad3DR(fi);
         gmu=grad3DR(mu);
@@ -178,11 +184,12 @@ for iter=cont:NF
 %%            dynamical equations,  for conservation of mass use  fi=fi-dt*(F+Fs);
 
          I=200.*u;
-         I(find(abs(fi)>=.9))=0;
-         I;
-         H=F-2*sigma*Fs+Ft;
-         lap3Dt
-         lapE=lapH;
+         %I(find(abs(fi)>=.9))=0;
+         %I;
+         E=F-2*sigma*Fs+Ft;
+         %I = 120*sum(sum(sum(E)));
+         %lap3Dt
+         lapE=lapf3D(E);
 %fi=fi-dt*(F+Fs+Ft);
         fi=fi+Dfi*dt*(lapE+I);
         fi(:,:,1)=fi(:,:,2);
@@ -198,7 +205,7 @@ for iter=cont:NF
     %%   
 hh=max(max(max(isnan(fi(:,:,:)))));
     if hh==1;
-       'nans'
+       'nans';
         break
     end
       
@@ -206,67 +213,68 @@ hh=max(max(max(isnan(fi(:,:,:)))));
     
     %%
                 
-figure(1)
-clf
-    ux(:,:)=u(:,Ny/2,:);
-    vx(:,:)=v(:,Ny/2,:);
-    fix(:,:)=fi(Nx/2,:,:);
-clf
-hold on
-mesh(ux,'FaceAlpha',0.5),shading interp,  view(-36,18)
-%mesh(fix,'FaceColor','none')
-hold off
+% figure(1)
+% clf
+%     ux(:,:)=u(:,Ny/2,:);
+%     vx(:,:)=v(:,Ny/2,:);
+%     fix(:,:)=fi(Nx/2,:,:);
+% clf
+% hold on
+% mesh(ux,'FaceAlpha',0.5),shading interp,  view(-36,18)
+% %mesh(fix,'FaceColor','none')
+% hold off
 
 %%
-      figure(2)
-     clf
-[x,y,z] = meshgrid(1:1:Ny,1:1:Nx,1:1:Nz);
-xslice = [Nx/2-R:R:Nx/2+R,Nx/2-R:R:Nx/2+R];yslice = [Ny/2-R:R:Ny/2+R,Ny/2-R:R:Ny/2+R]; zslice = [0:3:R,0:3:R];
-p3=slice(x,y,z,u,xslice,yslice,zslice);
-set(p3,'FaceColor','flat','EdgeColor','none','FaceAlpha',0.1);
-rs=max(abs(max(max(max(u)))),abs(min(min(min(u)))));
-
-axis equal, view(74,18), 
-set(gca,'CLim',[-rs,rs])
-colorbar;
+%       figure(2)
+%      clf
+% [x,y,z] = meshgrid(1:1:Ny,1:1:Nx,1:1:Nz);
+% xslice = [Nx/2-R:R:Nx/2+R,Nx/2-R:R:Nx/2+R];yslice = [Ny/2-R:R:Ny/2+R,Ny/2-R:R:Ny/2+R]; zslice = [0:3:R,0:3:R];
+% p3=slice(x,y,z,u,xslice,yslice,zslice);
+% set(p3,'FaceColor','flat','EdgeColor','none','FaceAlpha',0.1);
+% rs=max(abs(max(max(max(u)))),abs(min(min(min(u)))));
+% 
+% axis equal, view(74,18), 
+% set(gca,'CLim',[-rs,rs])
+% colorbar;
 %%
-    figure(3)
-    
-    
-
-%     u = smooth3(u,'box',3); 
-    clf
-       
-    %cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
-       cdata = smooth3(u,'box',3);
-    fim = smooth3(fi,'box',3);
-    p4=patch(isosurface(fim,0));
-    isonormals(fim,p4);
-    isocolors(cdata,p4);
-    set(p4,'FaceColor','interp','EdgeColor','none'),
-    camlight, lighting phong
-    axis equal, axis off, 
-    axis([1 Nx 1 Ny 1 Nz]),
-    light
-material metal
-    colorbar
-view(-15,40)
+%     figure(3)
+%     
+%     
+% 
+% %     u = smooth3(u,'box',3); 
+%     clf
+%        
+%     %cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
+%        cdata = smooth3(u,'box',3);
+%     fim = smooth3(fi,'box',3);
+%     p4=patch(isosurface(fim,0));
+%     isonormals(fim,p4);
+%     isocolors(cdata,p4);
+%     set(p4,'FaceColor','interp','EdgeColor','none'),
+%     camlight, lighting phong
+%     axis equal, axis off, 
+%     axis([1 Nx 1 Ny 1 Nz]),
+%     light
+% material metal
+%     colorbar
+% view(-15,40)
 
 
 %para hacer peliculas 3D usar cine3D y cine2D
 
-    Fm(:,:,:,iter)=fi(:,:,:);
-    U(:,:,:,iter)=u(:,:,:);
-    Sm(:,:,:,iter)=S(:,:,:);
+    Fm(:,:,:,iter+1)=fi(:,:,:);
+    Um(:,:,:,iter+1)=u(:,:,:);
+    %Sm(:,:,:,iter)=S(:,:,:);
     %%
-    figure(4)
-    fix(:,:)=fi(:,Ny/2,:);
-    contour(fix,[0 0],'k')
-    hold on
-    contour(fix0,[0 0],'r')
-    axis equal
-    %getframe(gcf);
-    hold off
+%     figure(4)
+%     fix(:,:)=fi(:,Ny/2,:);
+%     contour(fix,[0 0],'k')
+%     hold on
+%     contour(fix0,[0 0],'r')
+%     axis equal
+%     %getframe(gcf);
+%     hold off
     
 end
 
+save('dic23b.mat','Fm','Um');

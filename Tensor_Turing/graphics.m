@@ -1,25 +1,26 @@
 
-load('feb24a.mat')
+load('feb25j.mat')
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 101;
+f = 6;
 fi0(:,:,:) = Fm(:,:,:,1);
 fi(:,:,:)=Fm(:,:,:,f);
-u(:,:,:)=Um(:,:,:,f);   
+u(:,:,:)=Um(:,:,:,f);
+u0(:,:,:) = Um(:,:,:,1);
 clf
 
 figure(1)   
-     cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
+     cdata = smooth3((u0-min(min(min(u0))))./(max(max(max(u0)))-min(min(min(u0)))),'box',5);
      fi0 = smooth3(fi0,'box',5);
      p4=patch(isosurface(fi0,0));
      isonormals(fi0,p4);
      isocolors(cdata,p4);
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
-     axis equal, view(-16,24), axis off %cambié view de (-14,40) a (-16,24)
+     axis equal, view(-16,24), axis off %de (18,10) lo cambie a (-16,24)%segudo cambio para view, antes era (-16,24)%cambié view de (-14,40) a (-16,24)
      axis([1 40 1 40 1 70]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
@@ -33,7 +34,7 @@ figure(2)
      isocolors(cdata,p4);
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
-     axis equal, view(-16,24), axis off %cambié view de (-14,40) a (-16,24)
+     axis equal, view(-16,24), axis off %de (18,10) lo cambie a (-16,24)%segundo cambio para view, antes era (-16,24)%cambié view de (-14,40) a (-16,24)
      axis([1 40 1 40 1 70]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
@@ -48,6 +49,7 @@ figure(3)
    contour(fix0,[0 0],'r')
    axis equal
    axis([1 20 1 40])
+   legend('\phi','\phi_0'),
     %getframe(gcf);
 %    hold off
     

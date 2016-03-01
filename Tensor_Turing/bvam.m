@@ -25,6 +25,7 @@ dt1 = 0.02;
 %Parametros del modelo BVAM
 
 h = -1;
+C = 0;
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 
@@ -48,7 +49,7 @@ r = zeros(Nx,Ny,Nz);
 for i=1:Nx
     for j=1:Ny
         for k=1:Nz
-      r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k-Nz/2)^2);
+      r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k)^2);
       if r(i,j,k)>=15
       fi(i,j,k)=-1;
       end
@@ -78,6 +79,15 @@ Um(:,:,:,1) = u;
 %funcion que contabiliza el timepo de proceso
 t = tic();
 
+%implementacion del modelo bvam
+%u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
+v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
+      
+lapu = lapf3D(u);
+lapv = lapf3D(v);
+u = u + dt1*(D*lapu + eta1*(u+a*v-C*u.*v-u.*v.^2));
+%v = v + dt1*(lapv + eta1*(b*v+h*u+C*u.*v+u.v.^2));
+
 for i = 1:NF
    for j = 1:step
        
@@ -89,15 +99,6 @@ for i = 1:NF
       lapmu = lapf3D(mu);
       varFfi = 2*Afi*mu.*(3*fi.^2-1-2*ep*beta*fi.*u) + 4*As*fi.*(fi.^2-1).*(u-u1).^2.*(u-u2).^2 + 2*Af*fi.*(u-u3).^2 - ...
                2*sigma*lapfi - 2*Afi*ep^2*lapmu;
-      
-      %implementacion del modelo bvam
-      u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
-      v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
-      
-      lapu = lapf3D(u);
-      lapv = lapf3D(v);
-      u = u + dt1*(D*lapu + eta1*(u+a*v-C*u.*v-u.*v.^2));
-      v = v + dt1*(lapv + eta1*(b*v+h*u+C*u.*v+u.v.^2));
            
       %variacion de la energia libre con respecto a u
       lapu = lapf3D(u);
@@ -129,5 +130,5 @@ end
 
 time = toc(t);
 
-save('feb26a');
+save('feb29a');
                                                                                                                                

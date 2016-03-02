@@ -20,7 +20,7 @@ beta = 0.1;
 L = -10;
 alpha = 1e-2;
 dt = 1e-5;
-dt1 = 0.02;
+%dt1 = 0.02;
 
 %Parametros del modelo BVAM
 
@@ -79,17 +79,19 @@ Um(:,:,:,1) = u;
 %funcion que contabiliza el timepo de proceso
 t = tic();
 
-%implementacion del modelo bvam
-%u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
-v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
-      
-lapu = lapf3D(u);
-lapv = lapf3D(v);
-u = u + dt1*(D*lapu + eta1*(u+a*v-C*u.*v-u.*v.^2));
-%v = v + dt1*(lapv + eta1*(b*v+h*u+C*u.*v+u.v.^2));
+
 
 for i = 1:NF
    for j = 1:step
+       
+      %implementacion del modelo bvam
+      u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
+      v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
+      
+      lapu = lapf3D(u);
+      lapv = lapf3D(v);
+      u = u + dt*(D*lapu + eta1*(u+a*v-C*u.*v-u.*v.^2));
+      v = v + dt*(lapv + eta1*(b*v+h*u+C*u.*v+u.v.^2));
        
       lapfi = lapf3D(fi); 
       %potencial quimico
@@ -100,22 +102,18 @@ for i = 1:NF
       varFfi = 2*Afi*mu.*(3*fi.^2-1-2*ep*beta*fi.*u) + 4*As*fi.*(fi.^2-1).*(u-u1).^2.*(u-u2).^2 + 2*Af*fi.*(u-u3).^2 - ...
                2*sigma*lapfi - 2*Afi*ep^2*lapmu;
            
-      %variacion de la energia libre con respecto a u
-      lapu = lapf3D(u);
-      varFu = -2*Afi*ep*beta*mu.*(fi.^2-1) + 2*As*(fi.^2-1).^2.*(2*u-u1-u2) + 2*Af*fi.^2.*(u-u3) - 2*Af*L*lapu;
-      
       %crecimiento de fi debido a la sustancia
       lapFu = lapf3D(varFu);
       I = lapFu*sum(sum(sum(fi >= -0.99)));
       
-      %dinamica de los campos fase
+      %dinamica del meristemo
       lapFfi = lapf3D(varFfi);
       fi = fi + Dfi*dt*(lapFfi + alpha*I);
-      u = u + Du*dt*lapFu;
       
       %condiciones de frontera
       fi(:,:,1) = fi(:,:,2);
       u(:,:,1) = u(:,:,2);
+      v(:,:,1) = v(:,:,2);
       
       %condicion para parar el proceso en caso de que fi tenga entradas
       %tipo NaN

@@ -4,7 +4,7 @@
 
 
 %dx=1;
-NF=200;
+NF=100;
 %sig=0*(1:NF);
 ep1=2;
 ep=ep1^2;
@@ -14,17 +14,18 @@ Ny=40;
 Nz=70;
 sifiu=0.;
 %duu=.1; 
-Du=10;
+Du=20;
 Dfi=1;
-eta=5;
+eta=1;
 Afi = 0.5;
 %Ab = 0.5;
-Af = 1;
-As = 1;
+Af = 0.1;
+As = 0.1;
 beta = 0.1;
 u1 = 0;
 u2 = 1;
 u3 = 0;
+L = 1;
 
 %% %%%% Parametros del Turing
  %eta1=sqrt(3);
@@ -88,14 +89,14 @@ u = zeros(Nx,Ny,Nz);
      for i=1:Nx
          for j=1:Ny
              for k=1:Nz
-                 u(i,j,k)=1.5*exp(-((i-Nx/3-0.5)^2+(j-Ny/3-0.5)^2+(k-11-0.5)^2)/20);%primera prueba
+                 u(i,j,k)=1.5*exp(-((i-Nx/2-0.5)^2+(j-Ny/2-0.5)^2+(k-7-0.5)^2)/50);%primera prueba
              end
          end
      end        
 
 Fm = zeros(Nx,Ny,Nz,NF+1);
 Um = zeros(Nx,Ny,Nz,NF+1);
-Sm = zeros(Nx,Ny,Nz,NF);
+%Sm = zeros(Nx,Ny,Nz,NF);
 
 Fm(:,:,:,1) = fi;
 Um(:,:,:,1) = u;
@@ -129,7 +130,7 @@ for iter = 1:NF
         
         Fs=lapfi;
         
-        lapFs = lapf3D(Fs);
+        %lapFs = lapf3D(Fs);
 
 
 %%   ahora  la u  %%%%%%%%%%%%%
@@ -147,7 +148,7 @@ for iter = 1:NF
         Gu=-2*Afi*ep1*beta*mu.*((fi).^2-1)-sifiu*lapfi+Gup; 
 
        
-        Fu=-2*As*lapu+Gup+Gu;
+        Fu=-2*As*L*lapu+Gup+Gu;
         gFu=grad3DR(Fu);
        
 	lapFu = lapf3D(Fu);
@@ -206,13 +207,15 @@ for iter = 1:NF
  
 %%            dynamical equations,  for conservation of mass use  fi=fi-dt*(F+Fs);
 
-         %I=200.*u;
-         %I(find(abs(fi)>=.9))=0;
+         I=200.*u;
+         %I(abs(fi)>=.9)=0;
          %I;
          %I=100*(F)*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz; % definicion de isoformasifiu.m
          %I = 120*sum(sum(sum(fi.*Gu)));
+         %I = 120*Gu*sum(sum(sum((fi>=-0.99))))/Nx/Ny/Nz;
+         %I(fi<=0)=0;
 E=F-2*sigma*Fs+Ft+F1;
-I = 120*sum(sum(sum(E)));
+%I = 120*sum(sum(sum(E)));
 	 
          
 
@@ -244,13 +247,13 @@ u=u+dt*(Du*lapFu+S);
 
     Fm(:,:,:,iter+1)=fi(:,:,:);
     Um(:,:,:,iter+1)=u(:,:,:);
-    Sm(:,:,:,iter)=S(:,:,:);
+    %Sm(:,:,:,iter)=S(:,:,:);
    
 end
 
-cpuTime = toc(t);
+time = toc(t);
 
-save('dic21a','Fm','Um','Sm','cpuTime');
+save('feb3c','Fm','Um','time');
 
 
 

@@ -4,7 +4,7 @@
 
 
 dx=1;
-NF=200;
+NF=20;
 sig=0*(1:NF);
 ep1=2;
 ep=ep1^2;
@@ -13,7 +13,7 @@ Nx=40;
 Ny=40;
 Nz=70;
 R=11;
-N=6;
+N=2;
 sifiu=0.;
 duu=.1; 
 Dus=1;
@@ -57,13 +57,16 @@ bet=.1;
 %         
 %         tetar=0;   % X rotation
 %         fir=0;     % Z rotation
+          teta=atan2((Y-Ny/2),(X-Nx/2));
+          rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
 %         RX=(X)*cos(fir)-(Y)*sin(fir)*cos(tetar)+(Z)*sin(fir)*sin(tetar);
 %         RY=(X)*sin(fir)+(Y)*cos(fir)*cos(tetar)-(Z)*cos(fir)*sin(tetar);
 %         RZ=(Y)*sin(tetar)+(Z)*cos(tetar);
 %         teta=atan2((RY-Ny/2),(RX-Nx/2));
 %         rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
+          u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));
 %        u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-(R+2)).^2)/20));
-        u=.05*(1.5*(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-(R+2)).^2)/200))-.1);
+         %u=.05*(1.5*(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-(R+2)).^2)/200))-.1);
   %u=u+.2*(rand(Nx,Ny,Nz)-.5);
         %v=u+.2*(rand(Nx,Ny,Nz)-.5);       
 % 
@@ -75,7 +78,7 @@ bet=.1;
 %load temp
 fix0(:,:)=fi(Nx/2,:,:);
 %%%%%%%%%%% parameters for iteraion loop %%%%%%%%%%%%%%%%%%%%%%%%
-step=100;
+step=5;
 iter=1;
 dt=1e-5;
 cont=iter;
@@ -87,6 +90,8 @@ Um = zeros(Nx,Ny,Nz,NF+1);
 
 Fm(:,:,:,1) = fi(:,:,:);
 Um(:,:,:,1) = u(:,:,:);
+
+t = tic;
 
 for iter=cont:NF  
     %iter%time loop
@@ -183,15 +188,15 @@ for iter=cont:NF
  
 %%            dynamical equations,  for conservation of mass use  fi=fi-dt*(F+Fs);
 
-         I=200.*u;
-         %I(find(abs(fi)>=.9))=0;
+         %I=200.*u;
+         %I(abs(fi)>=.9)=0;
          %I;
          E=F-2*sigma*Fs+Ft;
          %I = 120*sum(sum(sum(E)));
          %lap3Dt
          lapE=lapf3D(E);
 %fi=fi-dt*(F+Fs+Ft);
-        fi=fi+Dfi*dt*(lapE+I);
+        fi=fi+Dfi*dt*(lapE);
         fi(:,:,1)=fi(:,:,2);
        % Iu=sum(sum(sum(u)))/Nx/Ny/Nz-u0;
         u=u+dt*(Dus*lapFu+S);
@@ -277,4 +282,6 @@ hh=max(max(max(isnan(fi(:,:,:)))));
     
 end
 
-save('dic23b.mat','Fm','Um');
+time = toc(t);
+
+save('enero9d.mat','Fm','Um','time');

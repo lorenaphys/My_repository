@@ -8,17 +8,17 @@ Nx=40;
 Ny=40;
 Nz=70;
 sifiu=0.; 
-Du=10;
+Du=1;
 Dfi=1;
 eta=0.1;
 Afi = 0.5;
-Af = 1;
-As = 2; 
+Af = 0.1;
+As = 0.1; 
 beta = 0.1;
 u1 = 0;
 u2 = 1;
 u3 = 0;
-L = 0.1;
+L = 1;
 
 fi=ones(Nx,Ny,Nz);
 r = zeros(Nx,Ny,Nz);
@@ -35,6 +35,8 @@ for i=1:Nx
    end
 end
 
+fi0 = fi;
+
 u = zeros(Nx,Ny,Nz);
         
      for i=1:Nx
@@ -44,6 +46,8 @@ u = zeros(Nx,Ny,Nz);
              end
          end
      end
+     
+u0 = u;
      
 dt=1e-5;
      

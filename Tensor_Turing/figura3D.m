@@ -1,11 +1,11 @@
 
-load('dic23b.mat')
+load('feb3c.mat')
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 2;
+f = 66;
 fi(:,:,:)=Fm(:,:,:,f);
 u(:,:,:)=Um(:,:,:,f);   
 clf
@@ -19,8 +19,8 @@ figure(1)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-14,40), axis off
-     axis([4.5 35 4.5 35 1 19]),
-     %axis([1 Nx 1 Ny 1 Nz])
+     %axis([4.5 35 4.5 35 1 19]),
+     axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
      

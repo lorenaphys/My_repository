@@ -21,15 +21,24 @@ for i=1:Nx
    end
 end
 
+
+% for i = 10:30
+%     for j = 10:30
+%        for k = 25:45
+%           fi(i,j,k) = -1; 
+%        end
+%     end
+% end
+
     %R = 9;
     %N = 2;
     [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
         %teta=atan2((Y-Ny/2),(X-Nx/2));
         %rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-        u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
+        %u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
         %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));
-        %u=2.5*rand(Nx,Ny,Nz);
+        u=2.5*rand(Nx,Ny,Nz);
         
 %     u = zeros(Nx,Ny,Nz);
 %     

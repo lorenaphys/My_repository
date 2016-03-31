@@ -64,10 +64,11 @@ end
 [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
 %teta=atan2((Y-Ny/2),(X-Nx/2));
 %rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
+%u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
 %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
 %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-1).^2)/50));
-%u=2.5*rand(Nx,Ny,Nz);
+u=2.5*rand(Nx,Ny,Nz);
+v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 
 %iteraciones del modelo
     %Variables que guardan todas la iteraciones
@@ -85,13 +86,13 @@ for i = 1:NF
    for j = 1:step
        
       %implementacion del modelo bvam
-      u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
-      v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
+      %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
+      
       
       lapu = lapf3D(u);
       lapv = lapf3D(v);
       u = u + dt*(D*lapu + eta1*(u+a*v-C*u.*v-u.*v.^2));
-      v = v + dt*(lapv + eta1*(b*v+h*u+C*u.*v+u.v.^2));
+      v = v + dt*(lapv + eta1*(b*v+h*u+C*u.*v+u.*v.^2));
        
       lapfi = lapf3D(fi); 
       %potencial quimico
@@ -101,6 +102,10 @@ for i = 1:NF
       lapmu = lapf3D(mu);
       varFfi = 2*Afi*mu.*(3*fi.^2-1-2*ep*beta*fi.*u) + 4*As*fi.*(fi.^2-1).*(u-u1).^2.*(u-u2).^2 + 2*Af*fi.*(u-u3).^2 - ...
                2*sigma*lapfi - 2*Afi*ep^2*lapmu;
+           
+      %variacion de la energia libre con respecto a u
+      lapu = lapf3D(u);
+      varFu = -2*Afi*ep*beta*mu.*(fi.^2-1) + 2*As*(fi.^2-1).^2.*(2*u-u1-u2) + 2*Af*fi.^2.*(u-u3) - As*L*lapu;
            
       %crecimiento de fi debido a la sustancia
       lapFu = lapf3D(varFu);
@@ -128,5 +133,5 @@ end
 
 time = toc(t);
 
-save('feb29a');
+save('marzo30a');
                                                                                                                                

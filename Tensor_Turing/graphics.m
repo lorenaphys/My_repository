@@ -1,11 +1,11 @@
 
-load('feb25j.mat')
+load('marzo30a.mat')
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 6;
+f = 21;
 fi0(:,:,:) = Fm(:,:,:,1);
 fi(:,:,:)=Fm(:,:,:,f);
 u(:,:,:)=Um(:,:,:,f);

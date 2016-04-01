@@ -3,8 +3,8 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 20;
-step = 10;
+% NF = 20;
+% step = 10;
 Afi = 0.5;
 As = 0.05;
 Af = 0.05;
@@ -72,18 +72,17 @@ v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 
 %iteraciones del modelo
     %Variables que guardan todas la iteraciones
-Fm = zeros(Nx,Ny,Nz,NF+1);
-Um = zeros(Nx,Ny,Nz,NF+1);
-Fm(:,:,:,1) = fi;
-Um(:,:,:,1) = u;
 
+    
+    
 %funcion que contabiliza el timepo de proceso
 t = tic();
 
+fi0 = fi;
+u0 = u;
 
-
-for i = 1:NF
-   for j = 1:step
+% for i = 1:NF
+%    for j = 1:step
        
 
       lapfi = lapf3D(fi); 
@@ -120,18 +119,11 @@ for i = 1:NF
       u(:,:,1) = u(:,:,2);
       v(:,:,1) = v(:,:,2);
       
-      %condicion para parar el proceso en caso de que fi tenga entradas
-      %tipo NaN
-      k=isnan(fi(Nx/2,Ny/2,Nz/2));
-      if k == 1;
-          break
-      end
-   end
-   Fm(:,:,:,i+1) = fi;
-   Um(:,:,:,i+1) = u;
-end
-
+      
+   %end
+   
+%end
 time = toc(t);
 
 save('marzo31a');
-                                                                                                                               
+                 

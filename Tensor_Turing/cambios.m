@@ -1,30 +1,30 @@
 
 function cambios(h,h1)
 
-x = size(h);
+f = size(h);
+x = size(f);
 a = 0;
 
 if x(2) == 2
-   Nx = x(1);
-   Ny = x(2);
+   Nx = f(1);
+   Ny = f(2);
    e = zeros(Nx,Ny);
    
    for i = 1:Nx
       for j = 1:Ny
-          e(i,j) = abs(X(i,j)-X1(i,j));
-          if X(i,j) ~= X1(i,j)
+          e(i,j) = abs(h(i,j)-h1(i,j));
+          if h(i,j) ~= h1(i,j)
              a = 1; 
           end
       end
    end
  p = mean(mean(e));  
-   
 end
 
 if x(2) == 3
-    Nx = x(1);
-    Ny = x(2);
-    Nz = x(3);
+    Nx = f(1);
+    Ny = f(2);
+    Nz = f(3);
     
     e = zeros(Nx,Ny,Nz);
     

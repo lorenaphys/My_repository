@@ -17,7 +17,7 @@ u1 = 0;
 u2 = 1;
 u3 = 0;
 beta = 0.1;
-L = -10;
+L = -0.15;
 alpha = 1e-2;
 dt = 1e-5;
 %dt1 = 0.02;
@@ -125,5 +125,4 @@ u0 = u;
 %end
 time = toc(t);
 
-save('marzo31a');
                  

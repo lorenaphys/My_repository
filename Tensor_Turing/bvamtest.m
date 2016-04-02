@@ -6,19 +6,19 @@ Nz = 70;
 % NF = 20;
 % step = 10;
 Afi = 0.5;
-As = 0.05;
-Af = 0.05;
+As = 0.1;
+Af = 0.1;
 sigma = -0.1;
-ep = 0.05;
-Du = 1;
-Dfi = 1;
-eta = 1;
+ep = 1e-5;
+%Du = 1e-4;
+Dfi = 0.05;
+%eta = 1;
 u1 = 0;
 u2 = 1;
 u3 = 0;
 beta = 0.1;
 L = -0.15;
-alpha = 1e-2;
+alpha = 0.01;
 dt = 1e-5;
 %dt1 = 0.02;
 
@@ -29,9 +29,12 @@ C = 0;
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 
+% eta = sqrt(3);
+% Du = 0.516/eta;
+% Dv = 1/eta;
 D = 0.516;
-a = 1.112;
-b = -1.01;
+a = 1/0.899;
+b = -0.91/0.899;
 eta1 = 0.450;
 
 %Segundo conujunto, para kc = 0.85 (ac = 2.583)
@@ -111,8 +114,8 @@ u0 = u;
       
       lapu = lapf3D(u);
       lapv = lapf3D(v);
-      u = u + dt*(D*lapu + eta1*(u+a*v-C*u.*v-u.*v.^2));
-      v = v + dt*(lapv + eta1*(b*v+h*u+C*u.*v+u.*v.^2));
+      u = u + dt*(Du*lapu +eta1(u+a*v-C*u.*v-u.*v.^2));
+      v = v + dt*(lapv +eta1(b*v+h*u+C*u.*v+u.*v.^2));
       
       %condiciones de frontera
       fi(:,:,1) = fi(:,:,2);

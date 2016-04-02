@@ -6,11 +6,11 @@ Nz = 70;
 NF = 20;
 step = 10;
 Afi = 0.5;
-As = 0.05;
-Af = 0.05;
+As = 0.1;
+Af = 0.1;
 sigma = -0.1;
-ep = 0.05;
-Du = 1;
+ep = 1e-5;
+%Du = 1e-4;
 Dfi = 1;
 eta = 1;
 u1 = 0;
@@ -18,7 +18,7 @@ u2 = 1;
 u3 = 0;
 beta = 0.1;
 L = -0.15;
-alpha = 1e-2;
+alpha = 0.01;
 dt = 1e-5;
 %dt1 = 0.02;
 
@@ -133,5 +133,5 @@ end
 
 time = toc(t);
 
-save('marzo31d');
+save('abril1g');
                                                                                                                                

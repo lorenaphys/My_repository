@@ -12,7 +12,7 @@ sigma = -0.1;
 ep = 1e-5;
 %Du = 1e-4;
 Dfi = 1;
-eta = 1;
+%eta = 1;
 u1 = 0;
 u2 = 1;
 u3 = 0;
@@ -29,17 +29,17 @@ C = 0;
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 
-D = 0.516;
-a = 1.112;
-b = -1.01;
-eta1 = 0.450;
+% D = 0.516;
+% a = 1.112;
+% b = -1.01;
+% eta1 = 0.450;
 
 %Segundo conujunto, para kc = 0.85 (ac = 2.583)
 
-% D = 0.122;
-% a = 2.513;
-% b = -1.005;
-% eta1 = 0.199;
+D = 0.122;
+a = 2.513;
+b = -1.005;
+eta1 = 0.199;
 
 %Condicion inicial del meristemo
 
@@ -133,5 +133,5 @@ end
 
 time = toc(t);
 
-save('abril1g');
+save('abril4a');
                                                                                                                                

@@ -32,17 +32,17 @@ C = 0;
 % eta = sqrt(3);
 % Du = 0.516/eta;
 % Dv = 1/eta;
-D = 0.516;
-a = 1/0.899;
-b = -0.91/0.899;
-eta1 = 0.450;
+% D = 0.516;
+% a = 1/0.899;
+% b = -0.91/0.899;
+% eta1 = 0.450;
 
 %Segundo conujunto, para kc = 0.85 (ac = 2.583)
 
-% D = 0.122;
-% a = 2.513;
-% b = -1.005;
-% eta1 = 0.199;
+D = 0.122;
+a = 2.513;
+b = -1.005;
+eta1 = 0.199;
 
 %Condicion inicial del meristemo
 
@@ -114,8 +114,8 @@ u0 = u;
       
       lapu = lapf3D(u);
       lapv = lapf3D(v);
-      u = u + dt*(Du*lapu +eta1(u+a*v-C*u.*v-u.*v.^2));
-      v = v + dt*(lapv +eta1(b*v+h*u+C*u.*v+u.*v.^2));
+      u = u + dt*(D*lapu +eta1*(u+a*v-C*u.*v-u.*v.^2));
+      v = v + dt*(lapv +eta1*(b*v+h*u+C*u.*v+u.*v.^2));
       
       %condiciones de frontera
       fi(:,:,1) = fi(:,:,2);

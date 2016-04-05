@@ -3,15 +3,15 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 20;
+NF = 30;
 step = 10;
 Afi = 0.5;
-As = 0.1;
-Af = 0.1;
+As = 0.05;
+Af = 0.05;
 sigma = -0.1;
 ep = 1e-5;
 %Du = 1e-4;
-Dfi = 1;
+Dfi = 0.5;
 %eta = 1;
 u1 = 0;
 u2 = 1;
@@ -29,32 +29,40 @@ C = 0;
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 
-% D = 0.516;
-% a = 1.112;
-% b = -1.01;
-% eta1 = 0.450;
+D = 0.516;
+a = 1/0.899;
+b = -0.91/0.899;
+eta1 = 0.450;
 
 %Segundo conujunto, para kc = 0.85 (ac = 2.583)
 
-D = 0.122;
-a = 2.513;
-b = -1.005;
-eta1 = 0.199;
+% D = 0.122;
+% a = 2.513;
+% b = -1.005;
+% eta1 = 0.199;
 
 %Condicion inicial del meristemo
 
 fi=ones(Nx,Ny,Nz);
-r = zeros(Nx,Ny,Nz);
+% r = zeros(Nx,Ny,Nz);
+% 
+% for i=1:Nx
+%     for j=1:Ny
+%         for k=1:Nz
+%       r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k)^2);
+%       if r(i,j,k)>=15
+%       fi(i,j,k)=-1;
+%       end
+%         end
+%    
+%    end
+% end
 
-for i=1:Nx
-    for j=1:Ny
-        for k=1:Nz
-      r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k)^2);
-      if r(i,j,k)>=15
-      fi(i,j,k)=-1;
+for i = 20:30
+   for j = 20:30
+      for k = 15:45
+         fi(i,j,k) = -1; 
       end
-        end
-   
    end
 end
 
@@ -133,5 +141,5 @@ end
 
 time = toc(t);
 
-save('abril4a');
+save('abril4g');
                                                                                                                                

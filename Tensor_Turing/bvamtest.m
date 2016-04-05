@@ -6,12 +6,12 @@ Nz = 70;
 % NF = 20;
 % step = 10;
 Afi = 0.5;
-As = 0.1;
-Af = 0.1;
+As = 0.05;
+Af = 0.05;
 sigma = -0.1;
 ep = 1e-5;
 %Du = 1e-4;
-Dfi = 0.05;
+Dfi = 0.5;
 %eta = 1;
 u1 = 0;
 u2 = 1;
@@ -25,7 +25,7 @@ dt = 1e-5;
 %Parametros del modelo BVAM
 
 h = -1;
-C = 0;
+C = 0.02;
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 

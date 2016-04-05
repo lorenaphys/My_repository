@@ -6,22 +6,28 @@ R=15;
 % load initial
 % u0=uout+ues; v0=vout+ves; w0=wout+wes; x0=xout+xes;
 fi=ones(Nx,Ny,Nz);
-r = zeros(Nx,Ny,Nz);
+% r = zeros(Nx,Ny,Nz);
+% 
+% %ancho=2;
+% for i=1:Nx
+%     for j=1:Ny
+%         for k=1:Nz
+%       r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k)^2);
+%       if r(i,j,k)>=R
+%       fi(i,j,k)=-1;
+%       end
+%         end
+%    
+%    end
+% end
 
-%ancho=2;
-for i=1:Nx
-    for j=1:Ny
-        for k=1:Nz
-      r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k)^2);
-      if r(i,j,k)>=R
-      fi(i,j,k)=-1;
+for i = 20:30
+   for j = 20:30
+      for k = 15:45
+         fi(i,j,k) = -1; 
       end
-        end
-   
    end
 end
-
-
 % for i = 10:30
 %     for j = 10:30
 %        for k = 25:45
@@ -39,6 +45,8 @@ end
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
         %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));
         u=2.5*rand(Nx,Ny,Nz);
+        %u = 0.2*(rand(Nx,Ny,Nz)-.5);
+        %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
         
 %     u = zeros(Nx,Ny,Nz);
 %     

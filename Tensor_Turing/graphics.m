@@ -1,11 +1,11 @@
 
-load('abril4g.mat')
+load('abril4h.mat')
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 10;
+f = 20;
 fi0(:,:,:) = Fm(:,:,:,1);
 fi(:,:,:)=Fm(:,:,:,f);
 u(:,:,:)=Um(:,:,:,f);
@@ -48,7 +48,7 @@ figure(3)
    hold on
    contour(fix0,[0 0],'r')
    axis equal
-   axis([1 20 1 40])
+   axis([20 60 1 40])
    legend('\phi','\phi_0'),
     %getframe(gcf);
 %    hold off

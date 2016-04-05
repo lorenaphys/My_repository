@@ -12,10 +12,10 @@ fi=ones(Nx,Ny,Nz);
 % for i=1:Nx
 %     for j=1:Ny
 %         for k=1:Nz
-%       r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k)^2);
-%       if r(i,j,k)>=R
-%       fi(i,j,k)=-1;
-%       end
+% %       r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k)^2);
+% %       if r(i,j,k)>=R
+% %       fi(i,j,k)=-1;
+% %       end
 %         end
 %    
 %    end
@@ -24,7 +24,11 @@ fi=ones(Nx,Ny,Nz);
 for i = 20:30
    for j = 20:30
       for k = 15:45
-         fi(i,j,k) = -1; 
+         %fi(i,j,k) = -1;
+         f = rand(1);
+        if f <= 0.5
+            fi(i,j,k) = -1;
+        end
       end
    end
 end

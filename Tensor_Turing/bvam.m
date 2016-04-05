@@ -44,27 +44,27 @@ eta1 = 0.450;
 %Condicion inicial del meristemo
 
 fi=ones(Nx,Ny,Nz);
-% r = zeros(Nx,Ny,Nz);
-% 
-% for i=1:Nx
-%     for j=1:Ny
-%         for k=1:Nz
-%       r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k)^2);
-%       if r(i,j,k)>=15
-%       fi(i,j,k)=-1;
-%       end
-%         end
-%    
-%    end
-% end
+r = zeros(Nx,Ny,Nz);
 
-for i = 20:30
-   for j = 20:30
-      for k = 15:45
-         fi(i,j,k) = -1; 
+for i=1:Nx
+    for j=1:Ny
+        for k=1:Nz
+      r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k-Nz/2)^2);
+      if r(i,j,k)>=15
+      fi(i,j,k)=-1;
       end
+        end
+   
    end
 end
+
+% for i = 20:30
+%    for j = 20:30
+%       for k = 15:45
+%          fi(i,j,k) = -1; 
+%       end
+%    end
+% end
 
 %Condicion inicial para el morfogeno
 
@@ -141,5 +141,5 @@ end
 
 time = toc(t);
 
-save('abril4g');
+save('abril4h');
                                                                                                                                

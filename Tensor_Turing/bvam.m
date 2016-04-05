@@ -3,8 +3,8 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 30;
-step = 10;
+NF = 150;
+step = 20;
 Afi = 0.5;
 As = 0.05;
 Af = 0.05;
@@ -76,6 +76,7 @@ u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
 %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
 %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-1).^2)/50));
 %u=2.5*rand(Nx,Ny,Nz);
+u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 
 %iteraciones del modelo
@@ -141,5 +142,5 @@ end
 
 time = toc(t);
 
-save('abril5d');
+save('abril5e');
                                                                                                                                

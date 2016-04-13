@@ -1,11 +1,12 @@
 
-load('abril5b.mat')
+load('abril12b.mat')
+
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 26;
+f = 27;
 fi0(:,:,:) = Fm(:,:,:,1);
 fi(:,:,:)=Fm(:,:,:,f);
 u(:,:,:)=Um(:,:,:,f);

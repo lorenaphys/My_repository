@@ -127,10 +127,13 @@ for i = 1:NF
       v(fi>=1) = 0;
       
       %condiciones de frontera
-      fi(:,:,1) = fi(:,:,2);
-      u(:,:,1) = u(:,:,2);
-      v(:,:,1) = v(:,:,2);
-      
+%       fi(:,:,1) = fi(:,:,2);
+%       u(:,:,1) = u(:,:,2);
+%       v(:,:,1) = v(:,:,2);
+        noFlux(fi);
+        noFlux(u);
+        noFlux(v);
+        
       %condicion para parar el proceso en caso de que fi tenga entradas
       %tipo NaN
       k=isnan(fi(Nx/2,Ny/2,Nz/2));
@@ -144,5 +147,5 @@ end
 
 time = toc(t);
 
-save('abril12a');
+save('abril12b');
                                                                                                                                

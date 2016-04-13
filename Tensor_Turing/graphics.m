@@ -1,5 +1,5 @@
 
-load('abril12a.mat')
+load('abril12b.mat')
 
 fl=size(Fm);
 Nx = fl(1);

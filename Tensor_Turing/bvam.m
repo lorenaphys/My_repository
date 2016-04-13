@@ -123,6 +123,8 @@ for i = 1:NF
       lapv = lapf3D(v);
       u = u + dt*(D*lapu + eta1*(u+a*v-C*u.*v-u.*v.^2));
       v = v + dt*(lapv + eta1*(b*v+h*u+C*u.*v+u.*v.^2));
+      u(fi>=1) = 0;
+      v(fi>=1) = 0;
       
       %condiciones de frontera
       fi(:,:,1) = fi(:,:,2);

@@ -8,7 +8,7 @@ Nz = h(3);
 for i = 1:Nx
    for j = 1:Ny
       for k = 1:Nz
-         if abs(fi(i,j,k)) <= 0.1
+         if abs(f(i,j,k)) <= 0.1
              if i == 1
                  f(i+1,j,k) = 0;
              else

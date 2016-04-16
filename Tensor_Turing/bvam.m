@@ -3,8 +3,8 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 60;
-step = 10;
+NF = 100;
+step = 20;
 Afi = 0.5;
 As = 0.05;
 Af = 0.05;
@@ -78,8 +78,8 @@ end
 u=2.5*rand(Nx,Ny,Nz);
 %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
-u(fi<=-0.99) = 0;
-v(fi<=-0.99) = 0;
+% u(fi<=-0.99) = 0;
+% v(fi<=-0.99) = 0;
 
 %iteraciones del modelo
     %Variables que guardan todas la iteraciones
@@ -125,8 +125,8 @@ for i = 1:NF
       lapv = lapf3D(v);
       u = u + dt*(D*lapu + eta1*(u+a*v-C*u.*v-u.*v.^2));
       v = v + dt*(lapv + eta1*(b*v+h*u+C*u.*v+u.*v.^2));
-%       u(fi<=-0.99) = 0;
-%       v(fi<=-0.99) = 0;
+      u(fi<=-0.99) = 0;
+      v(fi<=-0.99) = 0;
       
       %condiciones de frontera
 %       fi(:,:,1) = fi(:,:,2);
@@ -149,5 +149,5 @@ end
 
 time = toc(t);
 
-save('abril15a');
+save('abril15b');
                                                                                                                                

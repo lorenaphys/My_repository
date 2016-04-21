@@ -92,7 +92,8 @@ for iter=1:NF
 
         lapfi=lap3D(fi);
        
-        mu=((fi+ep1*beta.*u).*((fi).^2-1)-ep*lapfi);
+        %mu=((fi+ep1*beta.*u).*((fi).^2-1)-ep*lapfi);
+        mu = (fi.^2-1).*(fi-ep1*beta*u)-ep*lapfi;
       
         lapmu=lap3D(mu);
 
@@ -139,7 +140,8 @@ for iter=1:NF
         u(:,Ny,:)=u(:,Ny-1,:);
         %u(:,:,1)=u(:,:,2);
         %u(:,:,Nz)=u(:,:,Nz-1);
-        
+%        noFlux(fi,fi);
+%        noFlux(fi,u);
         
         %fi(:,:,1)=fiini(:,:,1);
 
@@ -157,9 +159,9 @@ for iter=1:NF
    
 end
 
-cpuTime = toc(t);
+time = toc(t);
  
 
-save('abril20c');
+save('abril21d');
 
 %exit

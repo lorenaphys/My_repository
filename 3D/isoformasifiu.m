@@ -127,7 +127,7 @@ for iter=1:NF
         
         fi=fi+dt*(Dfi*(lapF-lapFs)+I);
         u=u+dt*Du*(lapG);
-        u(fi<=-0.99)=0;
+        %u(fi<=-0.99)=0;
 %         fi(1,:,:)=fi(2,:,:);
 %         fi(Nx,:,:)=fi(Nx-1,:,:);
 %         fi(:,1,:)=fi(:,2,:);

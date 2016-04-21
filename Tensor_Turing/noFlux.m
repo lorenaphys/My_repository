@@ -1,4 +1,4 @@
-function noFlux(f)
+function noFlux(f,g)
 
 h = size(f);
 Nx = h(1);
@@ -10,21 +10,21 @@ for i = 1:Nx
       for k = 1:Nz
          if abs(f(i,j,k)) <= 0.1
              if i == 1
-                 f(i+1,j,k) = f(i,j,k);
+                 g(i+1,j,k) = g(i,j,k);
              else
-                 f(i-1,j,k) = f(i,j,k);
+                 g(i-1,j,k) = g(i,j,k);
              end
              
              if j == 1
-                 f(i,j+1,k) = f(i,j,k);
+                 g(i,j+1,k) = g(i,j,k);
              else
-                 f(i,j-1,k) = f(i,j,k);
+                 g(i,j-1,k) = g(i,j,k);
              end
              
              if k == 1
-                 f(i,j,k+1) = f(i,j,k);
+                 g(i,j,k+1) = g(i,j,k);
              else
-                 f(i,j,k-1) = f(i,j,k);
+                 g(i,j,k-1) = g(i,j,k);
              end
          end
       end

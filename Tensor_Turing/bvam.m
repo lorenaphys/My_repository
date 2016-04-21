@@ -3,8 +3,8 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 40;
-step = 10;
+NF = 100;
+step = 50;
 Afi = 0.5;
 As = 0.05;
 Af = 0.05;
@@ -78,8 +78,8 @@ end
 u=2.5*rand(Nx,Ny,Nz);
 %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
-% u(fi<=-0.99) = 0;
-% v(fi<=-0.99) = 0;
+u(fi<=-0.99) = 0;
+v(fi<=-0.99) = 0;
 
 %iteraciones del modelo
     %Variables que guardan todas la iteraciones
@@ -125,25 +125,25 @@ for i = 1:NF
       lapv = lapf3D(v);
       u = u + dt*(D*lapu + eta1*(u+a*v-C*u.*v-u.*v.^2));
       v = v + dt*(lapv + eta1*(b*v+h*u+C*u.*v+u.*v.^2));
-      u(fi<=-0.99) = 0;
-      v(fi<=-0.99) = 0;
+%       u(fi<=-0.99) = 0;
+%       v(fi<=-0.99) = 0;
       
       %condiciones de frontera
-      fi(1,:,:) = fi(2,:,:);
-      fi(Nx,:,:) = fi(Nx-1,:,:);
-      fi(:,1,:) = fi(:,2,:);
-      fi(:,Ny,:) = fi(:,Ny-1,:);
-      u(1,:,:) = u(2,:,:);
-      u(Nx,:,:) = u(Nx-1,:,:);
-      u(:,1,:) = u(:,2,:);
-      u(:,Ny,:) = u(:,Ny-1,:);
-      v(1,:,:) = v(2,:,:);
-      v(Nx,:,:) = v(Nx-1,:,:);
-      v(:,1,:) = v(:,2,:);
-      v(:,Ny,:) = v(:,Ny-1,:);
-%         noFlux(fi);
-%         noFlux(u);
-%         noFlux(v);
+%       fi(1,:,:) = fi(2,:,:);
+%       fi(Nx,:,:) = fi(Nx-1,:,:);
+%       fi(:,1,:) = fi(:,2,:);
+%       fi(:,Ny,:) = fi(:,Ny-1,:);
+%       u(1,:,:) = u(2,:,:);
+%       u(Nx,:,:) = u(Nx-1,:,:);
+%       u(:,1,:) = u(:,2,:);
+%       u(:,Ny,:) = u(:,Ny-1,:);
+%       v(1,:,:) = v(2,:,:);
+%       v(Nx,:,:) = v(Nx-1,:,:);
+%       v(:,1,:) = v(:,2,:);
+%       v(:,Ny,:) = v(:,Ny-1,:);
+        noFlux(fi,fi);
+        noFlux(fi,u);
+        noFlux(fi,v);
         
       %condicion para parar el proceso en caso de que fi tenga entradas
       %tipo NaN
@@ -158,5 +158,5 @@ end
 
 time = toc(t);
 
-save('abril20b');
+save('abril20d');
                                                                                                                                

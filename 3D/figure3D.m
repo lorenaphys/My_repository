@@ -1,16 +1,32 @@
 
-load('agosto25c.mat')
+load('abril20c.mat')
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 161;
+f = 101;
 fi(:,:,:)=Fm(:,:,:,f);
-u(:,:,:)=Um(:,:,:,f);   
+u(:,:,:)=Um(:,:,:,f); 
+fi0(:,:,:) = Fm(:,:,:,1);
+u0(:,:,:) = Um(:,:,:,1);
 clf
-       
+
 figure(1)   
+     cdata = smooth3((u0-min(min(min(u0))))./(max(max(max(u0)))-min(min(min(u0)))),'box',5);
+     fi0 = smooth3(fi0,'box',5);
+     p4=patch(isosurface(fi0,0));
+     isonormals(fi0,p4);
+     isocolors(cdata,p4);
+     set(p4,'FaceColor','interp','EdgeColor','none'),
+     camlight, lighting phong
+     axis equal, view(-16,24), axis off
+     axis([1 40 1 40 1 70]),
+     %axis([1 Nx 1 Ny 1 Nz])
+     colormap jet
+     %colorbar
+
+figure(2)   
      cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
      fi = smooth3(fi,'box',5);
      p4=patch(isosurface(fi,0));
@@ -18,21 +34,20 @@ figure(1)
      isocolors(cdata,p4);
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
-     axis equal, view(-14,40), axis off
-     axis([11 45 11 45 1 15]),
+     axis equal, view(-16,24), axis off
+     axis([1 40 1 40 1 70]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
-     
 
-figure(2)
+figure(3)
    fix0(:,:) = Fm(:,Ny/2,:,1);
    fix(:,:)=fi(:,Ny/2,:);
    contour(fix,[0 0],'k')
    hold on
    contour(fix0,[0 0],'r')
    axis equal
-   axis([1 13 17.5 42])
+   axis([1 40 1 40])
     %getframe(gcf);
 %    hold off
     

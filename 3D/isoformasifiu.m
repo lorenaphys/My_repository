@@ -3,7 +3,7 @@
 %clear all
 
 
-NF=160;
+NF=100;
 ep1 = 2;
 ep = ep1^2;
 sigma = 0.1;
@@ -11,7 +11,7 @@ beta = 0.5;
 Nx = 40;
 Ny = 40;
 Nz = 70;
-step=200;
+step=50;
 dt = 1e-5;
 Ab = 0.5;
 As = 2;
@@ -56,15 +56,15 @@ Fm(:,:,:,1) = fi;
     R = 9;
     N = 6;
     [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
-        teta=atan2((Y-Ny/2),(X-Nx/2));
-        rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-         %u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-R+2).^2)/100);
+%         teta=atan2((Y-Ny/2),(X-Nx/2));
+%         rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
+        u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-R+2).^2)/50);
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
-        u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
+        %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
         %u=2.5*rand(Nx,Ny,Nz);
        
      Um(:,:,:,1) = u;
-     Sm(1) = sigma;
+     %Sm(1) = sigma;
     
 
 % [~,R1]=min(abs(fi(Nx/2,Ny/2,:)));
@@ -116,10 +116,10 @@ for iter=1:NF
 
         lapG=lap3D(G);
         
-        B=sum(sum(sum(gradient(fi).*gradient(lapF))));
-        Bs=sum(sum(sum(gradient(fi).*gradient(lapfi))));
-        
-        sigma=B/Bs;
+%         B=sum(sum(sum(gradient(fi).*gradient(lapF))));
+%         Bs=sum(sum(sum(gradient(fi).*gradient(lapfi))));
+%         
+%         sigma=B/Bs;
         
         I=120*(G)*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz;
         I(fi<=0)=0;        
@@ -152,7 +152,7 @@ for iter=1:NF
 	
 	Fm(:,:,:,iter+1)=fi;
     Um(:,:,:,iter+1)=u;
-    Sm(iter+1) = sigma;
+    %Sm(iter+1) = sigma;
     
    
 end
@@ -160,6 +160,6 @@ end
 cpuTime = toc(t);
  
 
-save('sep10c.mat','Fm','Um','Sm','cpuTime');
+save('abril20c');
 
 %exit

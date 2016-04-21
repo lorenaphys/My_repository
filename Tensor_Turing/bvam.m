@@ -3,7 +3,7 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 300;
+NF = 100;
 step = 50;
 Afi = 0.5;
 As = 0.05;
@@ -78,8 +78,6 @@ end
 u=2.5*rand(Nx,Ny,Nz);
 %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
-u(fi<=-0.99) = 0;
-v(fi<=-0.99) = 0;
 
 %iteraciones del modelo
     %Variables que guardan todas la iteraciones
@@ -87,6 +85,9 @@ Fm = zeros(Nx,Ny,Nz,NF+1);
 Um = zeros(Nx,Ny,Nz,NF+1);
 Fm(:,:,:,1) = fi;
 Um(:,:,:,1) = u;
+
+u(fi<=-0.99) = 0;
+v(fi<=-0.99) = 0;
 
 %funcion que contabiliza el timepo de proceso
 t = tic();
@@ -108,7 +109,8 @@ for i = 1:NF
            
       %variacion de la energia libre con respecto a u
       lapu = lapf3D(u);
-      varFu = -2*Afi*ep*beta*mu.*(fi.^2-1) + 2*As*(fi.^2-1).^2.*(2*u-u1-u2) + 2*Af*fi.^2.*(u-u3) - As*L*lapu;
+      varFu = -2*Afi*ep*beta*mu.*(fi.^2-1) + 2*As*(fi.^2-1).^2.*(u-u1).*(u-u2).*(2*u-u1-u2) + 2*Af*fi.^2.*(u-u3) -...
+              As*L*lapu;
            
       %crecimiento de fi debido a la sustancia
       lapFu = lapf3D(varFu);
@@ -158,5 +160,5 @@ end
 
 time = toc(t);
 
-save('abril21a');
+save('abril21g');
                                                                                                                                

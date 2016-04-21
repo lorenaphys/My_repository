@@ -3,7 +3,7 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 100;
+NF = 300;
 step = 50;
 Afi = 0.5;
 As = 0.05;
@@ -158,5 +158,5 @@ end
 
 time = toc(t);
 
-save('abril20d');
+save('abril21a');
                                                                                                                                

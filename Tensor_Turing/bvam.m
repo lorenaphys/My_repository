@@ -44,7 +44,7 @@ eta1 = 0.450;
 %Condicion inicial del meristemo
 
 fi=ones(Nx,Ny,Nz);
-r = zeros(Nx,Ny,Nz);
+r = zeros(Nx,Ny,Nz);i
 
 for i=1:Nx
     for j=1:Ny
@@ -89,8 +89,8 @@ Um(:,:,:,1) = u;
 u(fi<=-0.99) = 0;
 v(fi<=-0.99) = 0;
 
-%funcion que contabiliza el timepo de proceso
-t = tic();
+%funcion que contabiliza el tiempo de proceso
+t = tic()
 
 
 

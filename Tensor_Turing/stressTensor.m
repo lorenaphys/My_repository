@@ -4,9 +4,9 @@
 %Definiendo las variables del modelo
 Nx = 40;
 Ny = 40;
+Nz = 70;
 NF = 20;
 step = 10;
-Nz = 70;
 ep = 2;
 Afi = 0.5;
 As = 2;
@@ -38,10 +38,13 @@ for i = 1:Nx
 end
 
 %Condicion inicial para u
-[x,y,z] = meshgrid(1:Nx,1:Ny,1:Nz)
+[x,y,z] = meshgrid(1:Nx,1:Ny,1:Nz);
 %theta = atan2((y-Ny/2),(x-Nx/2));
 %rad = sqrt((x-Nx/2-0.5)^2 + (y -Ny/2-0.5)^2);
-u = 1.5*exp(((x-Nx/2)^2 + (y-Ny/2)^2 + (z -7)^2)/50);
+u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
+%u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
+%u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));
+%u=2.5*rand(Nx,Ny,Nz);
 
 %Variables que guardan a fi y u en cada iteracion
 Fm = zeros(Nx,Ny,Nz,NF+1);
@@ -53,7 +56,7 @@ Um(:,:,:,1) = u;
 u(fi<=-0.99) = 0;
 
 %Funcion que contabiliza el tiempo del proceso
-t = tic() 
+t = tic(); 
 
 %Integracion numerica
 for i = 1:NF
@@ -72,5 +75,38 @@ for i = 1:NF
 			lapu = lapf3D(u);
 			varFu = -2*Afi*ep*beta*mu.*(fi.^2-1) + 2*As*(fi.^2-1).^2.*(u-u1).*(u-u2).*(2*u-u1-u2) + 2*Af*fi.^2.*(u-u3) - ...
 			        As*L*lapu;
+                
+            %Tensor de esfuerzos
+            gfi=grad3DR(fi);
+            gmu=grad3DR(mu);
+            gu=grad3DR(u);
+            P=(Afi*mu.^2-sigma*abs(gfi(:,:,:,1).^2+gfi(:,:,:,2).^2+gfi(:,:,:,3).^2)+abs(gu(:,:,:,1).^2+gu(:,:,:,2).^2+gu(:,:,:,3).^2)...
+              +sifiu*(gfi(:,:,:,1).*gu(:,:,:,1)+gfi(:,:,:,2).*gu(:,:,:,2)+gfi(:,:,:,3).*gu(:,:,:,3)) +As*(fi.^2-1).^2.*(u-u1).^2.*(u-u2).^2 ...
+              +Af*fi.^2.*(u-u3).^2-fi(:,:,:).*(F(:,:,:)-2*sigma*Fs(:,:,:)+Ft(:,:,:)+F1(:,:,:)));
+            ggfi1=grad3DR(gfi(:,:,:,1));
+            ggfi2=grad3DR(gfi(:,:,:,2));
+            ggfi3=grad3DR(gfi(:,:,:,3));        
+        
+
+            str=zeros(Nx,Ny,Nz,3,3);
+            str(:,:,:,1,1)=eta*(P(:,:,:)+(2*sigma*gfi(:,:,:,1)-sifiu*gu(:,:,:,1)).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,1) ... 
+                   +2*Afi*ep*mu.*ggfi1(:,:,:,1));
+            str(:,:,:,2,2)=eta*(P(:,:,:)+(2*sigma*gfi(:,:,:,2)-sifiu*gu(:,:,:,2)).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,2) ...
+                   +2*Afi*ep*mu.*ggfi2(:,:,:,2));
+            str(:,:,:,3,3)=eta*(P(:,:,:)+(2*sigma*gfi(:,:,:,3)-sifiu*gu(:,:,:,3)).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,3) ...
+                   +2*Afi*ep*mu.*ggfi3(:,:,:,3));
+ 
+            str(:,:,:,1,2)=eta*((2*sigma*gfi(:,:,:,2)-sifiu*gu(:,:,:,2)).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,1) ...
+                   +2*Afi*ep*mu.*ggfi2(:,:,:,1));
+            str(:,:,:,1,3)=eta*((2*sigma*gfi(:,:,:,3)-sifiu*gu(:,:,:,3)).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,1) ...
+                   +2*Afi*ep*mu.*ggfi3(:,:,:,1));
+            str(:,:,:,2,1)=eta*((2*sigma*gfi(:,:,:,1)-sifiu*gu(:,:,:,1)).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,2) ...
+                   +2*Afi*ep*mu.*ggfi1(:,:,:,2));
+            str(:,:,:,2,3)=eta*((2*sigma*gfi(:,:,:,3)-sifiu*gu(:,:,:,3)).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,2) ...
+                   +2*Afi*ep*mu.*ggfi3(:,:,:,2));
+            str(:,:,:,3,1)=eta*((2*sigma*gfi(:,:,:,1)-sifiu*gu(:,:,:,1)).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,3) ... 
+                   +2*Afi*ep*mu.*ggfi1(:,:,:,3));
+            str(:,:,:,3,2)=eta*((2*sigma*gfi(:,:,:,2)-sifiu*gu(:,:,:,2)).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,3) ...
+                   +2*Afi*ep*mu.*ggfi2(:,:,:,3)); 
 	end
 end

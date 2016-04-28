@@ -21,7 +21,7 @@ Du = 1;
 L = 0.1;
 alpha = 120;
 dt = 1e-5;
-eta = 1;
+%eta = 1;
 
 %Condicion inicial para fi
 fi = ones(Nx,Ny,Nz);
@@ -42,7 +42,7 @@ end
 [x,y,z] = meshgrid(1:Nx,1:Ny,1:Nz);
 %theta = atan2((y-Ny/2),(x-Nx/2));
 %rad = sqrt((x-Nx/2-0.5)^2 + (y -Ny/2-0.5)^2);
-u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
+u=1.5*exp(-((x-Nx/2-.5).^2+(y-Ny/2-.5).^2+(z-7).^2)/50);
 %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
 %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));
 %u=2.5*rand(Nx,Ny,Nz);
@@ -60,8 +60,8 @@ u(fi<=-0.99) = 0;
 t = tic(); 
 
 %Integracion numerica
-for i = 1:NF
-	for j = 1:step
+for i = 1:NF 
+    for j = 1:step
 			lapfi = lapf3D(fi);
 
 			%Potencial quimico
@@ -69,7 +69,7 @@ for i = 1:NF
 
 			%Variacion de la energia libre con respecto a fi
 			lapmu = lapf3D(mu);
-			varFfi = 2*Afi*mu.*(3*fi.^2-1-2*ep*beta*fi.*u) + 4*As*fi.*(fi.^2-1).*(u-u1).^2.*(u-u2).^2 + 2*Af*fi.*(u-u3)^2 - ...
+			varFfi = 2*Afi*mu.*(3*fi.^2-1-2*ep*beta*fi.*u) + 4*As*fi.*(fi.^2-1).*(u-u1).^2.*(u-u2).^2 + 2*Af*fi.*(u-u3).^2 - ...
 			         2*sigma*lapfi - 2*Afi*ep^2*lapmu;
 
 			%Variacion de la energia libre con respecto a u
@@ -82,7 +82,7 @@ for i = 1:NF
             gmu = grad3DR(mu);
             gu = grad3DR(u);
             Vs = (fi.^2-1).^2.*(u-u1).^2.*(u-u2).^2 + L*abs(gu(:,:,:,1).^2+gu(:,:,:,2).^2+gu(:,:,:,3).^2);
-            Vf = f.^2.*(u-u3).^2;
+            Vf = fi.^2.*(u-u3).^2;
             P = Afi*mu.^2 + As*Vs + Af*Vf + sigma*abs(gfi(:,:,:,1).^2+gfi(:,:,:,2).^2+gfi(:,:,:,3).^2) - fi.*varFfi;
             %P=(Afi*mu.^2-sigma*abs(gfi(:,:,:,1).^2+gfi(:,:,:,2).^2+gfi(:,:,:,3).^2)+abs(gu(:,:,:,1).^2+gu(:,:,:,2).^2+gu(:,:,:,3).^2)...
 %               +sifiu*(gfi(:,:,:,1).*gu(:,:,:,1)+gfi(:,:,:,2).*gu(:,:,:,2)+gfi(:,:,:,3).*gu(:,:,:,3)) +As*(fi.^2-1).^2.*(u-u1).^2.*(u-u2).^2 ...
@@ -138,6 +138,36 @@ for i = 1:NF
             lapFfi = -(ggst11(:,:,:,1) + ggst22(:,:,:,2) + ggst33(:,:,:,3) + ggst12(:,:,:,1) + ggst13(:,:,:,1) + ggst21(:,:,:,2) +...
                      ggst23(:,:,:,2) + ggst31(:,:,:,3) + ggst32(:,:,:,3));
                
-            %Ecuacciones dinamicas para los campos fase
-	end
+            %Crecimiento de fi debido a la sustancia
+            lapFu = lapf3D(varFu);
+            I = lapFu*sum(sum(sum(fi >= -0.99)));
+      
+            %Dinamica de los campos fase
+            fi = fi + Dfi*dt*(lapFfi + alpha*I);
+            u = u + Du*dt*lapFu;
+            
+            %condiciones de frontera
+            fi(1,:,:) = fi(2,:,:);
+            fi(Nx,:,:) = fi(Nx-1,:,:);
+            fi(:,1,:) = fi(:,2,:);
+            fi(:,Ny,:) = fi(:,Ny-1,:);
+            u(1,:,:) = u(2,:,:);
+            u(Nx,:,:) = u(Nx-1,:,:);
+            u(:,1,:) = u(:,2,:);
+            u(:,Ny,:) = u(:,Ny-1,:);
+
+%         noFlux(fi,fi);
+%         noFlux(fi,u);
+
+            %condicion para parar el proceso en caso de que fi tenga entradas
+            %tipo NaN
+            k=isnan(fi(Nx/2,Ny/2,Nz/2));
+            if k == 1;
+                break
+            end
+    end
+   Fm(:,:,:,i+1) = fi;
+   Um(:,:,:,i+1) = u;
 end
+
+save('abril27a')

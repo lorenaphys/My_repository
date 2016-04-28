@@ -78,39 +78,66 @@ for i = 1:NF
 			        As*L*lapu;
                 
             %Tensor de esfuerzos
-            gfi=grad3DR(fi);
-            gmu=grad3DR(mu);
-            gu=grad3DR(u);
+            gfi = grad3DR(fi);
+            gmu = grad3DR(mu);
+            gu = grad3DR(u);
             Vs = (fi.^2-1).^2.*(u-u1).^2.*(u-u2).^2 + L*abs(gu(:,:,:,1).^2+gu(:,:,:,2).^2+gu(:,:,:,3).^2);
             Vf = f.^2.*(u-u3).^2;
             P = Afi*mu.^2 + As*Vs + Af*Vf + sigma*abs(gfi(:,:,:,1).^2+gfi(:,:,:,2).^2+gfi(:,:,:,3).^2) - fi.*varFfi;
             %P=(Afi*mu.^2-sigma*abs(gfi(:,:,:,1).^2+gfi(:,:,:,2).^2+gfi(:,:,:,3).^2)+abs(gu(:,:,:,1).^2+gu(:,:,:,2).^2+gu(:,:,:,3).^2)...
 %               +sifiu*(gfi(:,:,:,1).*gu(:,:,:,1)+gfi(:,:,:,2).*gu(:,:,:,2)+gfi(:,:,:,3).*gu(:,:,:,3)) +As*(fi.^2-1).^2.*(u-u1).^2.*(u-u2).^2 ...
 %               +Af*fi.^2.*(u-u3).^2-fi(:,:,:).*(F(:,:,:)-2*sigma*Fs(:,:,:)+Ft(:,:,:)+F1(:,:,:)));
-            ggfi1=grad3DR(gfi(:,:,:,1));
-            ggfi2=grad3DR(gfi(:,:,:,2));
-            ggfi3=grad3DR(gfi(:,:,:,3));        
+            ggfi1 = grad3DR(gfi(:,:,:,1));
+            ggfi2 = grad3DR(gfi(:,:,:,2));
+            ggfi3 = grad3DR(gfi(:,:,:,3));        
         
 
             str=zeros(Nx,Ny,Nz,3,3);
-            str(:,:,:,1,1)=eta*(P(:,:,:)+2*sigma*gfi(:,:,:,1).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,1) ... 
-                   +2*Afi*ep*mu.*ggfi1(:,:,:,1));
-            str(:,:,:,2,2)=eta*(P(:,:,:)+2*sigma*gfi(:,:,:,2).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,2) ...
-                   +2*Afi*ep*mu.*ggfi2(:,:,:,2));
-            str(:,:,:,3,3)=eta*(P(:,:,:)+2*sigma*gfi(:,:,:,3).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,3) ...
-                   +2*Afi*ep*mu.*ggfi3(:,:,:,3));
+            str(:,:,:,1,1) = P(:,:,:)-2*sigma*gfi(:,:,:,1).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,1) ... 
+                             +2*Afi*ep*mu.*ggfi1(:,:,:,1);
+            str(:,:,:,2,2) = P(:,:,:)-2*sigma*gfi(:,:,:,2).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,2) ...
+                             +2*Afi*ep*mu.*ggfi2(:,:,:,2);
+            str(:,:,:,3,3) = P(:,:,:)-2*sigma*gfi(:,:,:,3).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,3) ...
+                             +2*Afi*ep*mu.*ggfi3(:,:,:,3);
  
-            str(:,:,:,1,2)=eta*(2*sigma*gfi(:,:,:,2).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,1) ...
-                   +2*Afi*ep*mu.*ggfi2(:,:,:,1));
-            str(:,:,:,1,3)=eta*(2*sigma*gfi(:,:,:,3).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,1) ...
-                   +2*Afi*ep*mu.*ggfi3(:,:,:,1));
-            str(:,:,:,2,1)=eta*(2*sigma*gfi(:,:,:,1).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,2) ...
-                   +2*Afi*ep*mu.*ggfi1(:,:,:,2));
-            str(:,:,:,2,3)=eta*(2*sigma*gfi(:,:,:,3).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,2) ...
-                   +2*Afi*ep*mu.*ggfi3(:,:,:,2));
-            str(:,:,:,3,1)=eta*(2*sigma*gfi(:,:,:,1).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,3) ... 
-                   +2*Afi*ep*mu.*ggfi1(:,:,:,3));
-            str(:,:,:,3,2)=eta*(2*sigma*gfi(:,:,:,2).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,3) ...
-                   +2*Afi*ep*mu.*ggfi2(:,:,:,3)); 
+            str(:,:,:,1,2) = -2*sigma*gfi(:,:,:,2).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,1) ...
+                             +2*Afi*ep*mu.*ggfi2(:,:,:,1);
+            str(:,:,:,1,3) = -2*sigma*gfi(:,:,:,3).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,1) ...
+                             +2*Afi*ep*mu.*ggfi3(:,:,:,1);
+            str(:,:,:,2,1) = -2*sigma*gfi(:,:,:,1).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,2) ...
+                             +2*Afi*ep*mu.*ggfi1(:,:,:,2);
+            str(:,:,:,2,3) = -2*sigma*gfi(:,:,:,3).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,2) ...
+                             +2*Afi*ep*mu.*ggfi3(:,:,:,2);
+            str(:,:,:,3,1) = -2*sigma*gfi(:,:,:,1).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,3) ... 
+                             +2*Afi*ep*mu.*ggfi1(:,:,:,3);
+            str(:,:,:,3,2) = -2*sigma*gfi(:,:,:,2).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,3) ...
+                             +2*Afi*ep*mu.*ggfi2(:,:,:,3); 
+                         
+            %Definiendo la relacion entre varFfi y el gradiente del tensor
+            gst11 = grad3DR(str(:,:,:,1,1));
+            gst22 = grad3DR(str(:,:,:,2,2));
+            gst33 = grad3DR(str(:,:,:,3,3));
+            
+            gst12 = grad3DR(str(:,:,:,1,2));
+            gst13 = grad3DR(str(:,:,:,1,3));
+            gst21 = grad3DR(str(:,:,:,2,1));
+            gst23 = grad3DR(str(:,:,:,2,3));
+            gst31 = grad3DR(str(:,:,:,3,1));
+            gst32 = grad3DR(str(:,:,:,3,2));
+            
+            ggst11 = grad3DR(gst11(:,:,:,1)./fi);
+            ggst22 = grad3DR(gst11(:,:,:,2)./fi);
+            ggst33 = grad3DR(gst11(:,:,:,3)./fi);
+            
+            ggst12 = grad3DR(gst11(:,:,:,2)./fi);
+            ggst13 = grad3DR(gst11(:,:,:,3)./fi);
+            ggst21 = grad3DR(gst11(:,:,:,1)./fi);
+            ggst23 = grad3DR(gst11(:,:,:,3)./fi);
+            ggst31 = grad3DR(gst11(:,:,:,1)./fi);
+            ggst32 = grad3DR(gst11(:,:,:,2)./fi);
+            lapFfi = -(ggst11(:,:,:,1) + ggst22(:,:,:,2) + ggst33(:,:,:,3) + ggst12(:,:,:,1) + ggst13(:,:,:,1) + ggst21(:,:,:,2) +...
+                     ggst23(:,:,:,2) + ggst31(:,:,:,3) + ggst32(:,:,:,3));
+               
+            %Ecuacciones dinamicas para los campos fase
 	end
 end

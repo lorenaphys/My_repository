@@ -6,12 +6,12 @@ Nx = 40;
 Ny = 40;
 Nz = 70;
 NF = 20;
-step = 10;
+step = 5;
 ep = 2;
 Afi = 0.5;
 As = 2;
 Af = 2;
-beta = 0.5;
+beta = 0.1;
 sigma = 0.1;
 u1 = 0;
 u2 = 1;
@@ -30,7 +30,7 @@ r = zeros(Nx,Ny,Nz);
 for i = 1:Nx
 	for j = 1:Ny
 		for k = 1:Nz
-			r(i,j,k) = sqrt((i-Nx/2)^2 + (j - Ny)^2 + (k)^2);
+			r(i,j,k) = sqrt((i-Nx/2)^2 + (j - Ny/2)^2 + (k)^2);
 			if r(i,j,k) >= 15
 				fi(i,j,k) = -1;
 			end
@@ -171,4 +171,4 @@ for i = 1:NF
 end
 
 time = toc(t);
-save('abril27a')
+save('mayo2a')

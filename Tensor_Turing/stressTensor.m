@@ -170,4 +170,5 @@ for i = 1:NF
    Um(:,:,:,i+1) = u;
 end
 
+time = toc(t);
 save('abril27a')

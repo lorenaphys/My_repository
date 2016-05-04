@@ -5,21 +5,21 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 20;
-step = 5;
-ep = 2;
+NF = 100;
+step = 30;
+ep = 1e-5;
 Afi = 0.5;
-As = 2;
-Af = 2;
+As = 0.05;
+Af = 0.05;
 beta = 0.1;
-sigma = 0.1;
+sigma = -0.1;
 u1 = 0;
 u2 = 1;
 u3 = 0;
 Dfi = 1;
-Du = 1;
-L = 0.1;
-alpha = 120;
+Du = 50;
+L = -0.25;
+alpha = 0.01;
 dt = 1e-5;
 %eta = 1;
 
@@ -42,7 +42,7 @@ end
 [x,y,z] = meshgrid(1:Nx,1:Ny,1:Nz);
 %theta = atan2((y-Ny/2),(x-Nx/2));
 %rad = sqrt((x-Nx/2-0.5)^2 + (y -Ny/2-0.5)^2);
-u=1.5*exp(-((x-Nx/2-.5).^2+(y-Ny/2-.5).^2+(z-7).^2)/50);
+u=1.5*exp(-((x-Nx/3-.5).^2+(y-Ny/3-.5).^2+(z-13.5).^2)/50);
 %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
 %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));
 %u=2.5*rand(Nx,Ny,Nz);
@@ -147,17 +147,17 @@ for i = 1:NF
             u = u + Du*dt*lapFu;
             
             %condiciones de frontera
-            fi(1,:,:) = fi(2,:,:);
-            fi(Nx,:,:) = fi(Nx-1,:,:);
-            fi(:,1,:) = fi(:,2,:);
-            fi(:,Ny,:) = fi(:,Ny-1,:);
-            u(1,:,:) = u(2,:,:);
-            u(Nx,:,:) = u(Nx-1,:,:);
-            u(:,1,:) = u(:,2,:);
-            u(:,Ny,:) = u(:,Ny-1,:);
+%             fi(1,:,:) = fi(2,:,:);
+%             fi(Nx,:,:) = fi(Nx-1,:,:);
+%             fi(:,1,:) = fi(:,2,:);
+%             fi(:,Ny,:) = fi(:,Ny-1,:);
+%             u(1,:,:) = u(2,:,:);
+%             u(Nx,:,:) = u(Nx-1,:,:);
+%             u(:,1,:) = u(:,2,:);
+%             u(:,Ny,:) = u(:,Ny-1,:);
 
-%         noFlux(fi,fi);
-%         noFlux(fi,u);
+              noFlux(fi,fi);
+              noFlux(fi,u);
 
             %condicion para parar el proceso en caso de que fi tenga entradas
             %tipo NaN
@@ -171,4 +171,4 @@ for i = 1:NF
 end
 
 time = toc(t);
-save('mayo2a')
+save('mayo3d')

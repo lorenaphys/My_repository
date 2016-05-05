@@ -4,14 +4,14 @@
 
 
 NF=100;
-ep1 = 2;
+ep1 = 0.25;
 ep = ep1^2;
 sigma = 0.1;
 beta = 0.5;
 Nx = 40;
 Ny = 40;
 Nz = 70;
-step=50;
+step=30;
 dt = 1e-5;
 Ab = 0.5;
 As = 2;
@@ -58,10 +58,10 @@ Fm(:,:,:,1) = fi;
     [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
 %         teta=atan2((Y-Ny/2),(X-Nx/2));
 %         rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-        %u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-R+2).^2)/50);
+        u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-R+2).^2)/50);
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
         %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
-        u=2.5*rand(Nx,Ny,Nz);
+        %u=2.5*rand(Nx,Ny,Nz);
        
      Um(:,:,:,1) = u;
      %Sm(1) = sigma;
@@ -162,6 +162,6 @@ end
 time = toc(t);
  
 
-save('abril21h');
+save('mayo5d');
 
 %exit

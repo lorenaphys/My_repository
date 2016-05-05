@@ -1,11 +1,11 @@
 
-load('mayo5c.mat')
+load('mayo5f.mat')
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 101;
+f = 127;
 fi(:,:,:)=Fm(:,:,:,f);
 u(:,:,:)=Um(:,:,:,f); 
 fi0(:,:,:) = Fm(:,:,:,1);

@@ -5,21 +5,21 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 50;
+NF = 20;
 step = 10;
-ep = 1e-5;
+ep = 0.12;
 Afi = 0.5;
-As = 0.05;
-Af = 0.05;
+As = 2;
+Af = 2;
 beta = 0.1;
-sigma = -0.1;
+sigma = 0.1;
 u1 = 0;
 u2 = 1;
 u3 = 0;
 Dfi = 1;
-Du = 50;
-L = -0.25;
-alpha = 0.01;
+Du = 1;
+L = 0.1;
+alpha = 120;
 dt = 1e-5;
 %eta = 1;
 
@@ -40,12 +40,12 @@ end
 
 %Condicion inicial para u
 [x,y,z] = meshgrid(1:Nx,1:Ny,1:Nz);
-N = 2;
-theta = atan2((y-Ny/2),(x-Nx/2));
-rad = sqrt((x-Nx/2-0.5).^2 + (y -Ny/2-0.5).^2);
-%u=1.5*exp(-((x-Nx/3-.5).^2+(y-Ny/3-.5).^2+(z-13.5).^2)/50);
+%N = 2;
+%theta = atan2((y-Ny/2),(x-Nx/2));
+%rad = sqrt((x-Nx/2-0.5).^2 + (y -Ny/2-0.5).^2);
+u=1.5*exp(-((x-Nx/2-.5).^2+(y-Ny/2-.5).^2+(z-7.5).^2)/50);
 %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
-u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(z/Nz)/max(max(max(rad)))+(exp(-((x-Nx/2).^2+(y-Ny/2).^2+(z-R+14).^2)/50));
+%u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(z/Nz)/max(max(max(rad)))+(exp(-((x-Nx/2).^2+(y-Ny/2).^2+(z-R+14).^2)/50));
 %u=2.5*rand(Nx,Ny,Nz);
 
 %Variables que guardan a fi y u en cada iteracion
@@ -172,4 +172,4 @@ for i = 1:NF
 end
 
 time = toc(t);
-save('mayo3f')
+save('mayo5g')

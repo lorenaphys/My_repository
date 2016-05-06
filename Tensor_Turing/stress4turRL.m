@@ -4,28 +4,28 @@
 
 
 %dx=1;
-NF=100;
+NF=60;
 %sig=0*(1:NF);
-ep1=2;
+ep1=0.12;
 ep=ep1^2;
-sigma=-0.1;
+sigma=0.1;
 Nx=40;
 Ny=40;
 Nz=70;
 sifiu=0.;
 %duu=.1; 
-Du=20;
+Du=1;
 Dfi=1;
 eta=1;
 Afi = 0.5;
 %Ab = 0.5;
-Af = 0.1;
-As = 0.1;
-beta = 0.1;
+Af = 2;
+As = 2;
+beta = 0.5;
 u1 = 0;
 u2 = 1;
 u3 = 0;
-L = 1;
+L = 0.1;
 
 %% %%%% Parametros del Turing
  %eta1=sqrt(3);
@@ -101,6 +101,7 @@ Um = zeros(Nx,Ny,Nz,NF+1);
 Fm(:,:,:,1) = fi;
 Um(:,:,:,1) = u;
 
+u(fi <=-0.99) = 0;
 %fix0(:,:)=fi(Nx/2,:,:);
 %%%%%%%%%%% parameters for iteraion loop %%%%%%%%%%%%%%%%%%%%%%%%
 step=10;
@@ -122,15 +123,14 @@ for iter = 1:NF
         
 		lapmu = lapf3D(mu);
         
-        F=Afi*((3*fi.^2-1-2*ep1*beta*fi.*u).*mu-2*ep*lapmu);     
-        
-		lapmu = lapf3D(mu);
+        varFfi = 2*Afi*mu.*(3*fi.^2-1-2*ep*beta*fi.*u) + 4*As*fi.*(fi.^2-1).*(u-u1).^2.*(u-u2).^2 + 2*Af*fi.*(u-u3).^2 - ...
+			     2*sigma*lapfi - 2*Afi*ep^2*lapmu;
 
 		lapu = lapf3D(u);
         
         Fs=lapfi;
         
-        %lapFs = lapf3D(Fs);
+
 
 
 %%   ahora  la u  %%%%%%%%%%%%%
@@ -165,34 +165,37 @@ for iter = 1:NF
         gfi=grad3DR(fi);
         gmu=grad3DR(mu);
         gu=grad3DR(u);
-        P=(Afi*mu.^2-sigma*abs(gfi(:,:,:,1).^2+gfi(:,:,:,2).^2+gfi(:,:,:,3).^2)+abs(gu(:,:,:,1).^2+gu(:,:,:,2).^2+gu(:,:,:,3).^2)...
-           +sifiu*(gfi(:,:,:,1).*gu(:,:,:,1)+gfi(:,:,:,2).*gu(:,:,:,2)+gfi(:,:,:,3).*gu(:,:,:,3)) +As*(fi.^2-1).^2.*(u-u1).^2.*(u-u2).^2 ...
-           +Af*fi.^2.*(u-u3).^2-fi(:,:,:).*(F(:,:,:)-2*sigma*Fs(:,:,:)+Ft(:,:,:)+F1(:,:,:)));
-        ggfi1=grad3DR(gfi(:,:,:,1));
-        ggfi2=grad3DR(gfi(:,:,:,2));
-        ggfi3=grad3DR(gfi(:,:,:,3));        
+            Vs = (fi.^2-1).^2.*(u-u1).^2.*(u-u2).^2 + L*abs(gu(:,:,:,1).^2+gu(:,:,:,2).^2+gu(:,:,:,3).^2);
+            Vf = fi.^2.*(u-u3).^2;
+            P = Afi*mu.^2 + As*Vs + Af*Vf + sigma*abs(gfi(:,:,:,1).^2+gfi(:,:,:,2).^2+gfi(:,:,:,3).^2) - fi.*varFfi;
+            %P=(Afi*mu.^2-sigma*abs(gfi(:,:,:,1).^2+gfi(:,:,:,2).^2+gfi(:,:,:,3).^2)+abs(gu(:,:,:,1).^2+gu(:,:,:,2).^2+gu(:,:,:,3).^2)...
+%               +sifiu*(gfi(:,:,:,1).*gu(:,:,:,1)+gfi(:,:,:,2).*gu(:,:,:,2)+gfi(:,:,:,3).*gu(:,:,:,3)) +As*(fi.^2-1).^2.*(u-u1).^2.*(u-u2).^2 ...
+%               +Af*fi.^2.*(u-u3).^2-fi(:,:,:).*(F(:,:,:)-2*sigma*Fs(:,:,:)+Ft(:,:,:)+F1(:,:,:)));
+            ggfi1 = grad3DR(gfi(:,:,:,1));
+            ggfi2 = grad3DR(gfi(:,:,:,2));
+            ggfi3 = grad3DR(gfi(:,:,:,3));        
         
 
-    str=zeros(Nx,Ny,Nz,3,3);
-    str(:,:,:,1,1)=eta*(P(:,:,:)+(2*sigma*gfi(:,:,:,1)-sifiu*gu(:,:,:,1)).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,1) ... 
-                   +2*Afi*ep*mu.*ggfi1(:,:,:,1));
-    str(:,:,:,2,2)=eta*(P(:,:,:)+(2*sigma*gfi(:,:,:,2)-sifiu*gu(:,:,:,2)).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,2) ...
-                   +2*Afi*ep*mu.*ggfi2(:,:,:,2));
-    str(:,:,:,3,3)=eta*(P(:,:,:)+(2*sigma*gfi(:,:,:,3)-sifiu*gu(:,:,:,3)).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,3) ...
-                   +2*Afi*ep*mu.*ggfi3(:,:,:,3));
+            str=zeros(Nx,Ny,Nz,3,3);
+            str(:,:,:,1,1) = P(:,:,:)-2*sigma*gfi(:,:,:,1).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,1) ... 
+                             +2*Afi*ep*mu.*ggfi1(:,:,:,1);
+            str(:,:,:,2,2) = P(:,:,:)-2*sigma*gfi(:,:,:,2).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,2) ...
+                             +2*Afi*ep*mu.*ggfi2(:,:,:,2);
+            str(:,:,:,3,3) = P(:,:,:)-2*sigma*gfi(:,:,:,3).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,3) ...
+                             +2*Afi*ep*mu.*ggfi3(:,:,:,3);
  
-    str(:,:,:,1,2)=eta*((2*sigma*gfi(:,:,:,2)-sifiu*gu(:,:,:,2)).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,1) ...
-                   +2*Afi*ep*mu.*ggfi2(:,:,:,1));
-    str(:,:,:,1,3)=eta*((2*sigma*gfi(:,:,:,3)-sifiu*gu(:,:,:,3)).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,1) ...
-                   +2*Afi*ep*mu.*ggfi3(:,:,:,1));
-    str(:,:,:,2,1)=eta*((2*sigma*gfi(:,:,:,1)-sifiu*gu(:,:,:,1)).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,2) ...
-                   +2*Afi*ep*mu.*ggfi1(:,:,:,2));
-    str(:,:,:,2,3)=eta*((2*sigma*gfi(:,:,:,3)-sifiu*gu(:,:,:,3)).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,2) ...
-                   +2*Afi*ep*mu.*ggfi3(:,:,:,2));
-    str(:,:,:,3,1)=eta*((2*sigma*gfi(:,:,:,1)-sifiu*gu(:,:,:,1)).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,3) ... 
-                   +2*Afi*ep*mu.*ggfi1(:,:,:,3));
-    str(:,:,:,3,2)=eta*((2*sigma*gfi(:,:,:,2)-sifiu*gu(:,:,:,2)).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,3) ...
-                   +2*Afi*ep*mu.*ggfi2(:,:,:,3)); 
+            str(:,:,:,1,2) = -2*sigma*gfi(:,:,:,2).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,1) ...
+                             +2*Afi*ep*mu.*ggfi2(:,:,:,1);
+            str(:,:,:,1,3) = -2*sigma*gfi(:,:,:,3).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,1) ...
+                             +2*Afi*ep*mu.*ggfi3(:,:,:,1);
+            str(:,:,:,2,1) = -2*sigma*gfi(:,:,:,1).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,2) ...
+                             +2*Afi*ep*mu.*ggfi1(:,:,:,2);
+            str(:,:,:,2,3) = -2*sigma*gfi(:,:,:,3).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,2) ...
+                             +2*Afi*ep*mu.*ggfi3(:,:,:,2);
+            str(:,:,:,3,1) = -2*sigma*gfi(:,:,:,1).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,3) ... 
+                             +2*Afi*ep*mu.*ggfi1(:,:,:,3);
+            str(:,:,:,3,2) = -2*sigma*gfi(:,:,:,2).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,3) ...
+                             +2*Afi*ep*mu.*ggfi2(:,:,:,3); 
         
  
  
@@ -207,21 +210,18 @@ for iter = 1:NF
  
 %%            dynamical equations,  for conservation of mass use  fi=fi-dt*(F+Fs);
 
-         I=200.*u;
+         %I=120.*u;
          %I(abs(fi)>=.9)=0;
          %I;
          %I=100*(F)*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz; % definicion de isoformasifiu.m
          %I = 120*sum(sum(sum(fi.*Gu)));
-         %I = 120*Gu*sum(sum(sum((fi>=-0.99))))/Nx/Ny/Nz;
+         I = 120*Gu*sum(sum(sum((fi>=-0.99))));
          %I(fi<=0)=0;
-E=F-2*sigma*Fs+Ft+F1;
+        lapFfi =  lapf3D(varFfi);
 %I = 120*sum(sum(sum(E)));
-	 
-         
 
-lapE=lapf3D(E);
 %fi=fi-dt*(F+Fs+Ft);
-fi=fi+Dfi*dt*(lapE+I);
+fi=fi+Dfi*dt*(lapFfi+I);
 fi(:,:,1)=fi(:,:,2);
        % Iu=sum(sum(sum(u)))/Nx/Ny/Nz-u0;
 u=u+dt*(Du*lapFu+S);
@@ -253,7 +253,7 @@ end
 
 time = toc(t);
 
-save('feb3c','Fm','Um','time');
+save('mayo5h');
 
 
 

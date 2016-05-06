@@ -12,13 +12,13 @@ Afi = 0.5;
 As = 2;
 Af = 2;
 beta = 0.1;
-sigma = 0.1;
+sigma = -0.1;
 u1 = 0;
 u2 = 1;
 u3 = 0;
 Dfi = 1;
 Du = 1;
-L = 0.1;
+L = -0.15;
 alpha = 120;
 dt = 1e-5;
 %eta = 1;
@@ -172,4 +172,4 @@ for i = 1:NF
 end
 
 time = toc(t);
-save('mayo5g')
+save('mayo5k')

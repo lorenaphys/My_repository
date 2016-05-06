@@ -4,11 +4,11 @@
 
 
 %dx=1;
-NF=60;
+NF=20;
 %sig=0*(1:NF);
 ep1=0.12;
 ep=ep1^2;
-sigma=0.1;
+sigma=-0.1;
 Nx=40;
 Ny=40;
 Nz=70;
@@ -25,7 +25,7 @@ beta = 0.5;
 u1 = 0;
 u2 = 1;
 u3 = 0;
-L = 0.1;
+L = -0.15;
 
 %% %%%% Parametros del Turing
  %eta1=sqrt(3);
@@ -253,7 +253,7 @@ end
 
 time = toc(t);
 
-save('mayo5h');
+save('mayo5l');
 
 
 

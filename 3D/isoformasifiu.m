@@ -3,10 +3,10 @@
 %clear all
 
 
-NF=200;
-ep1 = 0.06;
+NF=100;
+ep1 = 0.12;
 ep = ep1^2;
-sigma = 0.1;
+sigma = -0.1;
 beta = 0.5;
 Nx = 40;
 Ny = 40;
@@ -18,7 +18,7 @@ As = 2;
 Af = 2;
 Dfi = 1;
 Du = 1;
-lambda = 0.1;
+lambda = -0.15;
 u1 = 0;
 u2 = 1;
 u3 = 0;
@@ -162,6 +162,6 @@ end
 time = toc(t);
  
 
-save('mayo5f');
+save('mayo5j');
 
 %exit

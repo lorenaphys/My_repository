@@ -140,7 +140,7 @@ for iter=1:NF
 %         u(:,Ny,:)=u(:,Ny-1,:);
 %         %u(:,:,1)=u(:,:,2);
 %         %u(:,:,Nz)=u(:,:,Nz-1);
-       noFlux(fi,fi);
+%        noFlux(fi,fi);
        noFlux(fi,u);
         
         %fi(:,:,1)=fiini(:,:,1);
@@ -162,6 +162,6 @@ end
 time = toc(t);
  
 
-save('mayo5j');
+save('mayo13a');
 
 %exit

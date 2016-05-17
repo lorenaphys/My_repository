@@ -4,7 +4,7 @@
 
 
 %dx=1;
-NF=40;
+NF=20;
 %sig=0*(1:NF);
 ep1=0.12;
 ep=ep1^2;
@@ -253,7 +253,7 @@ end
 
 time = toc(t);
 
-save('mayo13b');
+save('mayo17b');
 
 
 

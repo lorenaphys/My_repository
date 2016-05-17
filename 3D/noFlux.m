@@ -56,7 +56,7 @@ for i = 1:Nx
                 e = f(i,j,k-1);
                 h = g(i,j,k-1); 
             end
-            g(x+1,j,k) = (b-c*(d-b)-e*(h-b))/a;
+            g(i+1,j,k) = (b-c*(d-b)-e*(h-b))/a;
           end
       end
    end

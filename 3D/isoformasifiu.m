@@ -3,7 +3,7 @@
 %clear all
 
 
-NF=60;
+NF=100;
 ep1 = 0.12;
 ep = ep1^2;
 sigma = -0.1;
@@ -14,8 +14,8 @@ Nz = 70;
 step=30;
 dt = 1e-5;
 Ab = 0.5;
-As = 2;
-Af = 2;
+As = 1.25;
+Af = 1.25;
 Dfi = 1;
 Du = 1;
 lambda = -0.15;
@@ -162,6 +162,6 @@ end
 time = toc(t);
  
 
-save('mayo17a');
+save('mayo17e');
 
 %exit

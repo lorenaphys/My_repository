@@ -4,7 +4,7 @@
 
 
 %dx=1;
-NF=20;
+NF=10;
 %sig=0*(1:NF);
 ep1=0.12;
 ep=ep1^2;
@@ -19,8 +19,8 @@ Dfi=1;
 eta=1;
 Afi = 0.5;
 %Ab = 0.5;
-Af = 1.12;
-As = 1.12;
+Af = 1.5;
+As = 1.5;
 beta = 0.5;
 u1 = 0;
 u2 = 1;
@@ -253,7 +253,7 @@ end
 
 time = toc(t);
 
-save('mayo20e');
+save('mayo21a');
 
 
 

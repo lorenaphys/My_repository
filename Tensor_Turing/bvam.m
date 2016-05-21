@@ -3,29 +3,29 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 100;
-step = 50;
+NF = 20;
+step = 10;
 Afi = 0.5;
-As = 0.05;
-Af = 0.05;
+As = 1.5;
+Af = 1.5;
 sigma = -0.1;
-ep = 1e-5;
+ep = 0.12;
 %Du = 1e-4;
-Dfi = 0.5;
+Dfi = 1;
 %eta = 1;
 u1 = 0;
 u2 = 1;
 u3 = 0;
-beta = 0.1;
+beta = 0.5;
 L = -0.15;
-alpha = 0.01;
+alpha = 120;
 dt = 1e-5;
 %dt1 = 0.02;
 
 %Parametros del modelo BVAM
 
 h = -1;
-C = 0.02;
+C = 0;
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 
@@ -72,10 +72,10 @@ end
 [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
 %teta=atan2((Y-Ny/2),(X-Nx/2));
 %rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-%u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
+u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
 %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
 %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-1).^2)/50));
-u=2.5*rand(Nx,Ny,Nz);
+%u=2.5*rand(Nx,Ny,Nz);
 %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 
@@ -143,7 +143,7 @@ for i = 1:NF
 %       v(Nx,:,:) = v(Nx-1,:,:);
 %       v(:,1,:) = v(:,2,:);
 %       v(:,Ny,:) = v(:,Ny-1,:);
-        noFlux(fi,fi);
+%       noFlux(fi,fi);
         noFlux(fi,u);
         noFlux(fi,v);
         
@@ -160,5 +160,5 @@ end
 
 time = toc(t);
 
-save('abril21i');
+save('mayo21b');
                                                                                                                                

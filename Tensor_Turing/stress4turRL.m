@@ -19,8 +19,8 @@ Dfi=1;
 eta=1;
 Afi = 0.5;
 %Ab = 0.5;
-Af = 2;
-As = 2;
+Af = 1.25;
+As = 1.25;
 beta = 0.5;
 u1 = 0;
 u2 = 1;
@@ -253,7 +253,7 @@ end
 
 time = toc(t);
 
-save('mayo17b');
+save('mayo29a');
 
 
 

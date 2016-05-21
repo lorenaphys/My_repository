@@ -14,8 +14,8 @@ Nz = 70;
 step=30;
 dt = 1e-5;
 Ab = 0.5;
-As = 1.25;
-Af = 1.25;
+As = 1.12;
+Af = 1.12;
 Dfi = 1;
 Du = 1;
 lambda = -0.15;
@@ -162,6 +162,6 @@ end
 time = toc(t);
  
 
-save('mayo17e');
+save('mayo20b');
 
 %exit

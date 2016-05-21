@@ -11,11 +11,11 @@ beta = 0.5;
 Nx = 40;
 Ny = 40;
 Nz = 70;
-step=30;
+step=50;
 dt = 1e-5;
 Ab = 0.5;
-As = 1.12;
-Af = 1.12;
+As = 1.25;
+Af = 1.25;
 Dfi = 1;
 Du = 1;
 lambda = -0.15;
@@ -122,7 +122,7 @@ for iter=1:NF
 %         
 %         sigma=B/Bs;
         
-        I=120*(G)*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz;
+        I=110*(G)*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz;
         I(fi<=0)=0;        
         
         fi=fi+dt*(Dfi*(lapF-lapFs)+I);
@@ -162,6 +162,6 @@ end
 time = toc(t);
  
 
-save('mayo20b');
+save('mayo20d');
 
 %exit

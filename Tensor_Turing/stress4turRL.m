@@ -215,7 +215,7 @@ for iter = 1:NF
          %I;
          %I=100*(F)*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz; % definicion de isoformasifiu.m
          %I = 120*sum(sum(sum(fi.*Gu)));
-         I = 120*Gu*sum(sum(sum((fi>=-0.99))));
+         I = 110*Gu*sum(sum(sum((fi>=-0.99))));
          %I(fi<=0)=0;
         lapFfi =  lapf3D(varFfi);
 %I = 120*sum(sum(sum(E)));
@@ -253,7 +253,7 @@ end
 
 time = toc(t);
 
-save('mayo20c');
+save('mayo20e');
 
 
 

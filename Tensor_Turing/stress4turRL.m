@@ -19,8 +19,8 @@ Dfi=1;
 eta=1;
 Afi = 0.5;
 %Ab = 0.5;
-Af = 1.25;
-As = 1.25;
+Af = 1.12;
+As = 1.12;
 beta = 0.5;
 u1 = 0;
 u2 = 1;
@@ -104,7 +104,7 @@ Um(:,:,:,1) = u;
 u(fi <=-0.99) = 0;
 %fix0(:,:)=fi(Nx/2,:,:);
 %%%%%%%%%%% parameters for iteraion loop %%%%%%%%%%%%%%%%%%%%%%%%
-step=10;
+step=5;
 dt=1e-5;
 %ct=0;
 %%
@@ -253,7 +253,7 @@ end
 
 time = toc(t);
 
-save('mayo29a');
+save('mayo20c');
 
 
 

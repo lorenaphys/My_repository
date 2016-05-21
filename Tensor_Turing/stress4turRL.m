@@ -229,15 +229,15 @@ u=u+dt*(Du*lapFu+S);
        % u(:,:,1)=u(:,:,2);  
 noFlux(fi,u);           
     end
-    ux(:,:)=u(:,Ny/2,:);
-    fix(:,:)=fi(Nx/2,:,:);
+%     ux(:,:)=u(:,Ny/2,:);
+%     fix(:,:)=fi(Nx/2,:,:);
 
     %%   
-    h=isnan(fi(Nx/2,Ny/2,Nz/2));
-    if h==1;
-        break
-    end
-      
+%     h=isnan(fi(Nx/2,Ny/2,Nz/2));
+%     if h==1;
+%         break
+%     end
+      revision(fi);
 
     
     %%

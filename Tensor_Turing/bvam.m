@@ -6,8 +6,8 @@ Nz = 70;
 NF = 20;
 step = 10;
 Afi = 0.5;
-As = 1.5;
-Af = 1.5;
+As = 1.12;
+Af = 1.12;
 sigma = -0.1;
 ep = 0.12;
 %Du = 1e-4;
@@ -18,7 +18,7 @@ u2 = 1;
 u3 = 0;
 beta = 0.5;
 L = -0.15;
-alpha = 120;
+alpha = 110;
 dt = 1e-5;
 %dt1 = 0.02;
 
@@ -72,10 +72,10 @@ end
 [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
 %teta=atan2((Y-Ny/2),(X-Nx/2));
 %rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
+%u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
 %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
 %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-1).^2)/50));
-%u=2.5*rand(Nx,Ny,Nz);
+u=2.5*rand(Nx,Ny,Nz);
 %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 
@@ -149,10 +149,10 @@ for i = 1:NF
         
       %condicion para parar el proceso en caso de que fi tenga entradas
       %tipo NaN
-      k=isnan(fi(Nx/2,Ny/2,Nz/2));
-      if k == 1;
-          break
-      end
+        h=isnan(fi(Nx/2,Ny/2,Nz/2));
+        if h==1;
+            break
+        end
    end
    Fm(:,:,:,i+1) = fi;
    Um(:,:,:,i+1) = u;
@@ -160,5 +160,5 @@ end
 
 time = toc(t);
 
-save('mayo21b');
+save('mayo21d');
                                                                                                                                

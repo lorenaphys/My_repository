@@ -10,7 +10,6 @@ for i = 1:Nx
       for k = 1:Nz
          a = isnan(f(i,j,k));
          if a == 1
-            disp('Al menos un componente del campo fase no es un numero')
             break
          end
       end

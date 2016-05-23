@@ -3,15 +3,15 @@
 %clear all
 
 
-NF=100;
-ep1 = 0.12;
+NF=150;
+ep1 = 1.5;
 ep = ep1^2;
 sigma = -0.1;
 beta = 0.5;
 Nx = 40;
 Ny = 40;
 Nz = 70;
-step=50;
+step=60;
 dt = 1e-5;
 Ab = 0.5;
 As = 2;
@@ -128,20 +128,19 @@ for iter=1:NF
         fi=fi+dt*(Dfi*(lapF-lapFs)+I);
         u=u+dt*Du*(lapG);
         %u(fi<=-0.99)=0;
-%         fi(1,:,:)=fi(2,:,:);
-%         fi(Nx,:,:)=fi(Nx-1,:,:);
-%         fi(:,1,:)=fi(:,2,:);
-%         fi(:,Ny,:)=fi(:,Ny-1,:);
+        fi(1,:,:)=fi(2,:,:);
+        fi(Nx,:,:)=fi(Nx-1,:,:);
+        fi(:,1,:)=fi(:,2,:);
+        fi(:,Ny,:)=fi(:,Ny-1,:);
 %         %fi(:,:,1)=fi(:,:,2);
 %         %fi(:,:,Nz)=fi(:,:,Nz-1);
-%         u(1,:,:)=u(2,:,:);
-%         u(Nx,:,:)=u(Nx-1,:,:);
-%         u(:,1,:)=u(:,2,:);
-%         u(:,Ny,:)=u(:,Ny-1,:);
+        u(1,:,:)=u(2,:,:);
+        u(Nx,:,:)=u(Nx-1,:,:);
+        u(:,1,:)=u(:,2,:);
+        u(:,Ny,:)=u(:,Ny-1,:);
 %         %u(:,:,1)=u(:,:,2);
 %         %u(:,:,Nz)=u(:,:,Nz-1);
-%        noFlux(fi,fi);
-       noFlux(fi,u);
+%         noFlux(fi,u);
         
         %fi(:,:,1)=fiini(:,:,1);
 
@@ -162,6 +161,6 @@ end
 time = toc(t);
  
 
-save('mayo22e');
+save('mayo23e');
 
 %exit

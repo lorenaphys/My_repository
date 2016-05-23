@@ -14,8 +14,8 @@ Nz = 70;
 step=50;
 dt = 1e-5;
 Ab = 0.5;
-As = 1.25;
-Af = 1.25;
+As = 2;
+Af = 2;
 Dfi = 1;
 Du = 1;
 lambda = -0.15;
@@ -54,13 +54,13 @@ Fm(:,:,:,1) = fi;
 %%
 %Rompimiento de simetria
     R = 9;
-    N = 6;
+    N = 2;
     [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
-%         teta=atan2((Y-Ny/2),(X-Nx/2));
-%         rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-        u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-R+2).^2)/50);
+        teta=atan2((Y-Ny/2),(X-Nx/2));
+        rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
+        %u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-R+2).^2)/50);
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
-        %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
+        u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
         %u=2.5*rand(Nx,Ny,Nz);
        
      Um(:,:,:,1) = u;
@@ -122,7 +122,7 @@ for iter=1:NF
 %         
 %         sigma=B/Bs;
         
-        I=110*(G)*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz;
+        I=120*(G)*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz;
         I(fi<=0)=0;        
         
         fi=fi+dt*(Dfi*(lapF-lapFs)+I);
@@ -162,6 +162,6 @@ end
 time = toc(t);
  
 
-save('mayo20d');
+save('mayo22e');
 
 %exit

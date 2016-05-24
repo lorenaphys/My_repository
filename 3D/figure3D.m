@@ -1,5 +1,5 @@
 
-load('mayo23g.mat')
+load('mayo23i.mat')
 
 fl=size(Fm);
 Nx = fl(1);

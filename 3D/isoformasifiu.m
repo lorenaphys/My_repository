@@ -4,14 +4,14 @@
 
 
 NF=150;
-ep1 = 1.25;
+ep1 = 1.12;
 ep = ep1^2;
 sigma = -0.1;
 beta = 0.5;
 Nx = 40;
 Ny = 40;
 Nz = 70;
-step=70;
+step=80;
 dt = 1e-5;
 Ab = 0.5;
 As = 2;
@@ -161,6 +161,6 @@ end
 time = toc(t);
  
 
-save('mayo23h');
+save('mayo23i');
 
 %exit

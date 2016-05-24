@@ -1,11 +1,11 @@
 
-load('mayo24b.mat')
+load('mayo24o.mat')
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 13;
+f = 151;
 fi(:,:,:)=Fm(:,:,:,f);
 u(:,:,:)=Um(:,:,:,f); 
 fi0(:,:,:) = Fm(:,:,:,1);

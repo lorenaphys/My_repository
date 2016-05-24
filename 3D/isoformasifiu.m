@@ -3,7 +3,7 @@
 %clear all
 
 
-NF=100;
+NF=150;
 ep1 = 1.25;
 ep = ep1^2;
 sigma = -0.1;
@@ -11,13 +11,13 @@ beta = 0.5;
 Nx = 40;
 Ny = 40;
 Nz = 70;
-step=50;
+step=80;
 dt = 1e-5;
 Ab = 0.5;
 As = 2;
 Af = 2;
 Dfi = 1;
-Du = 30;
+Du = 1;
 lambda = -0.15;
 u1 = 0;
 u2 = 1;
@@ -154,13 +154,13 @@ for iter=1:NF
 	Fm(:,:,:,iter+1)=fi;
     Um(:,:,:,iter+1)=u;
     %Sm(iter+1) = sigma;
-    
+    u(fi<=-0.99) = 0;
    
 end
 
 time = toc(t);
  
 
-save('mayo24b');
+save('mayo24o');
 
 %exit

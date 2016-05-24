@@ -3,21 +3,21 @@
 %clear all
 
 
-NF=150;
-ep1 = 1.12;
+NF=100;
+ep1 = 1.25;
 ep = ep1^2;
 sigma = -0.1;
 beta = 0.5;
 Nx = 40;
 Ny = 40;
 Nz = 70;
-step=80;
+step=50;
 dt = 1e-5;
 Ab = 0.5;
 As = 2;
 Af = 2;
 Dfi = 1;
-Du = 1;
+Du = 30;
 lambda = -0.15;
 u1 = 0;
 u2 = 1;
@@ -161,6 +161,6 @@ end
 time = toc(t);
  
 
-save('mayo23i');
+save('mayo24b');
 
 %exit

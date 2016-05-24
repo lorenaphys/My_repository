@@ -3,13 +3,13 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 20;
-step = 10;
+NF = 10;
+step = 5;
 Afi = 0.5;
-As = 1.12;
-Af = 1.12;
+As = 0.25;
+Af = 0.25;
 sigma = -0.1;
-ep = 0.12;
+ep = 0.06;
 %Du = 1e-4;
 Dfi = 1;
 %eta = 1;
@@ -18,7 +18,7 @@ u2 = 1;
 u3 = 0;
 beta = 0.5;
 L = -0.15;
-alpha = 110;
+alpha = 5;
 dt = 1e-5;
 %dt1 = 0.02;
 
@@ -144,8 +144,8 @@ for i = 1:NF
 %       v(:,1,:) = v(:,2,:);
 %       v(:,Ny,:) = v(:,Ny-1,:);
 %       noFlux(fi,fi);
-        noFlux(fi,u);
-        noFlux(fi,v);
+        noFlux2(fi,u);
+        noFlux2(fi,v);
         
       %condicion para parar el proceso en caso de que fi tenga entradas
       %tipo NaN
@@ -156,9 +156,11 @@ for i = 1:NF
    end
    Fm(:,:,:,i+1) = fi;
    Um(:,:,:,i+1) = u;
+   u(fi<=-0.99) = 0;
+   v(fi<=-0.99) = 0;
 end
 
 time = toc(t);
 
-save('mayo21d');
+save('mayo24n');
                                                                                                                                

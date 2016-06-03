@@ -1,11 +1,11 @@
 
-load('mayo24o.mat')
+load('junio3d.mat')
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 151;
+f = 149;
 fi(:,:,:)=Fm(:,:,:,f);
 u(:,:,:)=Um(:,:,:,f); 
 fi0(:,:,:) = Fm(:,:,:,1);
@@ -20,7 +20,7 @@ figure(1)
      isocolors(cdata,p4);
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
-     axis equal, view(-16,24), axis off
+     axis equal, view(-66,12), axis off
      axis([1 40 1 40 1 70]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
@@ -34,7 +34,7 @@ figure(2)
      isocolors(cdata,p4);
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
-     axis equal, view(-16,24), axis off
+     axis equal, view(-66,12), axis off
      axis([1 40 1 40 1 70]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet

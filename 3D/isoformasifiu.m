@@ -4,21 +4,21 @@
 
 
 NF=150;
-ep1 = 1.25;
+ep1 = 0.01;
 ep = ep1^2;
-sigma = -0.1;
-beta = 0.5;
+sigma = 1;
+beta = 0.1;
 Nx = 40;
 Ny = 40;
 Nz = 70;
-step=80;
+step=40;
 dt = 1e-5;
-Ab = 0.5;
+Ab = 0.2;
 As = 2;
 Af = 2;
 Dfi = 1;
-Du = 1;
-lambda = -0.15;
+Du = 2.7;
+lambda = 0.45;
 u1 = 0;
 u2 = 1;
 u3 = 0;
@@ -58,7 +58,7 @@ Fm(:,:,:,1) = fi;
     [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
         teta=atan2((Y-Ny/2),(X-Nx/2));
         rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-        %u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-R+2).^2)/50);
+        %u=1.5*exp(-((X-Nx/3-.5).^2+(Y-Ny/3-.5).^2+(Z-13).^2)/50);
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
         u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
         %u=2.5*rand(Nx,Ny,Nz);
@@ -161,6 +161,6 @@ end
 time = toc(t);
  
 
-save('mayo24o');
+save('junio3d');
 
 %exit

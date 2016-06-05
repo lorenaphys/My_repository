@@ -3,8 +3,8 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 100;
-step = 50;
+NF = 10;
+step = 5;
 ep = 2;
 Afi = 0.5;
 As = 2;
@@ -14,8 +14,8 @@ Du = 10;
 sigma = -0.1;
 beta = 0.1;
 L = 0.1;
-eta = 0.5;
-alpha = 120;
+eta = 5;
+alpha = 200;
 dt = 1e-5;
 
 fi=ones(Nx,Ny,Nz);
@@ -48,6 +48,8 @@ Um = zeros(Nx,Ny,Nz,NF+1);
 
 Fm(:,:,:,1) = fi;
 Um(:,:,:,1) = u;
+
+u(fi<=-0.99) = 0;
 
 t = tic();
 for i = 1:NF
@@ -98,7 +100,7 @@ for i = 1:NF
                        +2*Afi*ep*mu.*ggfi2(:,:,:,3); 
         
  
- 
+      gFu=grad3DR(varFu);
       dS1(:,:,:)=str(:,:,:,1,1).*gFu(:,:,:,1)+str(:,:,:,1,2).*gFu(:,:,:,2)+str(:,:,:,1,3).*gFu(:,:,:,3);
       dS2(:,:,:)=str(:,:,:,2,1).*gFu(:,:,:,1)+str(:,:,:,2,2).*gFu(:,:,:,2)+str(:,:,:,2,3).*gFu(:,:,:,3);
       dS3(:,:,:)=str(:,:,:,3,1).*gFu(:,:,:,1)+str(:,:,:,3,2).*gFu(:,:,:,2)+str(:,:,:,3,3).*gFu(:,:,:,3);
@@ -109,13 +111,14 @@ for i = 1:NF
       S=gs1(:,:,:,1)+gs2(:,:,:,2)+gs3(:,:,:,3);
       
       %%ecuaciones dinamicas
-      m = varFu.*sum(sum(sum(fi>=-0.99)));
+      %m = varFu.*sum(sum(sum(fi>=-0.99)));
+      m = u;
       
       lapFfi = lapf3D(varFfi);
-      fi = fi+Dfi*dt(lapFfi+alpha*m);
+      fi = fi+Dfi*dt*(lapFfi+alpha*m);
       
       lapFu = lapf3D(varFu);
-      u = u+Du*dt(lapFu+S);
+      u = u+Du*dt*(lapFu+eta*S);
       %%condiciones de frontera
       noFlux2(fi,u);
       
@@ -129,4 +132,4 @@ for i = 1:NF
 end
 
 time = toc(t);
-save('junio4a');
+save('junio4b');

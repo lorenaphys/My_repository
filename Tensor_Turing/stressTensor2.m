@@ -66,10 +66,10 @@ for i = 1:NF
       gfi=grad3DR(fi);
       gmu=grad3DR(mu);
       gu=grad3DR(u);
-      Vs = (fi.^2-1).^2.*(u-u1).^2.*(u-u2).^2 + L*abs(gu(:,:,:,1).^2+gu(:,:,:,2).^2+gu(:,:,:,3).^2);
-      Vf = fi.^2.*(u-u3).^2;
             
-      P = Afi*mu.^2 + As*Vs + Af*Vf + sigma*abs(gfi(:,:,:,1).^2+gfi(:,:,:,2).^2+gfi(:,:,:,3).^2) - fi.*varFfi;
+      P = Afi*mu.^2 + L*(gu(:,:,:,1).^2+gu(:,:,:,2).^2+gu(:,:,:,3).^2) +...
+          sigma*abs(gfi(:,:,:,1).^2+gfi(:,:,:,2).^2+gfi(:,:,:,3).^2) - ...
+          fi.*varFfi;
            
       ggfi1 = grad3DR(gfi(:,:,:,1));
       ggfi2 = grad3DR(gfi(:,:,:,2));
@@ -80,22 +80,22 @@ for i = 1:NF
       str(:,:,:,1,1) = P(:,:,:)-2*sigma*gfi(:,:,:,1).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,1) ... 
                        +2*Afi*ep*mu.*ggfi1(:,:,:,1);
       str(:,:,:,2,2) = P(:,:,:)-2*sigma*gfi(:,:,:,2).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,2) ...
-                             +2*Afi*ep*mu.*ggfi2(:,:,:,2);
+                       +2*Afi*ep*mu.*ggfi2(:,:,:,2);
       str(:,:,:,3,3) = P(:,:,:)-2*sigma*gfi(:,:,:,3).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,3) ...
-                             +2*Afi*ep*mu.*ggfi3(:,:,:,3);
+                       +2*Afi*ep*mu.*ggfi3(:,:,:,3);
  
       str(:,:,:,1,2) = -2*sigma*gfi(:,:,:,2).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,1) ...
-                             +2*Afi*ep*mu.*ggfi2(:,:,:,1);
+                       +2*Afi*ep*mu.*ggfi2(:,:,:,1);
       str(:,:,:,1,3) = -2*sigma*gfi(:,:,:,3).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,1) ...
-                             +2*Afi*ep*mu.*ggfi3(:,:,:,1);
+                       +2*Afi*ep*mu.*ggfi3(:,:,:,1);
       str(:,:,:,2,1) = -2*sigma*gfi(:,:,:,1).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,2) ...
-                             +2*Afi*ep*mu.*ggfi1(:,:,:,2);
+                       +2*Afi*ep*mu.*ggfi1(:,:,:,2);
       str(:,:,:,2,3) = -2*sigma*gfi(:,:,:,3).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,2) ...
-                             +2*Afi*ep*mu.*ggfi3(:,:,:,2);
+                       +2*Afi*ep*mu.*ggfi3(:,:,:,2);
       str(:,:,:,3,1) = -2*sigma*gfi(:,:,:,1).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,3) ... 
-                             +2*Afi*ep*mu.*ggfi1(:,:,:,3);
+                       +2*Afi*ep*mu.*ggfi1(:,:,:,3);
       str(:,:,:,3,2) = -2*sigma*gfi(:,:,:,2).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,3) ...
-                             +2*Afi*ep*mu.*ggfi2(:,:,:,3); 
+                       +2*Afi*ep*mu.*ggfi2(:,:,:,3); 
         
  
  
@@ -116,6 +116,13 @@ for i = 1:NF
       
       lapFu = lapf3D(varFu);
       u = u+Du*dt(lapFu+S);
+      %%condiciones de frontera
+      noFlux2(fi,u);
+      
+      h=isnan(fi(Nx/2,Ny/2,Nz/2));
+      if h==1;
+          break
+      end
    end
    Fm(:,:,:,NF+1) = fi;
    Um(:,:,:,NF+1) = u;

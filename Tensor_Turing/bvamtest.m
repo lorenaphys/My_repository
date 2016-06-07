@@ -5,20 +5,6 @@ Ny = 40;
 Nz = 70;
 % NF = 20;
 % step = 10;
-Afi = 0.5;
-As = 0.05;
-Af = 0.05;
-sigma = -0.1;
-ep = 1e-5;
-%Du = 1e-4;
-Dfi = 0.5;
-%eta = 1;
-u1 = 0;
-u2 = 1;
-u3 = 0;
-beta = 0.1;
-L = -0.15;
-alpha = 0.01;
 dt = 1e-5;
 %dt1 = 0.02;
 
@@ -29,37 +15,20 @@ C = 0.02;
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 
-% eta = sqrt(3);
-% Du = 0.516/eta;
-% Dv = 1/eta;
-% D = 0.516;
-% a = 1/0.899;
-% b = -0.91/0.899;
-% eta1 = 0.450;
+eta = sqrt(3);
+D = 0.516;
+Du = D/eta;
+Dv = 1/eta;
+a = 1/0.899;
+b = -0.91/0.899;
+eta1 = 0.450;
 
 %Segundo conujunto, para kc = 0.85 (ac = 2.583)
 
-D = 0.122;
-a = 2.513;
-b = -1.005;
-eta1 = 0.199;
-
-%Condicion inicial del meristemo
-
-fi=ones(Nx,Ny,Nz);
-r = zeros(Nx,Ny,Nz);
-
-for i=1:Nx
-    for j=1:Ny
-        for k=1:Nz
-      r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k)^2);
-      if r(i,j,k)>=15
-      fi(i,j,k)=-1;
-      end
-        end
-   
-   end
-end
+% D = 0.122;
+% a = 2.513;
+% b = -1.005;
+% eta1 = 0.199;
 
 %Condicion inicial para el morfogeno
 
@@ -81,34 +50,9 @@ v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 %funcion que contabiliza el timepo de proceso
 t = tic();
 
-fi0 = fi;
-u0 = u;
+ for i = 1:NF
+    for j = 1:step
 
-% for i = 1:NF
-%    for j = 1:step
-       
-
-      lapfi = lapf3D(fi); 
-      %potencial quimico
-      mu = (fi.^2-1).*(fi-ep*beta*u)-ep^2*lapfi;
-      
-      %variacion de la energia libre con respecto a fi
-      lapmu = lapf3D(mu);
-      varFfi = 2*Afi*mu.*(3*fi.^2-1-2*ep*beta*fi.*u) + 4*As*fi.*(fi.^2-1).*(u-u1).^2.*(u-u2).^2 + 2*Af*fi.*(u-u3).^2 - ...
-               2*sigma*lapfi - 2*Afi*ep^2*lapmu;
-           
-      %variacion de la energia libre con respecto a u
-      lapu = lapf3D(u);
-      varFu = -2*Afi*ep*beta*mu.*(fi.^2-1) + 2*As*(fi.^2-1).^2.*(2*u-u1-u2) + 2*Af*fi.^2.*(u-u3) - As*L*lapu;
-           
-      %crecimiento de fi debido a la sustancia
-      lapFu = lapf3D(varFu);
-      I = lapFu*sum(sum(sum(fi >= -0.99)));
-      
-      %dinamica del meristemo
-      lapFfi = lapf3D(varFfi);
-      fi = fi + Dfi*dt*(lapFfi + alpha*I);
-      
       %implementacion del modelo bvam
       %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
       
@@ -117,15 +61,18 @@ u0 = u;
       u = u + dt*(D*lapu +eta1*(u+a*v-C*u.*v-u.*v.^2));
       v = v + dt*(lapv +eta1*(b*v+h*u+C*u.*v+u.*v.^2));
       
+      %u = u + dt*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
+      %v = v + dt*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+      
       %condiciones de frontera
       fi(:,:,1) = fi(:,:,2);
       u(:,:,1) = u(:,:,2);
       v(:,:,1) = v(:,:,2);
       
       
-   %end
+   end
    
-%end
+end
 time = toc(t);
 
                  

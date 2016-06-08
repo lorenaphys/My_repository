@@ -6,6 +6,7 @@ Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
 f = 149;
+M = struct('cdata',[],'colormap',[]);
 fi(:,:,:)=Fm(:,:,:,f);
 u(:,:,:)=Um(:,:,:,f); 
 fi0(:,:,:) = Fm(:,:,:,1);
@@ -59,15 +60,6 @@ figure(3)
 % axis([1 Nx 1 Ny 1 Nz])
 % mm(:,:,ii)=getframe(gcf);
 
-% clf
-% cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
-% [x,y,z] = meshgrid(1:1:Nx,1:1:Ny,1:1:Nz);
-% xslice = [Nx/2,Ny/2];yslice = Ny/2; zslice = [0,10];
-% p3=slice(x,y,z,u,xslice,yslice,zslice);
-% set(p3,'FaceColor','interp','EdgeColor','none','FaceAlpha',0.5),
-% axis equal, view(-70,20)
-%  mm(:,:,ii)=getframe(gcf); 
-
 %exit   
 
 % figure(3)
@@ -86,3 +78,14 @@ uf = u(:,:,Nz/2);
 figure(5)
 surf(uf)
 
+figure(6)
+for k = 1:f
+cdata = smooth3((Um(:,:,:,k)-min(min(min(Um(:,:,:,k)))))./...
+       (max(max(max(Um(:,:,:,k))))-min(min(min(Um(:,:,:,k))))),'box',5);
+[x,y,z] = meshgrid(1:1:Nx,1:1:Ny,1:1:Nz);
+xslice = [Nx/2,Ny/2];yslice = Ny/2; zslice = [0,10];
+p3=slice(x,y,z,Um(:,:,:,k),xslice,yslice,zslice);
+set(p3,'FaceColor','interp','EdgeColor','none','FaceAlpha',0.5),
+axis equal, view(-70,20)
+M(k)=getframe(gcf);
+end

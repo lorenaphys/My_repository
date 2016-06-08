@@ -3,15 +3,15 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-% NF = 20;
-% step = 10;
+NF = 100;
+step = 20;
 dt = 1e-5;
 %dt1 = 0.02;
 
 %Parametros del modelo BVAM
 
 h = -1;
-C = 0.02;
+C = 0;
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 
@@ -44,9 +44,13 @@ v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 
 %iteraciones del modelo
     %Variables que guardan todas la iteraciones
+Um = zeros(Nx,Ny,Nz,NF+1);
+Vm = zeros(Nx,Ny,Nz,NF+1);
 
-    
-    
+Um(:,:,:,1) = u;
+Vm(:,:,:,1) = v;
+N = struct('cdata',[],'colormap',[]);
+
 %funcion que contabiliza el timepo de proceso
 t = tic();
 
@@ -58,21 +62,49 @@ t = tic();
       
       lapu = lapf3D(u);
       lapv = lapf3D(v);
-      u = u + dt*(D*lapu +eta1*(u+a*v-C*u.*v-u.*v.^2));
-      v = v + dt*(lapv +eta1*(b*v+h*u+C*u.*v+u.*v.^2));
+      %u = u + dt*(D*lapu +eta1*(u+a*v-C*u.*v-u.*v.^2));
+      %v = v + dt*(lapv +eta1*(b*v+h*u+C*u.*v+u.*v.^2));
       
-      %u = u + dt*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
-      %v = v + dt*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+      u = u + dt*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
+      v = v + dt*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
       
       %condiciones de frontera
-      fi(:,:,1) = fi(:,:,2);
       u(:,:,1) = u(:,:,2);
       v(:,:,1) = v(:,:,2);
       
       
-   end
-   
+    end
+    Um(:,:,:,i+1) = u;
+    Vm(:,:,:,i+1) = v;
+%     R = 11;
+%     [x,y,z] = meshgrid(1:1:Ny,1:1:Nx,1:1:Nz);
+%     xslice = [Nx/2-R:R:Nx/2+R,Nx/2-R:R:Nx/2+R];yslice = [Ny/2-R:R:Ny/2+R,Ny/2-R:R:Ny/2+R]; zslice = [0:3:R,0:3:R];
+%     p3=slice(x,y,z,u,xslice,yslice,zslice);
+%     set(p3,'FaceColor','flat','EdgeColor','none','FaceAlpha',0.1);
+%     rs=max(abs(max(max(max(u)))),abs(min(min(min(u)))));
+%     axis equal, view(74,18), 
+%     set(gca,[-rs,rs])
+%     colormap hsv;
+%     N(iter) = getframe;
 end
 time = toc(t);
 
-                 
+%M = struct('cdata',[],'colormap',[])
+
+for k = 1:NF+1
+    R = 11;
+    %surf(Um(:,:,Nz/2,k))
+    %M(k) = getframe;
+    u = Um(:,:,:,k);
+    [x,y,z] = meshgrid(1:1:Ny,1:1:Nx,1:1:Nz);
+    xslice = [Nx/2-R:R:Nx/2+R,Nx/2-R:R:Nx/2+R];yslice = [Ny/2-R:R:Ny/2+R,Ny/2-R:R:Ny/2+R]; zslice = [0:3:R,0:3:R];
+    p3=slice(x,y,z,u,xslice,yslice,zslice);
+    set(p3,'FaceColor','flat','EdgeColor','none','FaceAlpha',0.1);
+    rs=max(abs(max(max(max(u)))),abs(min(min(min(u)))));
+    axis equal, view(74,18), 
+    set(gca,'CLim',[-rs,rs])
+    colormap hsv;
+    N(k) = getframe;
+end
+
+save('junio7d');                 

@@ -3,7 +3,7 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 10;
+NF = 100;
 step = 5;
 Afi = 0.5;
 As = 0.25;
@@ -20,7 +20,7 @@ beta = 0.5;
 L = -0.15;
 alpha = 5;
 dt = 1e-5;
-%dt1 = 0.02;
+dt1 = 0.02;
 
 %Parametros del modelo BVAM
 
@@ -29,7 +29,10 @@ C = 0;
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 
+eta = sqrt(3);
 D = 0.516;
+Du = D/eta;
+Dv = 1/eta;
 a = 1/0.899;
 b = -0.91/0.899;
 eta1 = 0.450;
@@ -125,8 +128,9 @@ for i = 1:NF
       
       lapu = lapf3D(u);
       lapv = lapf3D(v);
-      u = u + dt*(D*lapu + eta1*(u+a*v-C*u.*v-u.*v.^2));
-      v = v + dt*(lapv + eta1*(b*v+h*u+C*u.*v+u.*v.^2));
+      u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
+      v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+      
 %       u(fi<=-0.99) = 0;
 %       v(fi<=-0.99) = 0;
       
@@ -156,11 +160,11 @@ for i = 1:NF
    end
    Fm(:,:,:,i+1) = fi;
    Um(:,:,:,i+1) = u;
-   u(fi<=-0.99) = 0;
-   v(fi<=-0.99) = 0;
+   %u(fi<=-0.99) = 0;
+   %v(fi<=-0.99) = 0;
 end
 
 time = toc(t);
 
-save('mayo24n');
+save('junio9a');
                                                                                                                                

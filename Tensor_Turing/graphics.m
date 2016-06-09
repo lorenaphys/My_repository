@@ -1,5 +1,5 @@
 
-load('junio4b.mat')
+load('junio9a.mat')
 
 
 fl=size(Fm);
@@ -99,5 +99,6 @@ for k = 1:fl(4)
     p3=slice(x,y,z,Um(:,:,:,k),xslice,yslice,zslice);
     set(p3,'FaceColor','interp','EdgeColor','none','FaceAlpha',0.5),
     axis equal, view(-70,20)
+    colormap jet,
     M(k) = getframe;
 end

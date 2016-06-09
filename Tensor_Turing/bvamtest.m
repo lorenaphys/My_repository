@@ -6,7 +6,7 @@ Nz = 70;
 NF = 100;
 step = 20;
 %dt = 1e-5;
-dt = 0.02;
+dt = 0.002;
 
 %Parametros del modelo BVAM
 
@@ -62,11 +62,11 @@ t = tic();
       
       lapu = lapf3D(u);
       lapv = lapf3D(v);
-      u = u + dt*(D*lapu +eta1*(u+a*v-C*u.*v-u.*v.^2));
-      v = v + dt*(lapv +eta1*(b*v+h*u+C*u.*v+u.*v.^2));
+      %u = u + dt*(D*lapu +eta1*(u+a*v-C*u.*v-u.*v.^2));
+      %v = v + dt*(lapv +eta1*(b*v+h*u+C*u.*v+u.*v.^2));
       
-      %u = u + dt*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
-      %v = v + dt*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+      u = u + dt*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
+      v = v + dt*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
       
       %condiciones de frontera
       u(:,:,1) = u(:,:,2);
@@ -112,4 +112,4 @@ for k = 1:NF+1
     M(k) = getframe;
 end
 
-save('junio7f');                 
+%save('junio7f');                 

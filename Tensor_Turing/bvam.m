@@ -6,19 +6,19 @@ Nz = 70;
 NF = 100;
 step = 5;
 Afi = 0.5;
-As = 0.25;
-Af = 0.25;
+As = 0.05;%0.25
+Af = 0.05;
 sigma = -0.1;
-ep = 0.06;
+ep = 1e-5;%0.06
 %Du = 1e-4;
-Dfi = 1;
+Dfi = 0.5;%1
 %eta = 1;
 u1 = 0;
 u2 = 1;
 u3 = 0;
 beta = 0.5;
 L = -0.15;
-alpha = 5;
+alpha = 0.01;%5
 dt = 1e-5;
 dt1 = 0.02;
 
@@ -52,7 +52,7 @@ r = zeros(Nx,Ny,Nz);
 for i=1:Nx
     for j=1:Ny
         for k=1:Nz
-      r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k)^2);
+      r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k-Nz/2)^2);
       if r(i,j,k)>=15
       fi(i,j,k)=-1;
       end
@@ -166,5 +166,5 @@ end
 
 time = toc(t);
 
-save('junio9a');
+save('junio9d');
                                                                                                                                

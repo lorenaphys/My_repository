@@ -6,7 +6,7 @@ Nz = 70;
 NF = 200;
 step = 50;
 %dt = 1e-5;
-dt = 0.0005;
+dt = 0.005;
 
 %Parametros del modelo BVAM
 
@@ -113,4 +113,4 @@ for k = 1:NF+1
     M(k) = getframe;
 end
 
-save('junio10a');                 
+save('junio10c');                 

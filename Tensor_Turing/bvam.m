@@ -20,8 +20,8 @@ beta = 0.5;
 L = -0.15;
 alpha = 0.01;%5
 dt = 1e-5;
-dt1 = 0.0005;
-cont = 1e4;
+dt1 = 500*dt;
+cont = 5e3;
 
 %Parametros del modelo BVAM
 
@@ -172,5 +172,5 @@ end
 
 time = toc(t);
 
-save('junio10b');
+save('junio10d');
                                                                                                                                

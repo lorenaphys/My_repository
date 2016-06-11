@@ -1,12 +1,12 @@
 
-load('junio10b.mat')
+load('junio10d.mat')
 
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 74;
+f = 46;
 M = struct('cdata',[],'colormap',[]);
 fi0(:,:,:) = Fm(:,:,:,1);
 fi(:,:,:)=Fm(:,:,:,f);
@@ -96,16 +96,16 @@ figure(5)
 surf(uf)
 
 %%
-figure(6)
-for k = 1:fl(4)
-    
-    cdata = smooth3((Um(:,:,:,k)-min(min(min(Um(:,:,:,k)))))./...
-           (max(max(max(Um(:,:,:,k))))-min(min(min(Um(:,:,:,k))))),'box',5);
-    [x,y,z] = meshgrid(1:1:Nx,1:1:Ny,1:1:Nz);
-    xslice = [0,10,20,30];yslice = [0,10,20,30]; zslice = [20,30,40];
-    p3=slice(x,y,z,Um(:,:,:,k),xslice,yslice,zslice);
-    set(p3,'FaceColor','interp','EdgeColor','none','FaceAlpha',0.5),
-    axis equal, view(-70,20)
-    colormap jet,
-    M(k) = getframe;
-end
+% figure(6)
+% for k = 1:fl(4)
+%     
+%     cdata = smooth3((Um(:,:,:,k)-min(min(min(Um(:,:,:,k)))))./...
+%            (max(max(max(Um(:,:,:,k))))-min(min(min(Um(:,:,:,k))))),'box',5);
+%     [x,y,z] = meshgrid(1:1:Nx,1:1:Ny,1:1:Nz);
+%     xslice = [0,10,20,30];yslice = [0,10,20,30]; zslice = [20,30,40];
+%     p3=slice(x,y,z,Um(:,:,:,k),xslice,yslice,zslice);
+%     set(p3,'FaceColor','interp','EdgeColor','none','FaceAlpha',0.5),
+%     axis equal, view(-70,20)
+%     colormap jet,
+%     M(k) = getframe;
+% end

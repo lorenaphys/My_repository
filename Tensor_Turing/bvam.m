@@ -4,7 +4,7 @@ Nx = 40;
 Ny = 40;
 Nz = 70;
 NF = 100;
-step = 5;
+step = 20;
 Afi = 0.5;
 As = 0.05;%0.25
 Af = 0.05;
@@ -20,7 +20,8 @@ beta = 0.5;
 L = -0.15;
 alpha = 0.01;%5
 dt = 1e-5;
-dt1 = 0.02;
+dt1 = 0.0005;
+cont = 1e4;
 
 %Parametros del modelo BVAM
 
@@ -95,7 +96,12 @@ v(fi<=-0.99) = 0;
 %funcion que contabiliza el tiempo de proceso
 t = tic();
 
-
+for l=1:cont
+      lapu = lapf3D(u);
+      lapv = lapf3D(v);
+      u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
+      v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+end
 
 for i = 1:NF
    for j = 1:step
@@ -166,5 +172,5 @@ end
 
 time = toc(t);
 
-save('junio9d');
+save('junio10b');
                                                                                                                                

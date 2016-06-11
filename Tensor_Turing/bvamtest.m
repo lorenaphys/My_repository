@@ -3,10 +3,10 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 100;
-step = 20;
+NF = 200;
+step = 50;
 %dt = 1e-5;
-dt = 0.002;
+dt = 0.0005;
 
 %Parametros del modelo BVAM
 
@@ -105,11 +105,12 @@ for k = 1:NF+1
     cdata = smooth3((Um(:,:,:,k)-min(min(min(Um(:,:,:,k)))))./...
             (max(max(max(Um(:,:,:,k))))-min(min(min(Um(:,:,:,k))))),'box',5);
     [x,y,z] = meshgrid(1:1:Nx,1:1:Ny,1:1:Nz);
-    xslice = [10,20,30];yslice = [10,20,30]; zslice = [0,10,20,30,40,50];
+    xslice = [0,Nx];yslice = [0,Ny]; zslice = [0,Nz];
     p3=slice(x,y,z,Um(:,:,:,k),xslice,yslice,zslice);
     set(p3,'FaceColor','interp','EdgeColor','none','FaceAlpha',0.5),
     axis equal, view(-70,20)
+    colormap jet,
     M(k) = getframe;
 end
 
-%save('junio7f');                 
+save('junio10a');                 

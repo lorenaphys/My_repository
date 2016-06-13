@@ -3,8 +3,8 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 200;
-step = 50;
+NF = 500;
+step = 200;
 Afi = 0.5;
 As = 0.05;%0.25
 Af = 0.05;
@@ -54,7 +54,7 @@ r = zeros(Nx,Ny,Nz);
 for i=1:Nx
     for j=1:Ny
         for k=1:Nz
-      r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k-Nz/2)^2);
+      r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k)^2);
       if r(i,j,k)>=15
       fi(i,j,k)=-1;
       end
@@ -73,15 +73,26 @@ end
 
 %Condicion inicial para el morfogeno
 
-%N = 3;
+N = 0;
 [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
 %teta=atan2((Y-Ny/2),(X-Nx/2));
 %rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
 %u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
 %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
 %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-1).^2)/50));
-u=2.5*rand(Nx,Ny,Nz);
+%u=2.5*rand(Nx,Ny,Nz);
 %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
+
+%filotaxia
+tetar=0;   % X rotation
+fir=0;     % Z rotation
+RX=(X)*cos(fir)-(Y)*sin(fir)*cos(tetar)+(Z)*sin(fir)*sin(tetar);
+RY=(X)*sin(fir)+(Y)*cos(fir)*cos(tetar)-(Z)*cos(fir)*sin(tetar);
+RZ=(Y)*sin(tetar)+(Z)*cos(tetar);
+teta=atan2((RY-Ny/2),(RX-Nx/2));
+rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
+u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+...
+  (exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-7).^2)/50));
 v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 
 %iteraciones del modelo
@@ -97,12 +108,12 @@ v(fi<=-0.99) = 0;
 %funcion que contabiliza el tiempo de proceso
 t = tic();
 
-for l=1:cont
-      lapu = lapf3D(u);
-      lapv = lapf3D(v);
-      u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
-      v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
-end
+% for l=1:cont
+%       lapu = lapf3D(u);
+%       lapv = lapf3D(v);
+%       u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
+%       v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+% end
 
 for i = 1:NF
    for j = 1:step
@@ -131,15 +142,7 @@ for i = 1:NF
       fi = fi + Dfi*dt*(lapFfi + alpha*I);
       
       %dinamica del morfogeno
-      u = u + Du*dt*lapFu;
-      
-      %implementacion del modelo bvam
-      %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
-      
-%       lapu = lapf3D(u);
-%       lapv = lapf3D(v);
-%       u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
-%       v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+      %u = u + Du*dt*lapFu;
       
 %       u(fi<=-0.99) = 0;
 %       v(fi<=-0.99) = 0;
@@ -168,6 +171,13 @@ for i = 1:NF
             break
         end
    end
+   %implementacion del modelo bvam
+   %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
+   lapu = lapf3D(u);
+   lapv = lapf3D(v);
+   u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
+   v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+   
    Fm(:,:,:,i+1) = fi;
    Um(:,:,:,i+1) = u;
    %u(fi<=-0.99) = 0;
@@ -176,5 +186,5 @@ end
 
 time = toc(t);
 
-save('junio12b');
+save('junio13a');
                                                                                                                                

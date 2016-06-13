@@ -41,16 +41,27 @@ end
 % end
 
     %R = 9;
-    N = 2;
+    N = 0;
     [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
-        teta=atan2((Y-Ny/2),(X-Nx/2));
-        rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
+        %teta=atan2((Y-Ny/2),(X-Nx/2));
+        %rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
         %u=1.5*exp(-((X-Nx/3-.5).^2+(Y-Ny/3-.5).^2+(Z-13.5).^2)/50);
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
-        u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));
+        %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));
         %u=2.5*rand(Nx,Ny,Nz);
         %u = 0.2*(rand(Nx,Ny,Nz)-.5);
         %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
+   %filotaxia
+        tetar=0;   % X rotation
+        fir=0;     % Z rotation
+        RX=(X)*cos(fir)-(Y)*sin(fir)*cos(tetar)+(Z)*sin(fir)*sin(tetar);
+        RY=(X)*sin(fir)+(Y)*cos(fir)*cos(tetar)-(Z)*cos(fir)*sin(tetar);
+        RZ=(Y)*sin(tetar)+(Z)*cos(tetar);
+        teta=atan2((RY-Ny/2),(RX-Nx/2));
+        rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
+        u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-(R+2)).^2)/20));
+        u0=sum(sum(sum(u)))/Nx/Ny/Nz;
+        
         
 %     u = zeros(Nx,Ny,Nz);
 %     

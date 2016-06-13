@@ -3,8 +3,8 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 200;
-step = 100;
+NF = 500;
+step = 200;
 %dt = 1e-5;
 dt = 0.005;
 
@@ -32,14 +32,26 @@ eta1 = 0.450;
 
 %Condicion inicial para el morfogeno
 
-%N = 3;
+N = 0;
 [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
 %teta=atan2((Y-Ny/2),(X-Nx/2));
 %rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
 %u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
 %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
 %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-1).^2)/50));
-u=2.5*rand(Nx,Ny,Nz);
+%u=2.5*rand(Nx,Ny,Nz);
+
+%filotaxia
+tetar=0;   % X rotation
+fir=0;     % Z rotation
+RX=(X)*cos(fir)-(Y)*sin(fir)*cos(tetar)+(Z)*sin(fir)*sin(tetar);
+RY=(X)*sin(fir)+(Y)*cos(fir)*cos(tetar)-(Z)*cos(fir)*sin(tetar);
+RZ=(Y)*sin(tetar)+(Z)*cos(tetar);
+teta=atan2((RY-Ny/2),(RX-Nx/2));
+rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
+u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-7).^2)/50));
+%u0=sum(sum(sum(u)))/Nx/Ny/Nz;
+        
 v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 
 %iteraciones del modelo
@@ -111,6 +123,7 @@ for k = 1:NF+1
     axis equal, view(-70,20)
     colormap jet,
     M(k) = getframe;
+    disp(k)
 end
 
-save('junio12a');                 
+save('junio12f');                 

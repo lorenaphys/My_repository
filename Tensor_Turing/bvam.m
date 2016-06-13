@@ -12,6 +12,7 @@ sigma = -0.1;
 ep = 1e-5;%0.06
 %Du = 1e-4;
 Dfi = 0.5;%1
+du = 1;
 %eta = 1;
 u1 = 0;
 u2 = 1;
@@ -21,7 +22,7 @@ L = -0.15;
 alpha = 0.01;%5
 dt = 1e-5;
 dt1 = 500*dt;
-cont = 5e3;
+cont = 2e4;
 
 %Parametros del modelo BVAM
 
@@ -125,17 +126,20 @@ for i = 1:NF
       lapFu = lapf3D(varFu);
       I = lapFu*sum(sum(sum(fi >= -0.99)));
       
-      %dinamica del meristemo
+      %dinamica del meristemo 
       lapFfi = lapf3D(varFfi);
       fi = fi + Dfi*dt*(lapFfi + alpha*I);
+      
+      %dinamica del morfogeno
+      u = u + Du*dt*lapFu;
       
       %implementacion del modelo bvam
       %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
       
-      lapu = lapf3D(u);
-      lapv = lapf3D(v);
-      u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
-      v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+%       lapu = lapf3D(u);
+%       lapv = lapf3D(v);
+%       u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
+%       v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
       
 %       u(fi<=-0.99) = 0;
 %       v(fi<=-0.99) = 0;
@@ -172,5 +176,5 @@ end
 
 time = toc(t);
 
-save('junio10d');
+save('junio12b');
                                                                                                                                

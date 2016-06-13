@@ -4,7 +4,7 @@ Nx = 40;
 Ny = 40;
 Nz = 70;
 NF = 200;
-step = 50;
+step = 100;
 %dt = 1e-5;
 dt = 0.005;
 
@@ -113,4 +113,4 @@ for k = 1:NF+1
     M(k) = getframe;
 end
 
-save('junio10c');                 
+save('junio12a');                 

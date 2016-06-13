@@ -1,10 +1,10 @@
-load('junio10d.mat');
+load('junio12b.mat');
 
 f = size(Fm);
 Nx = f(1);
 Ny = f(2);
 Nz = f(3);
-h = 51;
+h = 101;
 M1 = struct('cdata',[],'colormap',[]);
 
 for i = 1:h

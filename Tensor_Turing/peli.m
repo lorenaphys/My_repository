@@ -4,7 +4,7 @@ f = size(Fm);
 Nx = f(1);
 Ny = f(2);
 Nz = f(3);
-h = 101;
+h = 201;
 M1 = struct('cdata',[],'colormap',[]);
 
 for i = 1:h
@@ -21,4 +21,5 @@ for i = 1:h
      axis([1 40 1 40 1 70]),
      colormap jet
      M1(i) = getframe;
+     disp(i)
 end

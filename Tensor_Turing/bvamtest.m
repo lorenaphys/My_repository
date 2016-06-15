@@ -98,6 +98,7 @@ t = tic();
 %     set(gca,[-rs,rs])
 %     colormap hsv;
 %     N(iter) = getframe;
+disp(i)
 end
 time = toc(t);
 

@@ -118,7 +118,7 @@ for k = 1:NF+1
     cdata = smooth3((Um(:,:,:,k)-min(min(min(Um(:,:,:,k)))))./...
             (max(max(max(Um(:,:,:,k))))-min(min(min(Um(:,:,:,k))))),'box',5);
     [x,y,z] = meshgrid(1:1:Nx,1:1:Ny,1:1:Nz);
-    xslice = [0,Nx];yslice = [0,Ny]; zslice = [0,Nz];
+    xslice = [1,Nx];yslice = [1,Ny]; zslice = [1,Nz];
     p3=slice(x,y,z,Um(:,:,:,k),xslice,yslice,zslice);
     set(p3,'FaceColor','interp','EdgeColor','none','FaceAlpha',0.5),
     axis equal, view(-70,20)

@@ -1,12 +1,12 @@
 
-load('junio13a.mat')
+load('junio16a.mat')
 
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 199;
+f = 101;
 M = struct('cdata',[],'colormap',[]);
 fi0(:,:,:) = Fm(:,:,:,1);
 fi(:,:,:)=Fm(:,:,:,f);

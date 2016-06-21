@@ -1,5 +1,7 @@
 %%% Modelo BVAM sin tensor de esfuerzos
 
+load('junio17a.mat');
+u0 = Um(:,:,:,2);
 Nx = 40;
 Ny = 40;
 Nz = 70;
@@ -32,8 +34,8 @@ eta1 = 0.450;
 
 %Condicion inicial para el morfogeno
 
-N = 0;
-[X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
+%N = 0;
+%[X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
 %teta=atan2((Y-Ny/2),(X-Nx/2));
 %rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
 %u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
@@ -42,26 +44,26 @@ N = 0;
 %u=2.5*rand(Nx,Ny,Nz);
 
 %filotaxia
-tetar=0;   % X rotation
-fir=0;     % Z rotation
-RX=(X)*cos(fir)-(Y)*sin(fir)*cos(tetar)+(Z)*sin(fir)*sin(tetar);
-RY=(X)*sin(fir)+(Y)*cos(fir)*cos(tetar)-(Z)*cos(fir)*sin(tetar);
-RZ=(Y)*sin(tetar)+(Z)*cos(tetar);
-teta=atan2((RY-Ny/2),(RX-Nx/2));
-rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
-u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-7).^2)/50));
+% tetar=0;   % X rotation
+% fir=0;     % Z rotation
+% RX=(X)*cos(fir)-(Y)*sin(fir)*cos(tetar)+(Z)*sin(fir)*sin(tetar);
+% RY=(X)*sin(fir)+(Y)*cos(fir)*cos(tetar)-(Z)*cos(fir)*sin(tetar);
+% RZ=(Y)*sin(tetar)+(Z)*cos(tetar);
+% teta=atan2((RY-Ny/2),(RX-Nx/2));
+% rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
+% u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-7).^2)/50));
 %u0=sum(sum(sum(u)))/Nx/Ny/Nz;
         
-v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
+v=.1*u0+.2*(rand(Nx,Ny,Nz)-.5);
 
 %iteraciones del modelo
     %Variables que guardan todas la iteraciones
 Um = zeros(Nx,Ny,Nz,NF+1);
 Vm = zeros(Nx,Ny,Nz,NF+1);
 
-Um(:,:,:,1) = u;
+Um(:,:,:,1) = u0;
 Vm(:,:,:,1) = v;
-M = struct('cdata',[],'colormap',[]);
+
 
 %funcion que contabiliza el timepo de proceso
 t = tic();
@@ -102,29 +104,4 @@ disp(i)
 end
 time = toc(t);
 
-
-for k = 1:NF+1
-    R = 11;
-    u = Um(:,:,:,k);
-%     [x,y,z] = meshgrid(1:1:Ny,1:1:Nx,1:1:Nz);
-%     xslice = [Nx/2-R:R:Nx/2+R,Nx/2-R:R:Nx/2+R];yslice = [Ny/2-R:R:Ny/2+R,Ny/2-R:R:Ny/2+R]; zslice = [0:3:R,0:3:R];
-%     p3=slice(x,y,z,u,xslice,yslice,zslice);
-%     set(p3,'FaceColor','flat','EdgeColor','none','FaceAlpha',0.1);
-%     rs=max(abs(max(max(max(u)))),abs(min(min(min(u)))));
-%     axis equal, view(74,18), 
-%     set(gca,'CLim',[-rs,rs])
-%     colormap hsv;
-
-    cdata = smooth3((Um(:,:,:,k)-min(min(min(Um(:,:,:,k)))))./...
-            (max(max(max(Um(:,:,:,k))))-min(min(min(Um(:,:,:,k))))),'box',5);
-    [x,y,z] = meshgrid(1:1:Nx,1:1:Ny,1:1:Nz);
-    xslice = [0,Nx];yslice = [0,Ny]; zslice = [0,Nz];
-    p3=slice(x,y,z,Um(:,:,:,k),xslice,yslice,zslice);
-    set(p3,'FaceColor','interp','EdgeColor','none','FaceAlpha',0.5),
-    axis equal, view(-70,20)
-    colormap jet,
-    M(k) = getframe;
-    disp(k)
-end
-
-save('junio12f');                 
+save('junio17c');                 

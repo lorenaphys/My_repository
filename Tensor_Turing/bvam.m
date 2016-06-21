@@ -3,8 +3,8 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 500;
-step = 200;
+NF = 200;
+step = 50;
 Afi = 0.5;
 As = 0.05;%0.25
 Af = 0.05;
@@ -12,17 +12,17 @@ sigma = -0.1;
 ep = 1e-5;%0.06
 %Du = 1e-4;
 Dfi = 0.5;%1
-du = 1;
+du =10*Dfi;
 %eta = 1;
 u1 = 0;
 u2 = 1;
 u3 = 0;
 beta = 0.5;
 L = -0.15;
-alpha = 0.01;%5
+alpha = 0.1;%5
 dt = 1e-5;
 dt1 = 500*dt;
-cont = 2e4;
+cont = 8e4;
 
 %Parametros del modelo BVAM
 
@@ -47,7 +47,6 @@ eta1 = 0.450;
 % eta1 = 0.199;
 
 %Condicion inicial del meristemo
-
 fi=ones(Nx,Ny,Nz);
 r = zeros(Nx,Ny,Nz);
 
@@ -99,21 +98,21 @@ v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
     %Variables que guardan todas la iteraciones
 Fm = zeros(Nx,Ny,Nz,NF+1);
 Um = zeros(Nx,Ny,Nz,NF+1);
-Fm(:,:,:,1) = fi;
-Um(:,:,:,1) = u;
-
-u(fi<=-0.99) = 0;
-v(fi<=-0.99) = 0;
 
 %funcion que contabiliza el tiempo de proceso
 t = tic();
 
-% for l=1:cont
-%       lapu = lapf3D(u);
-%       lapv = lapf3D(v);
-%       u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
-%       v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
-% end
+for l=1:cont
+      lapu = lapf3D(u);
+      lapv = lapf3D(v);
+      u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
+      v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+end
+
+Fm(:,:,:,1) = fi;
+Um(:,:,:,1) = u;
+u(fi<=-0.99) = 0;
+v(fi<=-0.99) = 0;
 
 for i = 1:NF
    for j = 1:step
@@ -142,7 +141,7 @@ for i = 1:NF
       fi = fi + Dfi*dt*(lapFfi + alpha*I);
       
       %dinamica del morfogeno
-      %u = u + Du*dt*lapFu;
+      u = u + du*dt*lapFu;
       
 %       u(fi<=-0.99) = 0;
 %       v(fi<=-0.99) = 0;
@@ -171,20 +170,22 @@ for i = 1:NF
             break
         end
    end
-   %implementacion del modelo bvam
-   %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
-   lapu = lapf3D(u);
-   lapv = lapf3D(v);
-   u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
-   v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
-   
    Fm(:,:,:,i+1) = fi;
    Um(:,:,:,i+1) = u;
+   %implementacion del modelo bvam
+   %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
+%    for k = 1:2e4
+%    lapu = lapf3D(u);
+%    lapv = lapf3D(v);
+%    u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
+%    v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+%    end
    %u(fi<=-0.99) = 0;
    %v(fi<=-0.99) = 0;
+   disp(i)
 end
 
 time = toc(t);
 
-save('junio13a');
+save('junio20c');
                                                                                                                                

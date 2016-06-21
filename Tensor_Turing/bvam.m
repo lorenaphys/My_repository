@@ -3,7 +3,7 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 2;
+NF = 200;
 step = 50;
 Afi = 0.5;
 As = 0.05;%0.25
@@ -12,14 +12,14 @@ sigma = -0.1;
 ep = 1e-5;%0.06
 %Du = 1e-4;
 Dfi = 0.5;%1
-du =2*Dfi;
+du =10*Dfi;
 %eta = 1;
 u1 = 0;
 u2 = 1;
 u3 = 0;
 beta = 0.5;
 L = -0.15;
-alpha = 0.01;%5
+alpha = 0.1;%5
 dt = 1e-5;
 dt1 = 500*dt;
 cont = 8e4;
@@ -174,12 +174,12 @@ for i = 1:NF
    Um(:,:,:,i+1) = u;
    %implementacion del modelo bvam
    %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
-   for k = 1:2e4
-   lapu = lapf3D(u);
-   lapv = lapf3D(v);
-   u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
-   v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
-   end
+%    for k = 1:2e4
+%    lapu = lapf3D(u);
+%    lapv = lapf3D(v);
+%    u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
+%    v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+%    end
    %u(fi<=-0.99) = 0;
    %v(fi<=-0.99) = 0;
    disp(i)
@@ -187,5 +187,5 @@ end
 
 time = toc(t);
 
-save('junio17d');
+save('junio20c');
                                                                                                                                

@@ -119,7 +119,7 @@ fiini=fi;
 %load temp
 fix0(:,:)=fi(Nx/2,:,:);
 %%%%%%%%%%% parameters for iteraion loop %%%%%%%%%%%%%%%%%%%%%%%%
-step=20;
+step=50;
 iter=1;
 dt=1e-5;
 cont=iter;
@@ -131,6 +131,9 @@ ct=0;
     Sm = zeros(Nx,Ny,Nz,NF);
     Fm(:,:,:,1) = fi;
     Um(:,:,:,1) = u1;
+    
+    t = tic();
+    
 for iter=cont:NF  
     disp(iter)%time loop
     for iiter=1:step
@@ -371,40 +374,40 @@ hh=max(max(max(isnan(fi(:,:,:)))));
 % hold off
 
 %%
-      figure(2)
-     clf
-[x,y,z] = meshgrid(1:1:Ny,1:1:Nx,1:1:Nz);
-xslice = [Nx/2-R:R:Nx/2+R,Nx/2-R:R:Nx/2+R];yslice = [Ny/2-R:R:Ny/2+R,Ny/2-R:R:Ny/2+R]; zslice = [0:3:R,0:3:R];
-p3=slice(x,y,z,Su1,xslice,yslice,zslice);
-set(p3,'FaceColor','flat','EdgeColor','none','FaceAlpha',0.2);
-rs=max(abs(max(max(max(Su1)))),abs(min(min(min(Su1)))));
-
-axis equal, view(74,18), 
-set(gca,'CLim',[-rs,rs])
-colorbar;
+%       figure(2)
+%      clf
+% [x,y,z] = meshgrid(1:1:Ny,1:1:Nx,1:1:Nz);
+% xslice = [Nx/2-R:R:Nx/2+R,Nx/2-R:R:Nx/2+R];yslice = [Ny/2-R:R:Ny/2+R,Ny/2-R:R:Ny/2+R]; zslice = [0:3:R,0:3:R];
+% p3=slice(x,y,z,Su1,xslice,yslice,zslice);
+% set(p3,'FaceColor','flat','EdgeColor','none','FaceAlpha',0.2);
+% rs=max(abs(max(max(max(Su1)))),abs(min(min(min(Su1)))));
+% 
+% axis equal, view(74,18), 
+% set(gca,'CLim',[-rs,rs])
+% colorbar;
 %%
-    figure(3)
+%     figure(3)
     
     
 
 %     u = smooth3(u,'box',3); 
-    clf
+%     clf
        
     %cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
       
-    cdata = smooth3(u1,'box',3);
-    fim = smooth3(fi,'box',3);
-    p4=patch(isosurface(fim,0));
-    isonormals(fim,p4);
-    isocolors(cdata,p4);
-    set(p4,'FaceColor','interp','EdgeColor','none'),
-    camlight, lighting phong
-    axis equal, axis off, 
-    axis([1 Nx 1 Ny 1 Nz]),
-    light
-material metal
-    colorbar
-view(-15,40)
+%     cdata = smooth3(u1,'box',3);
+%     fim = smooth3(fi,'box',3);
+%     p4=patch(isosurface(fim,0));
+%     isonormals(fim,p4);
+%     isocolors(cdata,p4);
+%     set(p4,'FaceColor','interp','EdgeColor','none'),
+%     camlight, lighting phong
+%     axis equal, axis off, 
+%     axis([1 Nx 1 Ny 1 Nz]),
+%     light
+% material metal
+%     colorbar
+% view(-15,40)
 
 
 %para hacer peliculas 3D usar cine3D y cine2D
@@ -413,51 +416,51 @@ view(-15,40)
     Um(:,:,:,iter+1)=u1(:,:,:);
     Sm(:,:,:,iter)=Su1(:,:,:);
 %%
-    figure(4)
+%     figure(4)
     
     
 
 %     u = smooth3(u,'box',3); 
-    clf
+%     clf
        
     %cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
       
-    cdata = smooth3(u2,'box',3);
-    fim = smooth3(fi,'box',3);
-    p4=patch(isosurface(fim,0));
-    isonormals(fim,p4);
-    isocolors(cdata,p4);
-    set(p4,'FaceColor','interp','EdgeColor','none'),
-    camlight, lighting phong
-    axis equal, axis off, 
-    axis([1 Nx 1 Ny 1 Nz]),
-    light
-material metal
-    colorbar
-view(-15,40)
+%     cdata = smooth3(u2,'box',3);
+%     fim = smooth3(fi,'box',3);
+%     p4=patch(isosurface(fim,0));
+%     isonormals(fim,p4);
+%     isocolors(cdata,p4);
+%     set(p4,'FaceColor','interp','EdgeColor','none'),
+%     camlight, lighting phong
+%     axis equal, axis off, 
+%     axis([1 Nx 1 Ny 1 Nz]),
+%     light
+% material metal
+%     colorbar
+% view(-15,40)
 %%
-    figure(5)
+%     figure(5)
     
     
 
 %     u = smooth3(u,'box',3); 
-    clf
+%     clf
        
     %cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
       
-    cdata = smooth3(u3,'box',3);
-    fim = smooth3(fi,'box',3);
-    p4=patch(isosurface(fim,0));
-    isonormals(fim,p4);
-    isocolors(cdata,p4);
-    set(p4,'FaceColor','interp','EdgeColor','none'),
-    camlight, lighting phong
-    axis equal, axis off, 
-    axis([1 Nx 1 Ny 1 Nz]),
-    light
-material metal
-    colorbar
-view(-15,40)
+%     cdata = smooth3(u3,'box',3);
+%     fim = smooth3(fi,'box',3);
+%     p4=patch(isosurface(fim,0));
+%     isonormals(fim,p4);
+%     isocolors(cdata,p4);
+%     set(p4,'FaceColor','interp','EdgeColor','none'),
+%     camlight, lighting phong
+%     axis equal, axis off, 
+%     axis([1 Nx 1 Ny 1 Nz]),
+%     light
+% material metal
+%     colorbar
+% view(-15,40)
 %%
 %     figure(6)
 %     
@@ -487,14 +490,17 @@ view(-15,40)
     
     
     %%
-    figure(7)
-    fix(:,:)=fi(:,Ny/2,:);
-    contour(fix,[0 0],'k')
-    hold on
-    contour(fix0,[0 0],'r')
-    axis equal
-    %getframe(gcf);
-    hold off
+%     figure(7)
+%     fix(:,:)=fi(:,Ny/2,:);
+%     contour(fix,[0 0],'k')
+%     hold on
+%     contour(fix0,[0 0],'r')
+%     axis equal
+%     %getframe(gcf);
+%     hold off
     
 end
 
+time = toc(t);
+
+save('junio21g.mat');

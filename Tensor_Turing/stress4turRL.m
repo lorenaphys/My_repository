@@ -4,9 +4,9 @@
 
 
 %dx=1;
-NF=10;
+NF=100;
 %sig=0*(1:NF);
-ep1=0.12;
+ep1= 2;
 ep=ep1^2;
 sigma=-0.1;
 Nx=40;
@@ -14,18 +14,18 @@ Ny=40;
 Nz=70;
 sifiu=0.;
 %duu=.1; 
-Du=1;
+Du=2.7;
 Dfi=1;
-eta=1;
-Afi = 0.5;
+eta=5;
+Afi = 0.2;
 %Ab = 0.5;
-Af = 1.5;
-As = 1.5;
-beta = 0.5;
+Af = 0;
+As = 0;
+beta = 0.1;
 u1 = 0;
-u2 = 1;
+u2 = 0;
 u3 = 0;
-L = -0.15;
+L = -0.45;
 
 %% %%%% Parametros del Turing
  %eta1=sqrt(3);
@@ -104,7 +104,7 @@ Um(:,:,:,1) = u;
 u(fi <=-0.99) = 0;
 %fix0(:,:)=fi(Nx/2,:,:);
 %%%%%%%%%%% parameters for iteraion loop %%%%%%%%%%%%%%%%%%%%%%%%
-step=5;
+step=10;
 dt=1e-5;
 %ct=0;
 %%
@@ -215,7 +215,7 @@ for iter = 1:NF
          %I;
          %I=100*(F)*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz; % definicion de isoformasifiu.m
          %I = 120*sum(sum(sum(fi.*Gu)));
-         I = 110*Gu*sum(sum(sum((fi>=-0.99))));
+         I = 50*Gu*sum(sum(sum((fi>=-0.99))));
          %I(fi<=0)=0;
         lapFfi =  lapf3D(varFfi);
 %I = 120*sum(sum(sum(E)));
@@ -227,7 +227,7 @@ fi=fi+Dfi*dt*(lapFfi+I);
 u=u+dt*(Du*lapFu+S);
         %uts
        % u(:,:,1)=u(:,:,2);  
-noFlux(fi,u);           
+noFlux2(fi,u);           
     end
 %     ux(:,:)=u(:,Ny/2,:);
 %     fix(:,:)=fi(Nx/2,:,:);
@@ -237,7 +237,7 @@ noFlux(fi,u);
 %     if h==1;
 %         break
 %     end
-      revision(fi);
+      %revision(fi);
 
     
     %%
@@ -248,12 +248,13 @@ noFlux(fi,u);
     Fm(:,:,:,iter+1)=fi(:,:,:);
     Um(:,:,:,iter+1)=u(:,:,:);
     %Sm(:,:,:,iter)=S(:,:,:);
+    %disp(iter)
    
 end
 
 time = toc(t);
 
-save('mayo21a');
+save('junio21f');
 
 
 

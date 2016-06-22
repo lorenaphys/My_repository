@@ -3,7 +3,7 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 10;
+NF = 100;
 step = 5;
 ep = 2;
 Afi = 0.5;
@@ -132,4 +132,4 @@ for i = 1:NF
 end
 
 time = toc(t);
-save('junio4b');
+save('junio21c');

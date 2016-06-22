@@ -1,4 +1,4 @@
-function lapH = lap3Dt(H)
+function [lapH]=lap3Dt(H)
 
 f = size(H);
 Nx = f(1);

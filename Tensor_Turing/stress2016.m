@@ -1,10 +1,9 @@
 % Program to calculate phase fiels in 3 dimensions
 
-clear all
-
+%clear all
 
 dx=1;
-NF=500;
+NF=200;
 sig=0*(1:NF);
 ep1=1;
 ep=ep1^2;
@@ -127,16 +126,21 @@ cont=iter;
 ct=0;
 %%
 
+    Fm = zeros(Nx,Ny,Nz,NF+1);
+    Um = zeros(Nx,Ny,Nz,NF+1);
+    Sm = zeros(Nx,Ny,Nz,NF);
+    Fm(:,:,:,1) = fi;
+    Um(:,:,:,1) = u1;
 for iter=cont:NF  
-    iter%time loop
+    disp(iter)%time loop
     for iiter=1:step
  
 %%% Phase-field definitons 
 
-
-        H=fi;
-        lap3Dt
-        lapfi=lapH;
+          lapfi = lap3Dt(fi);
+%         H=fi;
+%         lap3Dt
+%         lapfi=lapH;
 
         gfi=grad3DR(fi);
         gu1=grad3DR(u1);
@@ -183,22 +187,27 @@ for iter=cont:NF
 
 %% Variations
 
-        H=mu;
-        lap3Dt
-        lapmu=lapH;
-        
-        H=u1;
-        lap3Dt
-        lapu1=lapH;
-        H=u2;
-        lap3Dt
-        lapu2=lapH;
-        H=u3;
-        lap3Dt
-        lapu3=lapH;
-        H=u4;
-        lap3Dt
-        lapu4=lapH;
+          lapmu = lap3Dt(mu);
+%         H=mu;
+%         lap3Dt
+%         lapmu=lapH;
+         
+          lapu1 = lap3Dt(u1);
+          lapu2 = lap3Dt(u2);
+          lapu3 = lap3Dt(u3);
+          lapu4 = lap3Dt(u4);
+%         H=u1;
+%         lap3Dt
+%         lapu1=lapH;
+%         H=u2;
+%         lap3Dt
+%         lapu2=lapH;
+%         H=u3;
+%         lap3Dt
+%         lapu3=lapH;
+%         H=u4;
+%         lap3Dt
+%         lapu4=lapH;
 
         lapUI=gam1*lapu1+gam2*lapu2+gam3*lapu3+gam4*lapu4;
 %% fi
@@ -295,22 +304,27 @@ for iter=cont:NF
  
 %%            dynamical equations,  for conservation of mass of fi and u's     
 
-        H=F;
-        lap3Dt
-        lapF=lapH;       
+          lapF = lap3Dt(F);
+%         H=F;
+%         lap3Dt
+%         lapF=lapH;       
       
-        H=Gu1;
-        lap3Dt
-        lapGu1=lapH;
-        H=Gu2;
-        lap3Dt
-        lapGu2=lapH;
-        H=Gu3;
-        lap3Dt
-        lapGu3=lapH;
-        H=Gu4;
-        lap3Dt
-        lapGu4=lapH;
+          lapGu1 = lap3Dt(Gu1);
+          lapGu2 = lap3Dt(Gu2);
+          lapGu3 = lap3Dt(Gu3);
+          lapGu4 = lap3Dt(Gu4);          
+%         H=Gu1;
+%         lap3Dt
+%         lapGu1=lapH;
+%         H=Gu2;
+%         lap3Dt
+%         lapGu2=lapH;
+%         H=Gu3;
+%         lap3Dt
+%         lapGu3=lapH;
+%         H=Gu4;
+%         lap3Dt
+%         lapGu4=lapH;
     
         
 
@@ -337,7 +351,7 @@ for iter=cont:NF
     %%   
 hh=max(max(max(isnan(fi(:,:,:)))));
     if hh==1;
-       'nans'
+       'nans';
         break
     end
       
@@ -395,9 +409,9 @@ view(-15,40)
 
 %para hacer peliculas 3D usar cine3D y cine2D
 
-    Fm(:,:,:,iter)=fi(:,:,:);
-    U1(:,:,:,iter)=u1(:,:,:);
-    Su1m(:,:,:,iter)=Su1(:,:,:);
+    Fm(:,:,:,iter+1)=fi(:,:,:);
+    Um(:,:,:,iter+1)=u1(:,:,:);
+    Sm(:,:,:,iter)=Su1(:,:,:);
 %%
     figure(4)
     

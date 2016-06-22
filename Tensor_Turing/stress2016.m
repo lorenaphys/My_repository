@@ -5,12 +5,12 @@
 dx=1;
 NF=200;
 sig=0*(1:NF);
-ep1=1;
+ep1=2;
 ep=ep1^2;
 sigma=0.1;
-Nx=30;
-Ny=30;
-Nz=30;
+Nx=40;
+Ny=40;
+Nz=70;
 R=11;
 N=1;
 %%% wfi=0.5*Afi*mu.^2 + 0.5*sigma*gradfi + 0.5*AI*UI + 0.5*As*BI + 0.5*As*(fi.^2 -1).*BS + 0.5*Af*(fi.^2).*BF;
@@ -27,7 +27,7 @@ eta=5;
 As=0.0; 
 AI=0; 
 Afi=1;
-Af=0;
+Af=0.0;
 %%%%%%%%%%%%%%%%%% spontaneous interaction constans %%%%%%%%%%%%%%
 bet1=.5;
 bet2=0;
@@ -135,15 +135,12 @@ ct=0;
     t = tic();
     
 for iter=cont:NF  
-    disp(iter)%time loop
+    
     for iiter=1:step
  
 %%% Phase-field definitons 
 
-          lapfi = lap3Dt(fi);
-%         H=fi;
-%         lap3Dt
-%         lapfi=lapH;
+        lapfi = lap3Dt(fi);
 
         gfi=grad3DR(fi);
         gu1=grad3DR(u1);
@@ -199,18 +196,6 @@ for iter=cont:NF
           lapu2 = lap3Dt(u2);
           lapu3 = lap3Dt(u3);
           lapu4 = lap3Dt(u4);
-%         H=u1;
-%         lap3Dt
-%         lapu1=lapH;
-%         H=u2;
-%         lap3Dt
-%         lapu2=lapH;
-%         H=u3;
-%         lap3Dt
-%         lapu3=lapH;
-%         H=u4;
-%         lap3Dt
-%         lapu4=lapH;
 
         lapUI=gam1*lapu1+gam2*lapu2+gam3*lapu3+gam4*lapu4;
 %% fi
@@ -307,33 +292,15 @@ for iter=cont:NF
  
 %%            dynamical equations,  for conservation of mass of fi and u's     
 
-          lapF = lap3Dt(F);
-%         H=F;
-%         lap3Dt
-%         lapF=lapH;       
+          lapF = lap3Dt(F);       
       
           lapGu1 = lap3Dt(Gu1);
           lapGu2 = lap3Dt(Gu2);
           lapGu3 = lap3Dt(Gu3);
           lapGu4 = lap3Dt(Gu4);          
-%         H=Gu1;
-%         lap3Dt
-%         lapGu1=lapH;
-%         H=Gu2;
-%         lap3Dt
-%         lapGu2=lapH;
-%         H=Gu3;
-%         lap3Dt
-%         lapGu3=lapH;
-%         H=Gu4;
-%         lap3Dt
-%         lapGu4=lapH;
-    
-        
-
 
          %I=200.*(u1+u2+u3+u4);
-         I=200.*Gu1;
+         I=100.*Gu1;
          I(find(abs(fi)>=.9))=0;
          
         fi=fi+Dfi*dt*(lapF+I);
@@ -357,150 +324,17 @@ hh=max(max(max(isnan(fi(:,:,:)))));
        'nans';
         break
     end
-      
-
-    
-    %%
-                
-% figure(1)
-% clf
-%     u1x(:,:)=u1(:,Ny/2,:);
-%     %vx(:,:)=v(:,Ny/2,:);
-%     fix(:,:)=fi(Nx/2,:,:);
-% clf
-% hold on
-% mesh(u1x,'FaceAlpha',0.5),shading interp,  view(-36,18)
-% %mesh(fix,'FaceColor','none')
-% hold off
-
-%%
-%       figure(2)
-%      clf
-% [x,y,z] = meshgrid(1:1:Ny,1:1:Nx,1:1:Nz);
-% xslice = [Nx/2-R:R:Nx/2+R,Nx/2-R:R:Nx/2+R];yslice = [Ny/2-R:R:Ny/2+R,Ny/2-R:R:Ny/2+R]; zslice = [0:3:R,0:3:R];
-% p3=slice(x,y,z,Su1,xslice,yslice,zslice);
-% set(p3,'FaceColor','flat','EdgeColor','none','FaceAlpha',0.2);
-% rs=max(abs(max(max(max(Su1)))),abs(min(min(min(Su1)))));
-% 
-% axis equal, view(74,18), 
-% set(gca,'CLim',[-rs,rs])
-% colorbar;
-%%
-%     figure(3)
-    
-    
-
-%     u = smooth3(u,'box',3); 
-%     clf
-       
-    %cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
-      
-%     cdata = smooth3(u1,'box',3);
-%     fim = smooth3(fi,'box',3);
-%     p4=patch(isosurface(fim,0));
-%     isonormals(fim,p4);
-%     isocolors(cdata,p4);
-%     set(p4,'FaceColor','interp','EdgeColor','none'),
-%     camlight, lighting phong
-%     axis equal, axis off, 
-%     axis([1 Nx 1 Ny 1 Nz]),
-%     light
-% material metal
-%     colorbar
-% view(-15,40)
-
 
 %para hacer peliculas 3D usar cine3D y cine2D
 
     Fm(:,:,:,iter+1)=fi(:,:,:);
     Um(:,:,:,iter+1)=u1(:,:,:);
     Sm(:,:,:,iter)=Su1(:,:,:);
-%%
-%     figure(4)
-    
-    
 
-%     u = smooth3(u,'box',3); 
-%     clf
-       
-    %cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
-      
-%     cdata = smooth3(u2,'box',3);
-%     fim = smooth3(fi,'box',3);
-%     p4=patch(isosurface(fim,0));
-%     isonormals(fim,p4);
-%     isocolors(cdata,p4);
-%     set(p4,'FaceColor','interp','EdgeColor','none'),
-%     camlight, lighting phong
-%     axis equal, axis off, 
-%     axis([1 Nx 1 Ny 1 Nz]),
-%     light
-% material metal
-%     colorbar
-% view(-15,40)
-%%
-%     figure(5)
-    
-    
 
-%     u = smooth3(u,'box',3); 
-%     clf
-       
-    %cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
-      
-%     cdata = smooth3(u3,'box',3);
-%     fim = smooth3(fi,'box',3);
-%     p4=patch(isosurface(fim,0));
-%     isonormals(fim,p4);
-%     isocolors(cdata,p4);
-%     set(p4,'FaceColor','interp','EdgeColor','none'),
-%     camlight, lighting phong
-%     axis equal, axis off, 
-%     axis([1 Nx 1 Ny 1 Nz]),
-%     light
-% material metal
-%     colorbar
-% view(-15,40)
-%%
-%     figure(6)
-%     
-%     
-% 
-% %     u = smooth3(u,'box',3); 
-%     clf
-%        
-%     %cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
-%       
-%     cdata = smooth3(u4,'box',3);
-%     fim = smooth3(fi,'box',3);
-%     p4=patch(isosurface(fim,0));
-%     isonormals(fim,p4);
-%     isocolors(cdata,p4);
-%     set(p4,'FaceColor','interp','EdgeColor','none'),
-%     camlight, lighting phong
-%     axis equal, axis off, 
-%     axis([1 Nx 1 Ny 1 Nz]),
-%     light
-% material metal
-%     colorbar
-% view(-15,40)
-
-    
-    
-    
-    
-    %%
-%     figure(7)
-%     fix(:,:)=fi(:,Ny/2,:);
-%     contour(fix,[0 0],'k')
-%     hold on
-%     contour(fix0,[0 0],'r')
-%     axis equal
-%     %getframe(gcf);
-%     hold off
-    
+    disp(iter)%time loop
 end
 
 time = toc(t);
 
-save('junio21g.mat');
+save('junio22b.mat');

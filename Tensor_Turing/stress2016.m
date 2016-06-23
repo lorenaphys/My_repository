@@ -39,7 +39,7 @@ gam2=0;
 gam3=0;
 gam4=0;
 %%%%%%%%%%%%%%%%%%%%%%% u's surface tension constants   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-d11=0.45;
+d11=0.15;
 d12=0;
 d13=0;
 d14=0;
@@ -300,7 +300,7 @@ for iter=cont:NF
           lapGu4 = lap3Dt(Gu4);          
 
          %I=200.*(u1+u2+u3+u4);
-         I=100.*Gu1;
+         I=50.*Gu1;
          I(find(abs(fi)>=.9))=0;
          
         fi=fi+Dfi*dt*(lapF+I);
@@ -337,4 +337,4 @@ end
 
 time = toc(t);
 
-save('junio23d.mat');
+save('junio23e.mat');

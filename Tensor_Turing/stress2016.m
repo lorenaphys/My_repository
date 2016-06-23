@@ -5,7 +5,7 @@
 dx=1;
 NF=200;
 sig=0*(1:NF);
-ep1=2;
+ep1=1;
 ep=ep1^2;
 sigma=0.1;
 Nx=40;
@@ -24,10 +24,10 @@ Du4=0;
 Dfi=1;
 eta=5;
 %%%%%%%%%%%%%%%%%%%%% strength of the fields  %%%%%%%%%%%
-As=0.0; 
+As=0.1; 
 AI=0; 
 Afi=1;
-Af=0.0;
+Af=0.1;
 %%%%%%%%%%%%%%%%%% spontaneous interaction constans %%%%%%%%%%%%%%
 bet1=.5;
 bet2=0;
@@ -337,4 +337,4 @@ end
 
 time = toc(t);
 
-save('junio22b.mat');
+save('junio23a.mat');

@@ -39,7 +39,7 @@ gam2=0;
 gam3=0;
 gam4=0;
 %%%%%%%%%%%%%%%%%%%%%%% u's surface tension constants   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-d11=0;
+d11=0.15;
 d12=0;
 d13=0;
 d14=0;
@@ -337,4 +337,4 @@ end
 
 time = toc(t);
 
-save('junio23b.mat');
+save('junio23c.mat');

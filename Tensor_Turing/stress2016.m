@@ -13,11 +13,12 @@ Ny=40;
 Nz=70;
 R=11;
 N=1;
+alpha = 30;
 %%% wfi=0.5*Afi*mu.^2 + 0.5*sigma*gradfi + 0.5*AI*UI + 0.5*As*BI + 0.5*As*(fi.^2 -1).*BS + 0.5*Af*(fi.^2).*BF;
 %%Energy=chemical+ surface tension+ fi-u-interaction + u-s interaction +
 %%membrane interaction near + far
 %%%%%%%%%%%%%%%%%%Difusion constans %%%%%%%%%%%%%%%%%%%%%%555
-Du1=1;
+Du1=10;
 Du2=0.0;
 Du3=0.00;
 Du4=0;
@@ -39,7 +40,7 @@ gam2=0;
 gam3=0;
 gam4=0;
 %%%%%%%%%%%%%%%%%%%%%%% u's surface tension constants   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-d11=-1;
+d11=0.07;
 d12=0;
 d13=0;
 d14=0;
@@ -300,7 +301,7 @@ for iter=cont:NF
           lapGu4 = lap3Dt(Gu4);          
 
          %I=200.*(u1+u2+u3+u4);
-         I=50.*Gu1;
+         I=alpha.*Gu1;
          I(find(abs(fi)>=.9))=0;
          
         fi=fi+Dfi*dt*(lapF+I);
@@ -337,4 +338,4 @@ end
 
 time = toc(t);
 
-save('junio24c.mat');
+save('junio27d.mat');

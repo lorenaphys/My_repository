@@ -4,9 +4,9 @@
 
 
 %dx=1;
-NF=100;
+NF=200;
 %sig=0*(1:NF);
-ep1= 2;
+ep1= 1;
 ep=ep1^2;
 sigma=-0.1;
 Nx=40;
@@ -14,19 +14,19 @@ Ny=40;
 Nz=70;
 sifiu=0.;
 %duu=.1; 
-Du=2.7;
+Du=5;
 Dfi=1;
 eta=5;
-Afi = 0.2;
+Afi = 1;
 %Ab = 0.5;
-Af = 0;
-As = 0;
-beta = 0.1;
+Af = 0.1;
+As = 0.1;
+beta = 0.5;
 u1 = 0;
-u2 = 0;
+u2 = 1;
 u3 = 0;
-L = -0.45;
-
+L = -0.07;
+alpha = 50;
 %% %%%% Parametros del Turing
  %eta1=sqrt(3);
  %Du=Dus*.516/eta1;
@@ -209,13 +209,14 @@ for iter = 1:NF
  S=gs1(:,:,:,1)+gs2(:,:,:,2)+gs3(:,:,:,3);
  
 %%            dynamical equations,  for conservation of mass use  fi=fi-dt*(F+Fs);
-
+         I=alpha.*Gu1;
+         I(find(abs(fi)>=.9))=0;
          %I=120.*u;
          %I(abs(fi)>=.9)=0;
          %I;
          %I=100*(F)*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz; % definicion de isoformasifiu.m
          %I = 120*sum(sum(sum(fi.*Gu)));
-         I = 50*Gu*sum(sum(sum((fi>=-0.99))));
+         %I = 50*Gu*sum(sum(sum((fi>=-0.99))));
          %I(fi<=0)=0;
         lapFfi =  lapf3D(varFfi);
 %I = 120*sum(sum(sum(E)));
@@ -254,7 +255,7 @@ end
 
 time = toc(t);
 
-save('junio21f');
+save('junio27f');
 
 
 

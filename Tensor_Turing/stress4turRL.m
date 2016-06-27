@@ -249,7 +249,7 @@ noFlux2(fi,u);
     Fm(:,:,:,iter+1)=fi(:,:,:);
     Um(:,:,:,iter+1)=u(:,:,:);
     %Sm(:,:,:,iter)=S(:,:,:);
-    %disp(iter)
+    disp(iter)
    
 end
 

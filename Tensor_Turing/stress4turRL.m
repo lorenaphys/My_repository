@@ -123,8 +123,8 @@ for iter = 1:NF
         
 		lapmu = lapf3D(mu);
         
-        varFfi = 2*Afi*mu.*(3*fi.^2-1-2*ep*beta*fi.*u) + 4*As*fi.*(fi.^2-1).*(u-u1).^2.*(u-u2).^2 + 2*Af*fi.*(u-u3).^2 - ...
-			     2*sigma*lapfi - 2*Afi*ep^2*lapmu;
+        varFfi = Afi*mu.*(3*fi.^2-1-2*ep*beta*fi.*u) + 2*As*fi.*(fi.^2-1).*(u-u1).^2.*(u-u2).^2 + Af*fi.*(u-u3).^2 - ...
+			     sigma*lapfi - Afi*ep^2*lapmu;
 
 		lapu = lapf3D(u);
         
@@ -144,11 +144,11 @@ for iter = 1:NF
 %        end
 %%        
 
-	Gup = 2*As*(fi.^2-1).*(u-u1).*(u-u2).*(2*u-u1-u2)+2*Af*fi.^2.*(u-u3);
-        Gu=-2*Afi*ep1*beta*mu.*((fi).^2-1)-sifiu*lapfi+Gup; 
+	Gup = As*(fi.^2-1).*(u-u1).*(u-u2).*(2*u-u1-u2)+Af*fi.^2.*(u-u3);
+        Gu=-Afi*ep1*beta*mu.*((fi).^2-1)-sifiu*lapfi+Gup; 
 
        
-        Fu=-2*As*L*lapu+Gup+Gu;
+        Fu=-As*L*lapu+Gup+Gu;
         gFu=grad3DR(Fu);
        
 	lapFu = lapf3D(Fu);
@@ -167,7 +167,7 @@ for iter = 1:NF
         gu=grad3DR(u);
             Vs = (fi.^2-1).^2.*(u-u1).^2.*(u-u2).^2 + L*abs(gu(:,:,:,1).^2+gu(:,:,:,2).^2+gu(:,:,:,3).^2);
             Vf = fi.^2.*(u-u3).^2;
-            P = Afi*mu.^2 + As*Vs + Af*Vf + sigma*abs(gfi(:,:,:,1).^2+gfi(:,:,:,2).^2+gfi(:,:,:,3).^2) - fi.*varFfi;
+            P =0.5* Afi*mu.^2 +0.5* As*Vs +0.5* Af*Vf +0.5* sigma*abs(gfi(:,:,:,1).^2+gfi(:,:,:,2).^2+gfi(:,:,:,3).^2) - fi.*varFfi;
             %P=(Afi*mu.^2-sigma*abs(gfi(:,:,:,1).^2+gfi(:,:,:,2).^2+gfi(:,:,:,3).^2)+abs(gu(:,:,:,1).^2+gu(:,:,:,2).^2+gu(:,:,:,3).^2)...
 %               +sifiu*(gfi(:,:,:,1).*gu(:,:,:,1)+gfi(:,:,:,2).*gu(:,:,:,2)+gfi(:,:,:,3).*gu(:,:,:,3)) +As*(fi.^2-1).^2.*(u-u1).^2.*(u-u2).^2 ...
 %               +Af*fi.^2.*(u-u3).^2-fi(:,:,:).*(F(:,:,:)-2*sigma*Fs(:,:,:)+Ft(:,:,:)+F1(:,:,:)));
@@ -177,25 +177,25 @@ for iter = 1:NF
         
 
             str=zeros(Nx,Ny,Nz,3,3);
-            str(:,:,:,1,1) = P(:,:,:)-2*sigma*gfi(:,:,:,1).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,1) ... 
-                             +2*Afi*ep*mu.*ggfi1(:,:,:,1);
-            str(:,:,:,2,2) = P(:,:,:)-2*sigma*gfi(:,:,:,2).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,2) ...
-                             +2*Afi*ep*mu.*ggfi2(:,:,:,2);
-            str(:,:,:,3,3) = P(:,:,:)-2*sigma*gfi(:,:,:,3).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,3) ...
-                             +2*Afi*ep*mu.*ggfi3(:,:,:,3);
+            str(:,:,:,1,1) = P(:,:,:)-sigma*gfi(:,:,:,1).*gfi(:,:,:,1)-Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,1) ... 
+                             +Afi*ep*mu.*ggfi1(:,:,:,1);
+            str(:,:,:,2,2) = P(:,:,:)-sigma*gfi(:,:,:,2).*gfi(:,:,:,2)-Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,2) ...
+                             +Afi*ep*mu.*ggfi2(:,:,:,2);
+            str(:,:,:,3,3) = P(:,:,:)-sigma*gfi(:,:,:,3).*gfi(:,:,:,3)-Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,3) ...
+                             +Afi*ep*mu.*ggfi3(:,:,:,3);
  
-            str(:,:,:,1,2) = -2*sigma*gfi(:,:,:,2).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,1) ...
-                             +2*Afi*ep*mu.*ggfi2(:,:,:,1);
-            str(:,:,:,1,3) = -2*sigma*gfi(:,:,:,3).*gfi(:,:,:,1)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,1) ...
-                             +2*Afi*ep*mu.*ggfi3(:,:,:,1);
-            str(:,:,:,2,1) = -2*sigma*gfi(:,:,:,1).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,2) ...
-                             +2*Afi*ep*mu.*ggfi1(:,:,:,2);
-            str(:,:,:,2,3) = -2*sigma*gfi(:,:,:,3).*gfi(:,:,:,2)-2*Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,2) ...
-                             +2*Afi*ep*mu.*ggfi3(:,:,:,2);
-            str(:,:,:,3,1) = -2*sigma*gfi(:,:,:,1).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,3) ... 
-                             +2*Afi*ep*mu.*ggfi1(:,:,:,3);
-            str(:,:,:,3,2) = -2*sigma*gfi(:,:,:,2).*gfi(:,:,:,3)-2*Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,3) ...
-                             +2*Afi*ep*mu.*ggfi2(:,:,:,3); 
+            str(:,:,:,1,2) = -sigma*gfi(:,:,:,2).*gfi(:,:,:,1)-Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,1) ...
+                             +Afi*ep*mu.*ggfi2(:,:,:,1);
+            str(:,:,:,1,3) = -sigma*gfi(:,:,:,3).*gfi(:,:,:,1)-Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,1) ...
+                             +Afi*ep*mu.*ggfi3(:,:,:,1);
+            str(:,:,:,2,1) = -sigma*gfi(:,:,:,1).*gfi(:,:,:,2)-Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,2) ...
+                             +Afi*ep*mu.*ggfi1(:,:,:,2);
+            str(:,:,:,2,3) = -sigma*gfi(:,:,:,3).*gfi(:,:,:,2)-Afi*ep*gmu(:,:,:,3).*gfi(:,:,:,2) ...
+                             +Afi*ep*mu.*ggfi3(:,:,:,2);
+            str(:,:,:,3,1) = -sigma*gfi(:,:,:,1).*gfi(:,:,:,3)-Afi*ep*gmu(:,:,:,1).*gfi(:,:,:,3) ... 
+                             +Afi*ep*mu.*ggfi1(:,:,:,3);
+            str(:,:,:,3,2) = -sigma*gfi(:,:,:,2).*gfi(:,:,:,3)-Afi*ep*gmu(:,:,:,2).*gfi(:,:,:,3) ...
+                             +Afi*ep*mu.*ggfi2(:,:,:,3); 
         
  
  
@@ -209,7 +209,7 @@ for iter = 1:NF
  S=gs1(:,:,:,1)+gs2(:,:,:,2)+gs3(:,:,:,3);
  
 %%            dynamical equations,  for conservation of mass use  fi=fi-dt*(F+Fs);
-         I=alpha.*Gu1;
+         I=alpha.*Gu;
          I(find(abs(fi)>=.9))=0;
          %I=120.*u;
          %I(abs(fi)>=.9)=0;

@@ -322,7 +322,7 @@ for iter=cont:NF
     %%   
 hh=max(max(max(isnan(fi(:,:,:)))));
     if hh==1;
-       'nans';
+       disp(NaN);
         break
     end
 

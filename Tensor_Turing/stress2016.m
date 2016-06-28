@@ -3,7 +3,7 @@
 %clear all
 
 dx=1;
-NF=300;
+NF=200;
 sig=0*(1:NF);
 ep1=1;
 ep=ep1^2;

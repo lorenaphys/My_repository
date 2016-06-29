@@ -110,6 +110,7 @@ dt=1e-5;
 %%
 
 t = tic();
+disp(1)
 
 for iter = 1:NF  
     %iter%time loop
@@ -128,7 +129,7 @@ for iter = 1:NF
 
 		lapu = lapf3D(u);
         
-        Fs=lapfi;
+%        Fs=lapfi;
         
 
 
@@ -149,17 +150,17 @@ for iter = 1:NF
 
        
         Fu=-As*L*lapu+Gup+Gu;
-        gFu=grad3DR(Fu);
+        gFu=grad3DR(2*Fu);
        
-	lapFu = lapf3D(Fu);
+	lapFu = lapf3D(2*Fu);
         
-        Ft=-sifiu*lapu; %  surface tension between membrane and u
+%        Ft=-sifiu*lapu; %  surface tension between membrane and u
         
-	lapFt = lapf3D(Ft);
+%	lapFt = lapf3D(Ft);
         
-        F1 = 4*As*fi.*(fi.^2-1).*(u-u1).^2.*(u-u2).^2 +2*Af*fi.*(u-u3).^2;
+%        F1 = 4*As*fi.*(fi.^2-1).*(u-u1).^2.*(u-u2).^2 +2*Af*fi.*(u-u3).^2;
         
-	lapF1 = lapf3D(F1);
+%	lapF1 = lapf3D(F1);
         
 %%   tensor de esfuerzos
         gfi=grad3DR(fi);
@@ -199,9 +200,9 @@ for iter = 1:NF
         
  
  
- dS1(:,:,:)=str(:,:,:,1,1).*gFu(:,:,:,1)+str(:,:,:,1,2).*gFu(:,:,:,2)+str(:,:,:,1,3).*gFu(:,:,:,3);
- dS2(:,:,:)=str(:,:,:,2,1).*gFu(:,:,:,1)+str(:,:,:,2,2).*gFu(:,:,:,2)+str(:,:,:,2,3).*gFu(:,:,:,3);
- dS3(:,:,:)=str(:,:,:,3,1).*gFu(:,:,:,1)+str(:,:,:,3,2).*gFu(:,:,:,2)+str(:,:,:,3,3).*gFu(:,:,:,3);
+ dS1(:,:,:)=2*(str(:,:,:,1,1).*gFu(:,:,:,1)+str(:,:,:,1,2).*gFu(:,:,:,2)+str(:,:,:,1,3).*gFu(:,:,:,3));
+ dS2(:,:,:)=2*(str(:,:,:,2,1).*gFu(:,:,:,1)+str(:,:,:,2,2).*gFu(:,:,:,2)+str(:,:,:,2,3).*gFu(:,:,:,3));
+ dS3(:,:,:)=2*(str(:,:,:,3,1).*gFu(:,:,:,1)+str(:,:,:,3,2).*gFu(:,:,:,2)+str(:,:,:,3,3).*gFu(:,:,:,3));
  
  gs1=grad3DR(dS1(:,:,:));
  gs2=grad3DR(dS2(:,:,:));
@@ -218,7 +219,7 @@ for iter = 1:NF
          %I = 120*sum(sum(sum(fi.*Gu)));
          %I = 50*Gu*sum(sum(sum((fi>=-0.99))));
          %I(fi<=0)=0;
-        lapFfi =  lapf3D(varFfi);
+        lapFfi =  lapf3D(2*varFfi);
 %I = 120*sum(sum(sum(E)));
 
 %fi=fi-dt*(F+Fs+Ft);
@@ -253,13 +254,13 @@ hh=max(max(max(isnan(fi(:,:,:)))));
     Fm(:,:,:,iter+1)=fi(:,:,:);
     Um(:,:,:,iter+1)=u(:,:,:);
     %Sm(:,:,:,iter)=S(:,:,:);
-    disp(iter)
+    disp(iter+1)
    
 end
 
 time = toc(t);
 
-save('junio27f');
+save('junio28a');
 
 
 

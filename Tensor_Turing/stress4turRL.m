@@ -225,21 +225,25 @@ for iter = 1:NF
 %fi=fi-dt*(F+Fs+Ft);
 fi=fi+Dfi*dt*(lapFfi+I);
 fi(:,:,1)=fi(:,:,2);
+fi(:,:,Nx)=fi(:,:,Nx-1);
+fi(:,1,:)=fi(:,2,:);
+fi(:,Ny,:)=fi(:,Ny-1,:);
+
        % Iu=sum(sum(sum(u)))/Nx/Ny/Nz-u0;
 u=u+dt*(Du*lapFu+S);
         %uts
 u(:,:,1)=u(:,:,2);  
+u(:,:,Nx)=u(:,:,Nx-1);  
+u(:,1,:)=u(:,2,:);  
+u(:,Ny,:)=u(:,Ny-1,:); 
+ 
 %noFlux(fi,u);           
     end
 %     ux(:,:)=u(:,Ny/2,:);
 %     fix(:,:)=fi(Nx/2,:,:);
 
     %%   
-%     h=isnan(fi(Nx/2,Ny/2,Nz/2));
-%     if h==1;
-%         break
-%     end
-      %revision(fi);
+
 hh=max(max(max(isnan(fi(:,:,:)))));
     if hh==1;
        disp(NaN);
@@ -260,4 +264,4 @@ end
 
 time = toc(t);
 
-save('junio28c');
+save('junio28d');

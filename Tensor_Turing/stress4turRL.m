@@ -229,7 +229,7 @@ fi=fi+Dfi*dt*(lapFfi+I);
 u=u+dt*(Du*lapFu+S);
         %uts
        % u(:,:,1)=u(:,:,2);  
-noFlux2(fi,u);           
+noFlux(fi,u);           
     end
 %     ux(:,:)=u(:,Ny/2,:);
 %     fix(:,:)=fi(Nx/2,:,:);
@@ -260,7 +260,7 @@ end
 
 time = toc(t);
 
-save('junio28a');
+save('junio28b');
 
 
 

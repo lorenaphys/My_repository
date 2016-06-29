@@ -19,8 +19,8 @@ Dfi=1;
 eta=5;
 Afi = 1;
 %Ab = 0.5;
-Af = 0.1;
-As = 0.1;
+Af = 0;
+As = 0;
 beta = 0.5;
 u1 = 0;
 u2 = 1;
@@ -264,4 +264,4 @@ end
 
 time = toc(t);
 
-save('junio28d');
+save('junio28e');

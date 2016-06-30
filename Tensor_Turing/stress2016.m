@@ -25,10 +25,10 @@ Du4=0;
 Dfi=1;
 eta=5;
 %%%%%%%%%%%%%%%%%%%%% strength of the fields  %%%%%%%%%%%
-As=0.1; 
+As=0; 
 AI=0; 
 Afi=1;
-Af=0.1;
+Af=0;
 %%%%%%%%%%%%%%%%%% spontaneous interaction constans %%%%%%%%%%%%%%
 bet1=.5;
 bet2=0;
@@ -338,4 +338,4 @@ end
 
 time = toc(t);
 
-save('junio27e.mat');
+save('junio30c.mat');

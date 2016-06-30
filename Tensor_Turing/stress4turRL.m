@@ -26,7 +26,7 @@ u1 = 0;
 u2 = 1;
 u3 = 0;
 L = -0.07;
-alpha = 50;
+alpha = 70;
 %% %%%% Parametros del Turing
  %eta1=sqrt(3);
  %Du=Dus*.516/eta1;
@@ -264,4 +264,4 @@ end
 
 time = toc(t);
 
-save('junio29a');
+save('junio30a');

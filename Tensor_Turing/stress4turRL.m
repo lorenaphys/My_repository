@@ -104,7 +104,7 @@ Um(:,:,:,1) = u;
 u(fi <=-0.99) = 0;
 %fix0(:,:)=fi(Nx/2,:,:);
 %%%%%%%%%%% parameters for iteraion loop %%%%%%%%%%%%%%%%%%%%%%%%
-step=80;
+step=100;
 dt=1e-5;
 %ct=0;
 %%
@@ -264,4 +264,4 @@ end
 
 time = toc(t);
 
-save('junio30a');
+save('junio30b');

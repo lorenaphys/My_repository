@@ -1,5 +1,5 @@
 
-load('junio30c.mat')
+load('junio30d.mat')
 
 
 fl=size(Fm);

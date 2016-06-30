@@ -104,7 +104,7 @@ Um(:,:,:,1) = u;
 u(fi <=-0.99) = 0;
 %fix0(:,:)=fi(Nx/2,:,:);
 %%%%%%%%%%% parameters for iteraion loop %%%%%%%%%%%%%%%%%%%%%%%%
-step=70;
+step=80;
 dt=1e-5;
 %ct=0;
 %%

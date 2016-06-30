@@ -134,7 +134,7 @@ ct=0;
     Um(:,:,:,1) = u1;
     
     t = tic();
-    
+    disp(1);    
 for iter=cont:NF  
     
     for iiter=1:step
@@ -314,7 +314,7 @@ for iter=cont:NF
 
         %uts
        % u(:,:,1)=u(:,:,2);  
-           
+        noFlux2(fi,u1); 
     end
     u1x(:,:)=u1(:,Ny/2,:);
     fix(:,:)=fi(Nx/2,:,:);
@@ -333,9 +333,9 @@ hh=max(max(max(isnan(fi(:,:,:)))));
     Sm(:,:,:,iter)=Su1(:,:,:);
 
 
-    disp(iter)%time loop
+    disp(iter+1)%time loop
 end
 
 time = toc(t);
 
-save('junio30c.mat');
+save('junio30d.mat');

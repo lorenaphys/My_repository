@@ -122,7 +122,7 @@ fiini=fi;
 %load temp
 fix0(:,:)=fi(Nx/2,:,:);
 %%%%%%%%%%% parameters for iteraion loop %%%%%%%%%%%%%%%%%%%%%%%%
-step=70;
+step=100;
 iter=1;
 dt=1e-5;
 cont=iter;

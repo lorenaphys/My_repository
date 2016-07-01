@@ -9,7 +9,6 @@ for i = 1:Nx
    for j = 1:Ny
       for k = 1:Nz
          if abs(f(i,j,k))<0.1
-            b = g(i-1,j,k);
             if j == 1
                 c = (f(i,j+1,k)-f(i,j,k))*(g(i,j+1,k)-g(i,j,k));
             elseif j > 1 && j < Ny
@@ -26,12 +25,15 @@ for i = 1:Nx
             end
             if i == 1
                a = f(i+1,j,k)-f(i,j,k);
+	       b = g(i,j,k);
                g(i+1,j,k) = (b+c+d)/a;
             elseif i > 1 && i < Nx
                a = f(i+1,j,k)-f(i-1,j,k);
+               b = g(i-1,j,k); 
                g(i+1,j,k) = (b+c+d)/a;
             else
                a = f(i,j,k)-f(i-1,j,k);
+               b = g(i-1,j,k);
                g(i-1,j,k) = -(b+c+d)/a;
             end
          end

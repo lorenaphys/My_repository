@@ -1,10 +1,10 @@
-load('julio1b.mat');
+load('julio1c.mat');
 
 f = size(Um);
 Nx = f(1);
 Ny = f(2);
 Nz = f(3);
-h = 301;
+h = 125;
 %M = struct('cdata',[],'colormap',[]);
 M1 = struct('cdata',[],'colormap',[]);
 

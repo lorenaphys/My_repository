@@ -3,7 +3,7 @@
 %clear all
 
 dx=1;
-NF=150;
+NF=1;
 sig=0*(1:NF);
 ep1=1;
 ep=ep1^2;
@@ -12,7 +12,7 @@ Nx=40;
 Ny=40;
 Nz=70;
 R=11;
-N=5;
+N=20;
 alpha = 50;
 %%% wfi=0.5*Afi*mu.^2 + 0.5*sigma*gradfi + 0.5*AI*UI + 0.5*As*BI + 0.5*As*(fi.^2 -1).*BS + 0.5*Af*(fi.^2).*BF;
 %%Energy=chemical+ surface tension+ fi-u-interaction + u-s interaction +
@@ -122,7 +122,7 @@ fiini=fi;
 %load temp
 fix0(:,:)=fi(Nx/2,:,:);
 %%%%%%%%%%% parameters for iteraion loop %%%%%%%%%%%%%%%%%%%%%%%%
-step=100;
+step=1;
 iter=1;
 dt=1e-5;
 cont=iter;
@@ -340,4 +340,4 @@ end
 
 time = toc(t);
 
-save('julio2a.mat');
+save('prueba.mat');

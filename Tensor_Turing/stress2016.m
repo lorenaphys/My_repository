@@ -3,7 +3,7 @@
 %clear all
 
 dx=1;
-NF=1;
+NF=200;
 sig=0*(1:NF);
 ep1=1;
 ep=ep1^2;
@@ -122,7 +122,7 @@ fiini=fi;
 %load temp
 fix0(:,:)=fi(Nx/2,:,:);
 %%%%%%%%%%% parameters for iteraion loop %%%%%%%%%%%%%%%%%%%%%%%%
-step=1;
+step=100;
 iter=1;
 dt=1e-5;
 cont=iter;
@@ -340,4 +340,4 @@ end
 
 time = toc(t);
 
-save('prueba.mat');
+save('julio2b.mat');

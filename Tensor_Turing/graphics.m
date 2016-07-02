@@ -1,12 +1,12 @@
 
-load('julio2a.mat')
+load('julio2b.mat')
 
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 136;
+f = 151;
 M = struct('cdata',[],'colormap',[]);
 fi0(:,:,:) = Fm(:,:,:,1);
 fi(:,:,:)=Fm(:,:,:,f);

@@ -54,13 +54,14 @@ Fm(:,:,:,1) = fi;
 %%
 %Rompimiento de simetria
     R = 9;
+    %[~,R1] = min(abs(fi(Nx/2,Ny/2,:)));
     N = 2;
     [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
         teta=atan2((Y-Ny/2),(X-Nx/2));
         rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-        %u=1.5*exp(-((X-Nx/3-.5).^2+(Y-Ny/3-.5).^2+(Z-13).^2)/50);
+        u=1.5*exp(-((X-Nx/3-.5).^2+(Y-Ny/3-.5).^2+(Z-7).^2)/50);
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
-        u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
+        %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
         %u=2.5*rand(Nx,Ny,Nz);
        
      Um(:,:,:,1) = u;
@@ -82,13 +83,15 @@ Fm(:,:,:,1) = fi;
 u(fi<=-.99)=0;
 
 t = tic(); %comando para visualizar el tiempo de ejecucion
-
+disp(1);
 
 for iter=1:NF
     for iiter=1:step
             
-	%[~,bb]=min(abs(fi(Nx/2,Ny/2,:)));
-         %R1=bb-5;
+	%[~,bb] = min(abs(fi(Nx/2,Ny/2,:)));
+        %R1 = bb-5;
+        %u1 = R1;
+        %u2 = -R1;
 
         lapfi=lap3D(fi);
        
@@ -154,13 +157,13 @@ for iter=1:NF
 	Fm(:,:,:,iter+1)=fi;
     Um(:,:,:,iter+1)=u;
     %Sm(iter+1) = sigma;
-    u(fi<=-0.99) = 0;
-   
+   % u(fi<=-0.99) = 0;
+    disp(iter+1);   
 end
 
 time = toc(t);
  
 
-save('junio3d');
+save('julio4a.mat');
 
 %exit

@@ -6,7 +6,7 @@
 NF=150;
 ep1 = 1;
 ep = ep1^2;
-sigma = 1;
+sigma = -0.1;
 beta = 0.1;
 Nx = 40;
 Ny = 40;
@@ -164,6 +164,6 @@ end
 time = toc(t);
  
 
-save('julio4b.mat');
+save('julio4c.mat');
 
 %exit

@@ -1,11 +1,11 @@
 
-load('julio4a.mat')
+load('julio4b.mat')
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 133;
+f = 149;
 M = struct('cdata',[],'colormap',[]);
 fi(:,:,:)=Fm(:,:,:,f);
 u(:,:,:)=Um(:,:,:,f); 

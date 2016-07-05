@@ -1,6 +1,6 @@
 clear mm
 
-load('agosto26b.mat');
+load('julio4d.mat');
 
 fl=size(Fm);
 for ii=1:fl(4)
@@ -21,7 +21,7 @@ for ii=1:fl(4)
     set(p4,'FaceColor','interp','EdgeColor','none'),
     camlight, lighting phong
     axis equal, view(-14,40), axis off
-    axis([11 45 11 45 1 13]),
+    axis([1 40 1 40 1 70]),
     colormap jet
     %colorbar
     mm(:,:,ii)=getframe(gcf);

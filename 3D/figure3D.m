@@ -1,5 +1,5 @@
 
-load('julio6d.mat')
+load('prueba.mat')
 
 fl=size(Fm);
 Nx = fl(1);

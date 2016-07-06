@@ -11,14 +11,14 @@ beta = 0.5;
 Nx = 40;
 Ny = 40;
 Nz = 70;
-step=40;
+step=60;
 dt = 1e-5;
 Ab = 0.5;
 As = 2;
 Af = 2;
 Dfi = 1;
 Du = 1;
-lambda = 0.1;
+lambda = -0.1;
 u1 = 0;
 u2 = 1;
 u3 = 0;
@@ -164,6 +164,6 @@ end
 time = toc(t);
  
 
-save('julio5a.mat');
+save('julio5b.mat');
 
 %exit

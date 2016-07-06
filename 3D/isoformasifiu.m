@@ -3,7 +3,7 @@
 %clear all
 
 
-NF=150;
+NF=200;
 ep1 = 2;
 ep = ep1^2;
 sigma = -0.1;

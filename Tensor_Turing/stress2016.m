@@ -105,7 +105,7 @@ fiini=fi;
         rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
 %         u1=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z+5).^2)/50));
         %u1=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-(R+2)).^2)/20));
-        u1=2.5*(1.5*(exp(-((X-Nx/3).^2+(Y-Ny/3).^2+(Z-13).^2)/40)));
+        u1=2.5*(1.5*(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-7).^2)/50)));
 	%u1 = 2.5*rand(Nx,Ny,Nz);
        %u3=0.-u1;
   	%u1=u1+.2*(rand(Nx,Ny,Nz)-.5);
@@ -304,7 +304,7 @@ for iter=cont:NF
 
          %I=200.*(u1+u2+u3+u4);
          I=alpha.*Gu1;
-         I(find(abs(fi)>=.9))=0;
+         I(abs(fi)>=.9)=0;
          
         fi=fi+Dfi*dt*(lapF+I);
         fi(:,:,1)=fi(:,:,2);
@@ -340,4 +340,4 @@ end
 
 time = toc(t);
 
-save('julio2d.mat');
+save('prueba.mat');

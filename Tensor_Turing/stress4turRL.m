@@ -211,7 +211,7 @@ for iter = 1:NF
  
 %%            dynamical equations,  for conservation of mass use  fi=fi-dt*(F+Fs);
          I=alpha.*Gu;
-         I(find(abs(fi)>=.9))=0;
+         I(abs(fi)>=.9)=0;
          %I=120.*u;
          %I(abs(fi)>=.9)=0;
          %I;

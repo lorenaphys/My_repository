@@ -1,5 +1,5 @@
 
-load('julio2d.mat')
+load('prueba.mat')
 
 
 fl=size(Fm);

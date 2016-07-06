@@ -1,9 +1,10 @@
 clear mm
 
-load('julio4d.mat');
+load('julio5d.mat');
 
 fl=size(Fm);
-for ii=1:fl(4)
+f=201;
+for ii=1:f
  %ii  
 %      hold on 
 %      Xn=frame2im(M(ii));

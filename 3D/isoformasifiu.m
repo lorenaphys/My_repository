@@ -32,7 +32,7 @@ r = zeros(Nx,Ny,Nz);
 for i=1:Nx
     for j=1:Ny
         for k=1:Nz
-      r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k-Nz/2)^2);
+      r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k)^2);
       if r(i,j,k)>=15
       fi(i,j,k)=-1;
       end
@@ -61,8 +61,8 @@ Fm(:,:,:,1) = fi;
         rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
         %u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z+35.5).^2)/50);
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
-        %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
-        u=2.5*rand(Nx,Ny,Nz);
+        u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
+        %u=2.5*rand(Nx,Ny,Nz);
        
      Um(:,:,:,1) = u;
      %Sm(1) = sigma;
@@ -164,4 +164,4 @@ end
 time = toc(t);
  
 
-save('julio6f.mat');
+save('julio6g.mat');

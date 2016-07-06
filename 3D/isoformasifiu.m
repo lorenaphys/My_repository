@@ -18,7 +18,7 @@ As = 2;
 Af = 2;
 Dfi = 1;
 Du = 1;
-lambda = -0.1;
+lambda = 0.1;
 u1 = 0;
 u2 = 1;
 u3 = 0;
@@ -164,4 +164,4 @@ end
 time = toc(t);
  
 
-save('julio6b.mat');
+save('julio6c.mat');

@@ -11,7 +11,7 @@ beta = 0.5;
 Nx = 40;
 Ny = 40;
 Nz = 70;
-step=60;
+step=80;
 dt = 1e-5;
 Ab = 0.5;
 As = 2;
@@ -59,7 +59,7 @@ Fm(:,:,:,1) = fi;
     [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
         teta=atan2((Y-Ny/2),(X-Nx/2));
         rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-        u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
+        u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/30);
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
         %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
         %u=2.5*rand(Nx,Ny,Nz);
@@ -164,6 +164,4 @@ end
 time = toc(t);
  
 
-save('julio5b.mat');
-
-%exit
+save('julio5c.mat');

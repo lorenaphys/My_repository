@@ -303,7 +303,7 @@ for iter=cont:NF
           lapGu4 = lap3Dt(Gu4);          
 
          %I=200.*(u1+u2+u3+u4);
-         I=alpha.*Gu1*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz;
+         I=alpha.*Gu1;
          I(abs(fi)>=.9)=0;
          
         fi=fi+Dfi*dt*(lapF+I);

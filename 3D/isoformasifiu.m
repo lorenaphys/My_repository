@@ -158,6 +158,7 @@ for iter=1:NF
 	
 	Fm(:,:,:,iter+1)=fi;
     Um(:,:,:,iter+1)=u;
+    u(fi<=-.99)=0;
     %Sm(iter+1) = sigma;
    % u(fi<=-0.99) = 0;
     disp(iter+1);   

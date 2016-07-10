@@ -13,7 +13,7 @@ Ny=40;
 Nz=70;
 R=11;
 N=10;
-alpha = 50;
+alpha = 120;
 %%% wfi=0.5*Afi*mu.^2 + 0.5*sigma*gradfi + 0.5*AI*UI + 0.5*As*BI + 0.5*As*(fi.^2 -1).*BS + 0.5*Af*(fi.^2).*BF;
 %%Energy=chemical+ surface tension+ fi-u-interaction + u-s interaction +
 %%membrane interaction near + far
@@ -303,7 +303,7 @@ for iter=cont:NF
           lapGu4 = lap3Dt(Gu4);          
 
          %I=200.*(u1+u2+u3+u4);
-         I=alpha.*Gu1;
+         I=alpha.*u1;
          I(abs(fi)>=.9)=0;
          
         fi=fi+Dfi*dt*(lapF+I);
@@ -340,4 +340,4 @@ end
 
 time = toc(t);
 
-save('julio6a*.mat');
+save('julio10c.mat');

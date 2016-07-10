@@ -126,7 +126,7 @@ for iter=1:NF
 %         sigma=B/Bs;
         
         %I=120*(G)*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz;
-        I = 120*G;
+        I = 120*u;
         I(abs(fi)>=.9)=0;
         %I(fi<=0)=0;        
         
@@ -167,4 +167,4 @@ end
 time = toc(t);
  
 
-save('julio10a.mat');
+save('julio10b.mat');

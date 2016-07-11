@@ -337,11 +337,12 @@ hh=max(max(max(isnan(fi(:,:,:)))));
     Fm(:,:,:,i+1)=fi(:,:,:);
     Um(:,:,:,i+1)=u1(:,:,:);
     Sm(:,:,:,i)=Su1(:,:,:);
-    u1(fi<=-.9)=0;
+%    u1(fi<=-.9)=0;
 
     disp(i+1)%time loop
 end
 
 time = toc(t);
 
-save('julio10f.mat');
+save('julio10g.mat');
+

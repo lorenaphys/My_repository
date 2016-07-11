@@ -105,8 +105,8 @@ fiini=fi;
         rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
 %         u1=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z+5).^2)/50));
         %u1=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-(R+2)).^2)/20));
-        u1=1.5*(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-7).^2)/80));
-	%u1 = 2.5*rand(Nx,Ny,Nz);
+        %u1=1.5*(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-7).^2)/80));
+	u1 = 2.5*rand(Nx,Ny,Nz);
        %u3=0.-u1;
   	%u1=u1+.2*(rand(Nx,Ny,Nz)-.5);
 %         u2=(u1+.6*(rand(Nx,Ny,Nz)-.5)).*(0);
@@ -209,9 +209,9 @@ for i=1:NF
 
 %%  for u's
 
-	GU1 = -2*Afi*ep1*bet1*mu.*u1.*(fi.^2-1)+...
+	Gu1 = -2*Afi*ep1*bet1*mu.*u1.*(fi.^2-1)+...
 	      As*(fi.^2-1).*(u1-u11).*(u1-u21).*(2*u1-u11-u21)+...
-	      Af*fi.^2.*(u-u1f)-As*d11*lapu1;
+	      Af*fi.^2.*(u1-u1f)-As*d11*lapu1;
 	%Gu1=Afi*(fi.^2-1).*(-2*ep1*bet1*u1)...
 	 %  +As*(fi.^2-1).*((u1-u11).*US2.*US3.*US4+(u1-u12).*US1.*US3.*US4+(u1-u13).*US1.*US2.*US4+(u1-u14).*US1.*US2.*US3)...
 	  % +Af*(fi.^2).*(u1-u1f)-0.5*As*(2*d11*lapu1+d12*lapu2+d13*lapu3+d14*lapu4)-0.5*AI*gam1*lapfi;
@@ -344,5 +344,5 @@ end
 
 time = toc(t);
 
-save('julio11b.mat');
+save('julio11c.mat');
 

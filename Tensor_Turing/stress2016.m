@@ -131,7 +131,7 @@ ct=0;
     Sm = zeros(Nx,Ny,Nz,NF);
     Fm(:,:,:,1) = fi;
     Um(:,:,:,1) = u1;
-    u1(fi<=-.9)=0;
+    %u1(fi<=-.9)=0;
     
     t = tic();
     disp(1);    
@@ -344,4 +344,4 @@ end
 
 time = toc(t);
 
-save('julio10d.mat');
+save('julio10e.mat');

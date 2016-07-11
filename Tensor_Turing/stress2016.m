@@ -281,42 +281,42 @@ for i=1:NF
  	gu1s1=grad3DR(du1S1(:,:,:));
  	gu1s2=grad3DR(du1S2(:,:,:));
  	gu1s3=grad3DR(du1S3(:,:,:));
- 	gu2s1=grad3DR(du2S1(:,:,:));
- 	gu2s2=grad3DR(du2S2(:,:,:));
- 	gu2s3=grad3DR(du2S3(:,:,:));
- 	gu3s1=grad3DR(du3S1(:,:,:));
- 	gu3s2=grad3DR(du3S2(:,:,:));
- 	gu3s3=grad3DR(du3S3(:,:,:));
- 	gu4s1=grad3DR(du4S1(:,:,:));
- 	gu4s2=grad3DR(du4S2(:,:,:));
- 	gu4s3=grad3DR(du4S3(:,:,:));
+ 	%gu2s1=grad3DR(du2S1(:,:,:));
+ 	%gu2s2=grad3DR(du2S2(:,:,:));
+ 	%gu2s3=grad3DR(du2S3(:,:,:));
+ 	%gu3s1=grad3DR(du3S1(:,:,:));
+ 	%gu3s2=grad3DR(du3S2(:,:,:));
+ 	%gu3s3=grad3DR(du3S3(:,:,:));
+ 	%gu4s1=grad3DR(du4S1(:,:,:));
+ 	%gu4s2=grad3DR(du4S2(:,:,:));
+ 	%gu4s3=grad3DR(du4S3(:,:,:));
 
 
  	Su1=gu1s1(:,:,:,1)+gu1s2(:,:,:,2)+gu1s3(:,:,:,3);
- 	Su2=gu2s1(:,:,:,1)+gu2s2(:,:,:,2)+gu2s3(:,:,:,3);
- 	Su3=gu3s1(:,:,:,1)+gu3s2(:,:,:,2)+gu3s3(:,:,:,3);
- 	Su4=gu4s1(:,:,:,1)+gu4s2(:,:,:,2)+gu4s3(:,:,:,3);
+ 	%Su2=gu2s1(:,:,:,1)+gu2s2(:,:,:,2)+gu2s3(:,:,:,3);
+ 	%Su3=gu3s1(:,:,:,1)+gu3s2(:,:,:,2)+gu3s3(:,:,:,3);
+ 	%Su4=gu4s1(:,:,:,1)+gu4s2(:,:,:,2)+gu4s3(:,:,:,3);
  
 %%            dynamical equations,  for conservation of mass of fi and u's     
 
           lapF = lap3Dt(F);       
       
           lapGu1 = lap3Dt(Gu1);
-          lapGu2 = lap3Dt(Gu2);
-          lapGu3 = lap3Dt(Gu3);
-          lapGu4 = lap3Dt(Gu4);          
+          %lapGu2 = lap3Dt(Gu2);
+          %lapGu3 = lap3Dt(Gu3);
+          %lapGu4 = lap3Dt(Gu4);          
 
          %I=200.*(u1+u2+u3+u4);
          I=alpha.*u1;
          I(abs(fi)>=.9)=0;
          
         fi=fi+Dfi*dt*(lapF+I);
-        fi(:,:,1)=fi(:,:,2);
+        %fi(:,:,1)=fi(:,:,2);
        % Iu=sum(sum(sum(u)))/Nx/Ny/Nz-u0;
         u1=u1+dt*(Du1*lapGu1+eta*Su1);
-        u2=u2+dt*(Du2*lapGu2+eta*Su2);
-        u3=u3+dt*(Du3*lapGu3+eta*Su3);
-        u4=u4+dt*(Du4*lapGu4+eta*Su4);
+        %u2=u2+dt*(Du2*lapGu2+eta*Su2);
+        %u3=u3+dt*(Du3*lapGu3+eta*Su3);
+        %u4=u4+dt*(Du4*lapGu4+eta*Su4);
 
         %uts
        % u(:,:,1)=u(:,:,2);  
@@ -344,4 +344,4 @@ end
 
 time = toc(t);
 
-save('julio10c.mat');
+save('julio10d.mat');

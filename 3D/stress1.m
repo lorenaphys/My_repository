@@ -1,4 +1,4 @@
-% Program to calculate phase fiels in 3 dimensions
+% Program to calculate phase fiedls in 3 dimensions
 
 clear all
 

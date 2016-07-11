@@ -1,4 +1,4 @@
-load('julio10g.mat')
+load('julio11a.mat')
 
 fl=size(Fm);
 Nx = fl(1);
@@ -51,7 +51,7 @@ figure(3)
    hold on
    contour(fix0,[0 0],'r')
    axis equal
-   axis([1 22 1 40])
+   axis([1 20 1 40])
    %legend('\phi','\phi_0'),
     %getframe(gcf);
 %    hold off

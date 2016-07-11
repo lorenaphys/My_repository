@@ -18,7 +18,7 @@ alpha = 120;
 %%Energy=chemical+ surface tension+ fi-u-interaction + u-s interaction +
 %%membrane interaction near + far
 %%%%%%%%%%%%%%%%%%Difusion constans %%%%%%%%%%%%%%%%%%%%%%555
-Du1=10;
+Du1=1;
 %Du2=0.0;
 %Du3=0.00;
 %Du4=0;
@@ -105,8 +105,8 @@ fiini=fi;
         rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
 %         u1=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z+5).^2)/50));
         %u1=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-(R+2)).^2)/20));
-        u1=1.5*(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-7).^2)/80));
-	%u1 = 2.5*rand(Nx,Ny,Nz);
+        %u1=1.5*(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-7).^2)/80));
+	u1 = 2.5*rand(Nx,Ny,Nz);
        %u3=0.-u1;
   	%u1=u1+.2*(rand(Nx,Ny,Nz)-.5);
 %         u2=(u1+.6*(rand(Nx,Ny,Nz)-.5)).*(0);
@@ -344,5 +344,5 @@ end
 
 time = toc(t);
 
-save('prueba.mat');
+save('julio11d.mat');
 

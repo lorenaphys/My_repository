@@ -114,7 +114,6 @@ fiini=fi;
 %         u4=(u1+.02*(rand(Nx,Ny,Nz)-.5)).*0;
        
 % 
-         u1(fi<=-.9)=0;
  %        v(fi<=-.9)=0;
 %%    store the initial domain
 
@@ -132,6 +131,7 @@ ct=0;
     Sm = zeros(Nx,Ny,Nz,NF);
     Fm(:,:,:,1) = fi;
     Um(:,:,:,1) = u1;
+    u1(fi<=-.9)=0;
     
     t = tic();
     disp(1);    

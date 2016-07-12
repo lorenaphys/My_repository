@@ -3,7 +3,7 @@
 %clear all
 
 dx=1;
-NF=200;
+NF=300;
 sig=0*(1:NF);
 ep1=1;
 ep=ep1^2;
@@ -105,7 +105,7 @@ fiini=fi;
         rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
         %u1=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z+5).^2)/50));
         %u1=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-(R+2)).^2)/20));
-        u1=1.5*(exp(-((X-Nx/2).^2+(Y-Ny/3).^2+(Z-9).^2)/50));
+        u1=1.5*(exp(-((X-Nx/2).^2+(Y-Ny/3).^2+(Z-9).^2)/30));
 	%u1 = 2.5*rand(Nx,Ny,Nz);
        %u3=0.-u1;
   	%u1=u1+.2*(rand(Nx,Ny,Nz)-.5);
@@ -344,4 +344,4 @@ end
 
 time = toc(t);
 
-save('julio11h.mat');
+save('julio11i.mat');

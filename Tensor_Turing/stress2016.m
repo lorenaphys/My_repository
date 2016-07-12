@@ -3,7 +3,7 @@
 %clear all
 
 dx=1;
-NF=300;
+NF=200;
 sig=0*(1:NF);
 ep1=1;
 ep=ep1^2;
@@ -12,7 +12,7 @@ Nx=40;
 Ny=40;
 Nz=70;
 R=11;
-N=2;
+N=3;
 alpha = 120;
 %%% wfi=0.5*Afi*mu.^2 + 0.5*sigma*gradfi + 0.5*AI*UI + 0.5*As*BI + 0.5*As*(fi.^2 -1).*BS + 0.5*Af*(fi.^2).*BF;
 %%Energy=chemical+ surface tension+ fi-u-interaction + u-s interaction +
@@ -103,9 +103,9 @@ fiini=fi;
         RZ=(Y)*sin(tetar)+(Z)*cos(tetar);
         teta=atan2((RY-Ny/2),(RX-Nx/2));
         rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
-        %u1=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z+5).^2)/50));
+        u1=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z+5).^2)/50));
         %u1=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-(R+2)).^2)/20));
-        u1=1.5*(exp(-((X-Nx/2).^2+(Y-Ny/3).^2+(Z-9).^2)/30));
+        %u1=1.5*(exp(-((X-Nx/2).^2+(Y-Ny/3).^2+(Z-9).^2)/30));
 	%u1 = 2.5*rand(Nx,Ny,Nz);
        %u3=0.-u1;
   	%u1=u1+.2*(rand(Nx,Ny,Nz)-.5);
@@ -344,4 +344,4 @@ end
 
 time = toc(t);
 
-save('julio11i.mat');
+save('julio11j.mat');

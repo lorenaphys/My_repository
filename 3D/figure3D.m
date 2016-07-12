@@ -21,8 +21,8 @@ figure(1)
      isocolors(cdata,p4);
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
-     axis equal, view(-66,12), axis off
-     axis([1 40 1 40 1 70]),
+     axis equal, view(-16,24), axis off
+     axis([5 35 5 35 1 20]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
@@ -35,8 +35,8 @@ figure(2)
      isocolors(cdata,p4);
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
-     axis equal, view(-66,12), axis off
-     axis([1 40 1 40 1 70]),
+     axis equal, view(-16,24), axis off
+     axis([4 35 4 35 1 20]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
@@ -48,7 +48,7 @@ figure(3)
    hold on
    contour(fix0,[0 0],'r')
    axis equal
-   axis([1 40 1 40])
+   axis([1 20 1 40])
     %getframe(gcf);
 %    hold off
     

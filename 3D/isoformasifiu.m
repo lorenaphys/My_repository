@@ -3,7 +3,7 @@
 %clear all
 
 
-NF=300;
+NF=200;
 ep1 = 2;
 ep = ep1^2;
 sigma = -0.1;
@@ -55,13 +55,13 @@ Fm(:,:,:,1) = fi;
 %Rompimiento de simetria
     R = 9;
     %[~,R1] = min(abs(fi(Nx/2,Ny/2,:)));
-    N = 5;
+    N = 2;
     [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
         teta=atan2((Y-Ny/2),(X-Nx/2));
         rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-        u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/3-.5).^2+(Z-9.5).^2)/50);
+        %u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/3-.5).^2+(Z-9.5).^2)/50);
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
-        %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
+        u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
         %u=2.5*rand(Nx,Ny,Nz);
        
      Um(:,:,:,1) = u;
@@ -167,4 +167,4 @@ end
 time = toc(t);
  
 
-save('julio12c.mat');
+save('julio12d.mat');

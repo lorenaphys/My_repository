@@ -1,4 +1,4 @@
-load('julio12d.mat')
+load('julio12e.mat')
 
 fl=size(Fm);
 Nx = fl(1);
@@ -21,7 +21,7 @@ figure(1)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off
-     axis([5 35 5 35 1 20]),
+     axis([1 40 1 40 1 70]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
@@ -35,7 +35,7 @@ figure(2)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off
-     axis([4 35 4 35 1 20]),
+     axis([1 40 1 40 1 70]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar

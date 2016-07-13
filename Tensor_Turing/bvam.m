@@ -3,23 +3,23 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 200;
-step = 50;
-Afi = 0.5;
-As = 0.05;%0.25
-Af = 0.05;
+NF = 10;
+step = 5;
+Afi = 1;
+As = 0.01;%0.25
+Af = 0.01;
 sigma = -0.1;
-ep = 1e-5;%0.06
+ep = 1;%0.06
 %Du = 1e-4;
-Dfi = 0.5;%1
-du =10*Dfi;
+Dfi = 1;%1
+du =1;
 %eta = 1;
 u1 = 0;
 u2 = 1;
 u3 = 0;
 beta = 0.5;
-L = -0.15;
-alpha = 0.1;%5
+L = 0.07;
+alpha = 120;%5
 dt = 1e-5;
 dt1 = 500*dt;
 cont = 8e4;
@@ -62,36 +62,28 @@ for i=1:Nx
    end
 end
 
-% for i = 20:30
-%    for j = 20:30
-%       for k = 15:45
-%          fi(i,j,k) = -1; 
-%       end
-%    end
-% end
-
 %Condicion inicial para el morfogeno
 
 N = 0;
 [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
-%teta=atan2((Y-Ny/2),(X-Nx/2));
-%rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-%u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
+teta=atan2((Y-Ny/2),(X-Nx/2));
+rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
+u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
 %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
 %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-1).^2)/50));
 %u=2.5*rand(Nx,Ny,Nz);
 %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 
 %filotaxia
-tetar=0;   % X rotation
-fir=0;     % Z rotation
-RX=(X)*cos(fir)-(Y)*sin(fir)*cos(tetar)+(Z)*sin(fir)*sin(tetar);
-RY=(X)*sin(fir)+(Y)*cos(fir)*cos(tetar)-(Z)*cos(fir)*sin(tetar);
-RZ=(Y)*sin(tetar)+(Z)*cos(tetar);
-teta=atan2((RY-Ny/2),(RX-Nx/2));
-rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
-u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+...
-  (exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-7).^2)/50));
+%tetar=0;   % X rotation
+%fir=0;     % Z rotation
+%RX=(X)*cos(fir)-(Y)*sin(fir)*cos(tetar)+(Z)*sin(fir)*sin(tetar);
+%RY=(X)*sin(fir)+(Y)*cos(fir)*cos(tetar)-(Z)*cos(fir)*sin(tetar);
+%RZ=(Y)*sin(tetar)+(Z)*cos(tetar);
+%teta=atan2((RY-Ny/2),(RX-Nx/2));
+%rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
+%u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+...
+%  (exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-7).^2)/50));
 v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 
 %iteraciones del modelo
@@ -114,6 +106,7 @@ Um(:,:,:,1) = u;
 u(fi<=-0.99) = 0;
 v(fi<=-0.99) = 0;
 
+disp(1)
 for i = 1:NF
    for j = 1:step
        
@@ -134,8 +127,9 @@ for i = 1:NF
            
       %crecimiento de fi debido a la sustancia
       lapFu = lapf3D(varFu);
-      I = lapFu*sum(sum(sum(fi >= -0.99)));
-      
+%      I = lapFu*sum(sum(sum(fi >= -0.99)));
+      I = u;      
+     
       %dinamica del meristemo 
       lapFfi = lapf3D(varFfi);
       fi = fi + Dfi*dt*(lapFfi + alpha*I);
@@ -182,10 +176,9 @@ for i = 1:NF
 %    end
    %u(fi<=-0.99) = 0;
    %v(fi<=-0.99) = 0;
-   disp(i)
+   disp(i+1)
 end
 
 time = toc(t);
 
-save('junio20c');
-                                                                                                                               
+save('julio13a');                                                                                                                               

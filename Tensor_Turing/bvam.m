@@ -159,6 +159,7 @@ for i = 1:NF
         
       %condicion para parar el proceso en caso de que fi tenga entradas
       %tipo NaN
+
         h=isnan(fi(Nx/2,Ny/2,Nz/2));
         if h==1;
             break

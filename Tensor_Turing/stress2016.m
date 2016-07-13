@@ -192,9 +192,6 @@ for i=1:NF
 %% Variations
 
           lapmu = lap3Dt(mu);
-%         H=mu;
-%         lap3Dt
-%         lapmu=lapH;
          
           lapu1 = lap3Dt(u1);
           %lapu2 = lap3Dt(u2);

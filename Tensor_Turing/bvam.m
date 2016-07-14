@@ -169,17 +169,16 @@ for i = 1:NF
    Um(:,:,:,i+1) = u;
    %implementacion del modelo bvam
    %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
-%    for k = 1:2e4
-%    lapu = lapf3D(u);
-%    lapv = lapf3D(v);
-%    u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
-%    v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
-%    end
    %u(fi<=-0.99) = 0;
    %v(fi<=-0.99) = 0;
    disp(i+1)
 end
-
+for k = 1:2e4
+lapu = lapf3D(u);
+lapv = lapf3D(v);
+u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
+v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+end
 time = toc(t);
 
-save('julio13a');                                                                                                                               
+save('julio13b');                                                                                                                               

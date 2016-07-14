@@ -4,7 +4,7 @@ f = size(Um);
 Nx = f(1);
 Ny = f(2);
 Nz = f(3);
-h = 11;
+h = 101;
 %M = struct('cdata',[],'colormap',[]);
 M1 = struct('cdata',[],'colormap',[]);
 

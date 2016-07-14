@@ -1,10 +1,10 @@
-load('junio20c.mat');
+load('julio13a.mat');
 
 f = size(Um);
 Nx = f(1);
 Ny = f(2);
 Nz = f(3);
-h = 57;
+h = 11;
 %M = struct('cdata',[],'colormap',[]);
 M1 = struct('cdata',[],'colormap',[]);
 
@@ -19,7 +19,7 @@ for i = 1:h
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off 
-     axis([1 40 1 40 1 30]),
+     axis([1 40 1 40 1 25]),
      colormap jet
      M1(i) = getframe;
      disp(i)

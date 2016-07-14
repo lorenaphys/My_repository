@@ -89,7 +89,7 @@ v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 %iteraciones del modelo
     %Variables que guardan todas la iteraciones
 Fm = zeros(Nx,Ny,Nz,NF+1);
-Um = zeros(Nx,Ny,Nz,NF+1);
+Um = zeros(Nx,Ny,Nz,301);
 
 %funcion que contabiliza el tiempo de proceso
 t = tic();
@@ -173,11 +173,14 @@ for i = 1:NF
    %v(fi<=-0.99) = 0;
    disp(i+1)
 end
-for k = 1:2e4
-lapu = lapf3D(u);
-lapv = lapf3D(v);
-u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
-v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+for k = 1:200
+	for l = 1:100
+		lapu = lapf3D(u);
+		lapv = lapf3D(v);
+		u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
+		v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+	end
+Um(:,:,:,101+k) = u;
 end
 time = toc(t);
 

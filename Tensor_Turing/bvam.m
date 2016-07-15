@@ -190,7 +190,7 @@ for k = 1:cont3
 		lapv = lapf3D(v);
 		u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
 		v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
-        	h=isnan(fi(Nx/2,Ny/2,Nz/2));
+        	h=isnan(u(Nx/2,Ny/2,Nz/2));
         	if h==1;
             		break
         	end

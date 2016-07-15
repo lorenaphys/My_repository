@@ -1,14 +1,23 @@
-load('julio13b.mat');
+load('julio14a.mat');
 
 f = size(Um);
 Nx = f(1);
 Ny = f(2);
 Nz = f(3);
 h = 101;
+fi0 = Fm(:,:,:,1);
 Fi = 0*Um;
-Fi(:,:,:,1:cont+1) = Fm(:,:,:,1);
-Fi(:,:,:,cont+2:cont+2+NF) = Fm(:,:,:,2:NF+1);
-Fi(:,:,:,cont+2+NF:cont+1+NF+cont3) = Fm(:,:,:,NF+1);
+for i = 1:cont+1
+	Fi(:,:,:,i) = fi0;
+end
+for j = cont+2:cont+2+NF 
+	Fi(:,:,:,j) = Fm(:,:,:,j-cont-1);
+end
+for k = cont+2+NF:cont+1+NF+cont3
+	Fi(:,:,:,k) = Fm(:,:,:,NF+1);
+end
+%Fi(:,:,:,cont+2:cont+2+NF) = Fm(:,:,:,2:NF+1);
+%Fi(:,:,:,cont+2+NF:cont+1+NF+cont3) = Fm(:,:,:,NF+1);
 %M = struct('cdata',[],'colormap',[]);
 M1 = struct('cdata',[],'colormap',[]);
 

@@ -182,8 +182,8 @@ for i = 1:NF
 end
 
 disp('cont3 = ')
-u=.1*u+2*(rand(Nx,Ny,Nz)-.5);
-v=.1*v+2*(rand(Nx,Ny,Nz)-.5);
+u=.1*u+0.9*(rand(Nx,Ny,Nz)-.5);
+v=.1*v+0.9*(rand(Nx,Ny,Nz)-.5);
 for k = 1:cont3
 	for l = 1:cont4
 		lapu = lapf3D(u);
@@ -196,4 +196,4 @@ disp(k)
 end
 time = toc(t);
 
-save('julio15d');                                                                                                                               
+save('julio15e');                                                                                                                               

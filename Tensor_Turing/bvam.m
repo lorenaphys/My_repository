@@ -22,9 +22,9 @@ L = 0.07;
 alpha = 120;%5
 dt = 1e-5;
 dt1 = 500*dt;
-cont = 400;
+cont = 184;
 cont2 = 200;
-cont3 = 200;
+cont3 = 73;
 cont4 = 100;
 
 %Parametros del modelo BVAM
@@ -195,4 +195,4 @@ disp(k)
 end
 time = toc(t);
 
-save('julio14a');                                                                                                                               
+save('julio15a');                                                                                                                               

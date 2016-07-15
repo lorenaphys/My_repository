@@ -182,18 +182,22 @@ for i = 1:NF
 end
 
 disp('cont3 = ')
-u=.1*u+0.9*(rand(Nx,Ny,Nz)-.5);
-v=.1*v+0.9*(rand(Nx,Ny,Nz)-.5);
+u=.2*u+0.2*(rand(Nx,Ny,Nz)-.5);
+v=.2*v+0.2*(rand(Nx,Ny,Nz)-.5);
 for k = 1:cont3
 	for l = 1:cont4
 		lapu = lapf3D(u);
 		lapv = lapf3D(v);
 		u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
 		v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+        	h=isnan(fi(Nx/2,Ny/2,Nz/2));
+        	if h==1;
+            		break
+        	end
 	end
 Um(:,:,:,cont+NF+1+k) = u;
 disp(k)
 end
 time = toc(t);
 
-save('julio15e');                                                                                                                               
+save('julio15f');                                                                                                                               

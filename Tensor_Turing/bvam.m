@@ -3,8 +3,8 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 15;
-step = 100;
+NF = 25;
+step = 200;
 Afi = 1;
 As = 0.01;%0.25
 Af = 0.01;
@@ -22,7 +22,7 @@ L = 0.07;
 alpha = 120;%5
 dt = 1e-5;
 dt1 = 500*dt;
-cont = 184;
+cont = 200;
 cont2 = 200;
 cont3 = 73;
 cont4 = 100;
@@ -195,4 +195,4 @@ disp(k)
 end
 time = toc(t);
 
-save('julio15a');                                                                                                                               
+save('julio15b');                                                                                                                               

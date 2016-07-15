@@ -24,7 +24,7 @@ dt = 1e-5;
 dt1 = 500*dt;
 cont = 200;
 cont2 = 200;
-cont3 = 73;
+cont3 = 200;
 cont4 = 100;
 
 %Parametros del modelo BVAM
@@ -182,8 +182,8 @@ for i = 1:NF
 end
 
 disp('cont3 = ')
-u=.2*u+0.2*(rand(Nx,Ny,Nz)-.5);
-v=.2*v+0.2*(rand(Nx,Ny,Nz)-.5);
+u=2.5*(rand(Nx,Ny,Nz)-.5);
+v=.2*u+0.2*(rand(Nx,Ny,Nz)-.5);
 for k = 1:cont3
 	for l = 1:cont4
 		lapu = lapf3D(u);
@@ -200,4 +200,4 @@ disp(k)
 end
 time = toc(t);
 
-save('julio15g');                                                                                                                               
+save('julio15h');                                                                                                                               

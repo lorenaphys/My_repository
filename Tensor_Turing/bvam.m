@@ -176,13 +176,14 @@ for i = 1:NF
    Fm(:,:,:,i+1) = fi;
    Um(:,:,:,cont+1+i) = u;
    %implementacion del modelo bvam
-   %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
    %u(fi<=-0.99) = 0;
    %v(fi<=-0.99) = 0;
    disp(i)
 end
 
 disp('cont3 = ')
+u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
+v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 for k = 1:cont3
 	for l = 1:cont4
 		lapu = lapf3D(u);
@@ -195,4 +196,4 @@ disp(k)
 end
 time = toc(t);
 
-save('julio15b');                                                                                                                               
+save('julio15c');                                                                                                                               

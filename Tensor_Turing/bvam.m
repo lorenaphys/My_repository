@@ -3,7 +3,7 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 100;
+NF = 15;
 step = 100;
 Afi = 1;
 As = 0.01;%0.25
@@ -22,7 +22,10 @@ L = 0.07;
 alpha = 120;%5
 dt = 1e-5;
 dt1 = 500*dt;
-cont = 8e4;
+cont = 400;
+cont2 = 200;
+cont3 = 200;
+cont4 = 100;
 
 %Parametros del modelo BVAM
 
@@ -89,24 +92,29 @@ v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 %iteraciones del modelo
     %Variables que guardan todas la iteraciones
 Fm = zeros(Nx,Ny,Nz,NF+1);
-Um = zeros(Nx,Ny,Nz,301);
+Um = zeros(Nx,Ny,Nz,NF+1+cont+cont3);
+Um(:,:,:,1) = u;
 
 %funcion que contabiliza el tiempo de proceso
 t = tic();
+disp('cont =')
 
-for l=1:cont
-      lapu = lapf3D(u);
-      lapv = lapf3D(v);
-      u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
-      v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+for i = 1:cont
+	for j = 1:cont2
+        	lapu = lapf3D(u);
+        	lapv = lapf3D(v);
+        	u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
+        	v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+	end
+	Um(:,:,:,i+1) = u;
+	disp(i)
 end
 
 Fm(:,:,:,1) = fi;
-Um(:,:,:,1) = u;
 u(fi<=-0.99) = 0;
 v(fi<=-0.99) = 0;
 
-disp(1)
+disp('NF =')
 for i = 1:NF
    for j = 1:step
        
@@ -166,22 +174,25 @@ for i = 1:NF
         end
    end
    Fm(:,:,:,i+1) = fi;
-   Um(:,:,:,i+1) = u;
+   Um(:,:,:,cont+1+i) = u;
    %implementacion del modelo bvam
    %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
    %u(fi<=-0.99) = 0;
    %v(fi<=-0.99) = 0;
-   disp(i+1)
+   disp(i)
 end
-for k = 1:200
-	for l = 1:100
+
+disp('cont3 = ')
+for k = 1:cont3
+	for l = 1:cont4
 		lapu = lapf3D(u);
 		lapv = lapf3D(v);
 		u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
 		v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
 	end
-Um(:,:,:,101+k) = u;
+Um(:,:,:,cont+NF+1+k) = u;
+disp(k)
 end
 time = toc(t);
 
-save('julio13b');                                                                                                                               
+save('julio14a');                                                                                                                               

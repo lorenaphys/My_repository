@@ -1,4 +1,4 @@
-load('julio15b.mat');
+load('julio15d.mat');
 
 f = size(Um);
 Nx = f(1);

@@ -3,7 +3,7 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 25;
+NF = 20;
 step = 200;
 Afi = 1;
 As = 0.01;%0.25
@@ -200,4 +200,4 @@ disp(k)
 end
 time = toc(t);
 
-save('julio15f');                                                                                                                               
+save('julio15g');                                                                                                                               

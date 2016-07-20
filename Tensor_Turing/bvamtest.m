@@ -35,10 +35,10 @@ eta1 = 0.450;
 %Condicion inicial para el morfogeno
 
 %N = 0;
-%[X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
+[X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
 %teta=atan2((Y-Ny/2),(X-Nx/2));
 %rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-%u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
+u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
 %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
 %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-1).^2)/50));
 %u=2.5*rand(Nx,Ny,Nz);
@@ -54,7 +54,7 @@ eta1 = 0.450;
 % u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-7).^2)/50));
 %u0=sum(sum(sum(u)))/Nx/Ny/Nz;
         
-v=.1*u0+.2*(rand(Nx,Ny,Nz)-.5);
+v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 
 %iteraciones del modelo
     %Variables que guardan todas la iteraciones
@@ -104,4 +104,4 @@ disp(i)
 end
 time = toc(t);
 
-save('junio17c');                 
+save('junio20a');                 

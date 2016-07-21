@@ -3,7 +3,7 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 50;
+NF = 20;
 step = 200;
 Afi = 1;
 As = 0.01;%0.25
@@ -182,8 +182,8 @@ for i = 1:NF
 end
 
 disp('cont3 = ')
-u=2.5*(rand(Nx,Ny,Nz)-.5);
-v=.2*u+0.2*(rand(Nx,Ny,Nz)-.5);
+%u=2.5*(rand(Nx,Ny,Nz)-.5);
+%v=.2*u+0.2*(rand(Nx,Ny,Nz)-.5);
 for k = 1:cont3
 	for l = 1:cont4
 		lapu = lapf3D(u);

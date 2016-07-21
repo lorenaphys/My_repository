@@ -3,7 +3,7 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 20;
+NF = 50;
 step = 200;
 Afi = 1;
 As = 0.01;%0.25
@@ -22,10 +22,10 @@ L = 0.07;
 alpha = 120;%5
 dt = 1e-5;
 dt1 = 500*dt;
-cont = 200;
+cont = 350;
 cont2 = 200;
-cont3 = 200;
-cont4 = 100;
+cont3 = 80;
+cont4 = 200;
 
 %Parametros del modelo BVAM
 
@@ -71,7 +71,7 @@ N = 0;
 [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
 teta=atan2((Y-Ny/2),(X-Nx/2));
 rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/50);
+u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/20);
 %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
 %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-1).^2)/50));
 %u=2.5*rand(Nx,Ny,Nz);
@@ -200,4 +200,4 @@ disp(k)
 end
 time = toc(t);
 
-save('julio15h');                                                                                                                               
+save('julio21a');                                                                                                                               

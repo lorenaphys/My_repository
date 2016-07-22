@@ -30,6 +30,7 @@ eta1 = 0.450;
 % b = -1.005;
 % eta1 = 0.199;
 
+disp('bvam')
 for i = cont1:cont2
 	for j = 1:cont3
         	lapu = lapf3D(u);
@@ -37,6 +38,6 @@ for i = cont1:cont2
         	u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
         	v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
 	end
-	Um(:,:,:,i+1) = u;
+	Um(:,:,:,i) = u;
 	disp(i)
 end

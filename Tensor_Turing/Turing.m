@@ -73,11 +73,11 @@ multifase(Ucont2,Fcont2,cont2+1,cont2+1+cont4,cont3);
 
 Um(:,:,:,cont2+1+cont4) = Ucont4;
 Fm(:,:,:,cont2+1+cont4) = Fcont4;
-bvam2(Ucont4,Fcont4,cont2+cont4+2,cont2+cont4+2+cont5,cont3)
+bvam2(Ucont4,Fcont4,cont2+cont4+2,cont2+cont4+2+cont5,cont3);
 
 Um(:,:,:,cont2+cont4+2+cont5) = Ucont5;
 Fm(:,:,:,cont2+cont4+2+cont5) = Fcont5;
-multifase(Ucont5,Fcont5,cont2+cont4+cont5+3,cont2+2*cont4+cont5+3,cont3)
+multifase(Ucont5,Fcont5,cont2+cont4+cont5+3,cont2+2*cont4+cont5+3,cont3);
 
 time = toc(t)/60;
 

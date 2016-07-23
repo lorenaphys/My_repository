@@ -39,5 +39,6 @@ for i = cont1:cont2
         	v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
 	end
 	Um(:,:,:,i) = u;
+	Fm(:,:,:,i) = Fi;
 	disp(i)
 end

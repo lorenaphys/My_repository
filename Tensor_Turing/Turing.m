@@ -48,8 +48,8 @@ v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 
 
 %Definiendo Fm y Um
-Fm = zeros(Nx,Ny,Nz,cont2+2*cont4+cont5+1);
-Um = zeros(Nx,Ny,Nz,cont2+2*cont4+cont5+1);
+Fm = zeros(Nx,Ny,Nz,cont2+2*cont4+cont5+3);
+Um = zeros(Nx,Ny,Nz,cont2+2*cont4+cont5+3);
 Fm(:,:,:,1) = fi;
 Um(:,:,:,1) = u;
 
@@ -62,8 +62,23 @@ cont3 = 200;
 cont4 = 50;
 cont5 = 20;
 
+%Funcion tic toc
+t = tic();
+
 bvam2(u,fi,cont1,cont2,cont3);
 
 Um(:,:,:,cont2) = Ucont2;
 Fm(:,:,:,cont2) = Fcont2;
-multifase(Ucont2,Fi,cont1,cont2,cont3)
+multifase(Ucont2,Fcont2,cont2+1,cont2+1+cont4,cont3);
+
+Um(:,:,:,cont2+1+cont4) = Ucont4;
+Fm(:,:,:,cont2+1+cont4) = Fcont4;
+bvam2(Ucont4,Fcont4,cont2+cont4+2,cont2+cont4+2+cont5,cont3)
+
+Um(:,:,:,cont2+cont4+2+cont5) = Ucont5;
+Fm(:,:,:,cont2+cont4+2+cont5) = Fcont5;
+multifase(Ucont5,Fcont5,cont2+cont4+cont5+3,cont2+2*cont4+cont5+3,cont3)
+
+time = toc(t)/60;
+
+save('julio22a.mat')

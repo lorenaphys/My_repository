@@ -68,19 +68,19 @@ t = tic();
 
 bvam2(u,fi,v,cont1,cont2,cont3);
 
-Um(:,:,:,cont2) = Ucont2;
-Fm(:,:,:,cont2) = Fcont2;
-Vm(:,:,:,cont2) = Vcont2;
+Ucont2 = Um(:,:,:,cont2);
+Fcont2 = Fm(:,:,:,cont2);
+Vcont2 = Vm(:,:,:,cont2);
 multifase(Ucont2,Fcont2,Vcont2,cont2+1,cont2+1+cont4,cont3);
 
-Um(:,:,:,cont2+1+cont4) = Ucont4;
-Fm(:,:,:,cont2+1+cont4) = Fcont4;
-Vm(:,:,:,cont2+1+cont4) = Vcont4;
+Ucont4 = Um(:,:,:,cont2+1+cont4);
+Fcont4 = Fm(:,:,:,cont2+1+cont4);
+Vcont4 = Vm(:,:,:,cont2+1+cont4);
 bvam2(Ucont4,Fcont4,Vcont4,cont2+cont4+2,cont2+cont4+2+cont5,cont3);
 
-Um(:,:,:,cont2+cont4+2+cont5) = Ucont5;
-Fm(:,:,:,cont2+cont4+2+cont5) = Fcont5;
-Vm(:,:,:,cont2+cont4+2+cont5) = Vcont5;
+Ucont5 = Um(:,:,:,cont2+cont4+2+cont5);
+Fcont5 = Fm(:,:,:,cont2+cont4+2+cont5);
+Vcont5 = Vm(:,:,:,cont2+cont4+2+cont5);
 multifase(Ucont5,Fcont5,Vcont5,cont2+cont4+cont5+3,cont2+2*cont4+cont5+3,cont3);
 
 time = toc(t)/60;

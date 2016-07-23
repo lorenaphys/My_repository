@@ -17,6 +17,13 @@ alpha = 120;
 dt = 1e-5;
 dt1 = 500*dt;
 
+%Contadores para el proceso
+cont1 = 2;
+cont2 = 351;
+cont3 = 200;
+cont4 = 50;
+cont5 = 20;
+
 %Condicion inicial del meristemo
 fi=ones(Nx,Ny,Nz);
 r = zeros(Nx,Ny,Nz);
@@ -54,13 +61,6 @@ Fm(:,:,:,1) = fi;
 Um(:,:,:,1) = u;
 
 disp(1)
-
-%Contadores para el proceso
-cont1 = 2;
-cont2 = 351;
-cont3 = 200;
-cont4 = 50;
-cont5 = 20;
 
 %Funcion tic toc
 t = tic();

@@ -1,13 +1,16 @@
-function bvam2(U,Fi,cont1,cont2,cont3)
+function bvam2(U,Fi,V,cont1,cont2,cont3)
 %%% cont1 indica con qué número inicia el primer loop
 %%% cont2 indica con qué número termina el primer loop
 %%% cont3 indica con qué número termina el segundo loop, ya que este siempre inicia en 1
 
-f = size(Fi
-U = u;
+f = size(Fi);
+u = U;
+v = V;
 Nx = f(1);
 Ny = f(2);
 Nz = f(3);
+dt = 1e-5;
+dt1 = 500*dt;
 
 %Parametros del modelo BVAM
 
@@ -31,7 +34,7 @@ eta1 = 0.450;
 % b = -1.005;
 % eta1 = 0.199;
 
-disp('bvam')
+disp('BVAM')
 for i = cont1:cont2
 	for j = 1:cont3
         	lapu = lapf3D(u);
@@ -41,5 +44,6 @@ for i = cont1:cont2
 	end
 	Um(:,:,:,i) = u;
 	Fm(:,:,:,i) = Fi;
+	Vm(:,:,:,i) = v;
 	disp(i)
 end

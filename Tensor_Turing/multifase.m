@@ -1,4 +1,4 @@
-function multifase(U,Fi,cont1,cont2,cont3)
+function multifase(U,Fi,V,cont1,cont2,cont3)
 U = u;
 Fi = fi;
 
@@ -63,5 +63,6 @@ for i = cont1:cont2
    end
    Fm(:,:,:,i) = fi;
    Um(:,:,:,i) = u;
+   Fm(:,:,:,i) = V;
    disp(i)
 end

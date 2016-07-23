@@ -1,6 +1,26 @@
 function multifase(U,Fi,V,cont1,cont2,cont3)
-U = u;
-Fi = fi;
+u = U;
+fi = Fi;
+
+f = size(Fi);
+Nx = f(1);
+Ny = f(2);
+Nz = f(3);
+
+Afi = 1;
+As = 0.01;
+Af = 0.01;
+sigma = -0.1;
+ep = 1;
+Dfi = 1;
+du =1;
+u1 = 0;
+u2 = 1;
+u3 = 0;
+beta = 0.5;
+L = 0.07;
+alpha = 120;
+dt = 1e-5;
 
 disp('multifase')
 for i = cont1:cont2
@@ -51,7 +71,6 @@ for i = cont1:cont2
 %       v(:,Ny,:) = v(:,Ny-1,:);
 %       noFlux(fi,fi);
         noFlux2(fi,u);
-        noFlux2(fi,v);
         
       %condicion para parar el proceso en caso de que fi tenga entradas
       %tipo NaN

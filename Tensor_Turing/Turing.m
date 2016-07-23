@@ -1,20 +1,7 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-Afi = 1;
-As = 0.01;
-Af = 0.01;
-sigma = -0.1;
-ep = 1;
-Dfi = 1;
-du =1;
-u1 = 0;
-u2 = 1;
-u3 = 0;
-beta = 0.5;
-L = 0.07;
-alpha = 120;
-dt = 1e-5;
+
 
 %Contadores para el proceso
 cont1 = 2;

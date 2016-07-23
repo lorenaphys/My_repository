@@ -1,4 +1,6 @@
 function multifase(U,Fi,cont1,cont2,cont3)
+U = u;
+Fi = fi;
 
 disp('multifase')
 for i = cont1:cont2

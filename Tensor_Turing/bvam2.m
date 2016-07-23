@@ -3,7 +3,8 @@ function bvam2(U,Fi,cont1,cont2,cont3)
 %%% cont2 indica con qué número termina el primer loop
 %%% cont3 indica con qué número termina el segundo loop, ya que este siempre inicia en 1
 
-f = size(Fi);
+f = size(Fi
+U = u;
 Nx = f(1);
 Ny = f(2);
 Nz = f(3);

@@ -1,21 +1,21 @@
-load('julio21a.mat');
+load('julio22a.mat');
 
 f = size(Um);
 Nx = f(1);
 Ny = f(2);
 Nz = f(3);
 h = 101;
-fi0 = Fm(:,:,:,1);
-Fi = 0*Um;
-for i = 1:cont+1
-	Fi(:,:,:,i) = fi0;
-end
-for j = cont+2:cont+2+NF 
-	Fi(:,:,:,j) = Fm(:,:,:,j-cont-1);
-end
-for k = cont+2+NF:cont+1+NF+cont3
-	Fi(:,:,:,k) = Fm(:,:,:,NF+1);
-end
+%fi0 = Fm(:,:,:,1);
+%Fi = 0*Um;
+%for i = cont1:cont2
+	%Fi(:,:,:,i) = fi0;
+%end
+%for j = cont+2:cont+2+NF 
+	%Fi(:,:,:,j) = Fm(:,:,:,j-cont-1);
+%end
+%for k = cont2+cont4+2:cont2+cont4+2+cont5
+	%Fi(:,:,:,k) = Fm(:,:,:,cont2+cont4+1);
+%end
 %M = struct('cdata',[],'colormap',[]);
 M1 = struct('cdata',[],'colormap',[]);
 
@@ -23,7 +23,7 @@ for i = 1:f(4)
      clf
      cdata = smooth3((Um(:,:,:,i)-min(min(min(Um(:,:,:,i)))))./...
              (max(max(max(Um(:,:,:,i))))-min(min(min(Um(:,:,:,i))))),'box',5);
-     fi = smooth3(Fi(:,:,:,i),'box',5);
+     fi = smooth3(Fm(:,:,:,i),'box',5);
      p4=patch(isosurface(fi,0));
      isonormals(fi,p4);
      isocolors(cdata,p4);

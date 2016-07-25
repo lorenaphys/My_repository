@@ -1,11 +1,9 @@
-function bvam2(U,Fi,V,cont1,cont2,cont3)
+function bvam2(Um,Fm,Vm,cont1,cont2,cont3)
 %%% cont1 indica con qué número inicia el primer loop
 %%% cont2 indica con qué número termina el primer loop
 %%% cont3 indica con qué número termina el segundo loop, ya que este siempre inicia en 1
 
-f = size(Fi);
-u = U;
-v = V;
+f = size(Fm);
 Nx = f(1);
 Ny = f(2);
 Nz = f(3);
@@ -34,6 +32,11 @@ eta1 = 0.450;
 % b = -1.005;
 % eta1 = 0.199;
 
+%Definiendo los valores de u, y v
+u = Um(:,:,:,cont1-1);
+v = Vm(:,:,:,cont1-1);
+fi = Fm(:,:,:,cont1-1);
+
 disp('BVAM')
 for i = cont1:cont2
 	for j = 1:cont3
@@ -43,7 +46,9 @@ for i = cont1:cont2
         	v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
 	end
 	Um(:,:,:,i) = u;
-	Fm(:,:,:,i) = Fi;
 	Vm(:,:,:,i) = v;
+	Fm(:,:,:,i) = fi;
 	disp(i)
 end
+
+

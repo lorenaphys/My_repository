@@ -1,7 +1,7 @@
 %%% Modelo BVAM sin tensor de esfuerzos
 
-load('junio17a.mat');
-u0 = Um(:,:,:,2);
+%load('junio17a.mat');
+%u0 = Um(:,:,:,2);
 Nx = 40;
 Ny = 40;
 Nz = 70;
@@ -38,7 +38,7 @@ eta1 = 0.450;
 [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
 %teta=atan2((Y-Ny/2),(X-Nx/2));
 %rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/20);
+u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/80);
 %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
 %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-1).^2)/50));
 %u=2.5*rand(Nx,Ny,Nz);
@@ -61,7 +61,7 @@ v=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
 Um = zeros(Nx,Ny,Nz,NF+1);
 Vm = zeros(Nx,Ny,Nz,NF+1);
 
-Um(:,:,:,1) = u0;
+Um(:,:,:,1) = u;
 Vm(:,:,:,1) = v;
 
 
@@ -104,4 +104,4 @@ disp(i)
 end
 time = toc(t);
 
-save('julio20a');                 
+save('julio26c');                 

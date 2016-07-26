@@ -1,4 +1,4 @@
-load('julio26a.mat');
+load('julio26b.mat');
 
 f = size(Um);
 Nx = f(1);
@@ -19,7 +19,7 @@ h = 101;
 %M = struct('cdata',[],'colormap',[]);
 M1 = struct('cdata',[],'colormap',[]);
 
-for i = 250:f(4)
+for i = 1:f(4)
      clf
      cdata = smooth3((Um(:,:,:,i)-min(min(min(Um(:,:,:,i)))))./...
              (max(max(max(Um(:,:,:,i))))-min(min(min(Um(:,:,:,i))))),'box',5);
@@ -38,16 +38,7 @@ end
 
 %for k = 1:f(4)
 %   R = 11;
-%   u = Um(:,:,:,k);
-%%     [x,y,z] = meshgrid(1:1:Ny,1:1:Nx,1:1:Nz);
-%%     xslice = [Nx/2-R:R:Nx/2+R,Nx/2-R:R:Nx/2+R];yslice = [Ny/2-R:R:Ny/2+R,Ny/2-R:R:Ny/2+R]; zslice = [0:3:R,0:3:R];
-%%     p3=slice(x,y,z,u,xslice,yslice,zslice);
-%%     set(p3,'FaceColor','flat','EdgeColor','none','FaceAlpha',0.1);
-%%     rs=max(abs(max(max(max(u)))),abs(min(min(min(u)))));
-%%     axis equal, view(74,18), 
-%%     set(gca,'CLim',[-rs,rs])
-%%     colormap hsv;
- 
+%   u = Um(:,:,:,k); 
 %    cdata = smooth3((Um(:,:,:,k)-min(min(min(Um(:,:,:,k)))))./...
 %            (max(max(max(Um(:,:,:,k))))-min(min(min(Um(:,:,:,k))))),'box',5);
 %    [x,y,z] = meshgrid(1:1:Nx,1:1:Ny,1:1:Nz);

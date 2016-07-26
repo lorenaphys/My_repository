@@ -45,6 +45,8 @@ for i = cont1:cont2
         	lapv = lapf3D(v);
         	u = u + dt1*(Du*lapu + u+a*v-C*u.*v-u.*v.^2);
         	v = v + dt1*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
+            u(fi<=-0.99) = 0;
+            v(fi<=-0.99) = 0;
 	end
 	Um(:,:,:,i) = u;
 	Vm(:,:,:,i) = v;

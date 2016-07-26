@@ -1,4 +1,4 @@
-load('julio22a.mat');
+load('prueba.mat');
 
 f = size(Um);
 Nx = f(1);

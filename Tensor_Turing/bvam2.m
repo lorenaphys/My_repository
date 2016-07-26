@@ -1,12 +1,12 @@
-function bvam2(Um,Fm,Vm,cont1,cont2,cont3)
+function bvam2(cont1,cont2,cont3)
 %%% cont1 indica con qué número inicia el primer loop
 %%% cont2 indica con qué número termina el primer loop
 %%% cont3 indica con qué número termina el segundo loop, ya que este siempre inicia en 1
 
-f = size(Fm);
-Nx = f(1);
-Ny = f(2);
-Nz = f(3);
+% f = size(Fm);
+% Nx = f(1);
+% Ny = f(2);
+% Nz = f(3);
 dt = 1e-5;
 dt1 = 500*dt;
 
@@ -23,7 +23,7 @@ Du = D/eta;
 Dv = 1/eta;
 a = 1/0.899;
 b = -0.91/0.899;
-eta1 = 0.450;
+% eta1 = 0.450;
 
 %Segundo conujunto, para kc = 0.85 (ac = 2.583)
 
@@ -33,6 +33,7 @@ eta1 = 0.450;
 % eta1 = 0.199;
 
 %Definiendo los valores de u, y v
+global Fm Um Vm
 u = Um(:,:,:,cont1-1);
 v = Vm(:,:,:,cont1-1);
 fi = Fm(:,:,:,cont1-1);

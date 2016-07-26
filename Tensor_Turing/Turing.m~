@@ -5,7 +5,7 @@ Nz = 70;
 
 %Contadores para el proceso
 cont1 = 2;
-cont2 = 351;
+cont2 = 51;
 cont3 = 200;
 cont4 = 50;
 cont5 = 20;
@@ -63,13 +63,13 @@ multifase(cont2+1,cont2+1+cont4,cont3);
 
 %Ucont4 = Um(:,:,:,cont2+1+cont4);
 %Vcont4 = Vm(:,:,:,cont2+1+cont4);
-bvam2(cont2+cont4+2,cont2+cont4+2+cont5,cont3);
+%bvam2(Um,Fm,Vm,cont2+cont4+2,cont2+cont4+2+cont5,cont3);
 
 %Ucont5 = Um(:,:,:,cont2+cont4+2+cont5);
 %Fcont5 = Fm(:,:,:,cont2+cont4+1);
 %Vcont5 = Vm(:,:,:,cont2+cont4+2+cont5);
-multifase(cont2+cont4+cont5+3,cont2+2*cont4+cont5+3,cont3);
+%multifase(Um,Fm,Vm,cont2+cont4+cont5+3,cont2+2*cont4+cont5+3,cont3);
 
 time = toc(t)/60;
 
-save('julio22a.mat')
+save('prueba.mat')

@@ -1,9 +1,9 @@
-function multifase(Um,Fm,Vm,cont1,cont2,cont3)
+function multifase(cont1,cont2,cont3)
 
-f = size(Fm);
-Nx = f(1);
-Ny = f(2);
-Nz = f(3);
+% f = size(Fm);
+Nx = 40;
+Ny = 40;
+Nz =70;
 
 Afi = 1;
 As = 0.01;
@@ -20,7 +20,8 @@ L = 0.07;
 alpha = 120;
 dt = 1e-5;
 
-%Definiendo los valores de u y fi que serás utilizados 
+%Definiendo los valores de u y fi que serás utilizados
+global Fm Um Vm
 fi = Fm(:,:,:,cont1-1);
 u = Um(:,:,:,cont1-1);
 v = Vm(:,:,:,cont1-1);

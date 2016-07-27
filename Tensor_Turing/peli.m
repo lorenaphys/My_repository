@@ -1,4 +1,4 @@
-load('julio26d.mat');
+load('julio27a.mat');
 
 f = size(Um);
 Nx = f(1);
@@ -19,7 +19,7 @@ h = 101;
 %M = struct('cdata',[],'colormap',[]);
 M1 = struct('cdata',[],'colormap',[]);
 
-for i = 490:f(4)
+for i = 340:f(4)
      clf
      cdata = smooth3((Um(:,:,:,i)-min(min(min(Um(:,:,:,i)))))./...
              (max(max(max(Um(:,:,:,i))))-min(min(min(Um(:,:,:,i))))),'box',5);

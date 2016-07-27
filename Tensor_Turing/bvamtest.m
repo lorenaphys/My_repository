@@ -102,6 +102,6 @@ t = tic();
 %     N(iter) = getframe;
 disp(i)
 end
-time = toc(t);
+time = toc(t)/60;
 
 save('julio26c');                 

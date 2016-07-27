@@ -1,4 +1,4 @@
-load('julio27b.mat');
+load('julio27c.mat');
 
 f = size(Um);
 Nx = f(1);
@@ -30,7 +30,7 @@ for i = 1:f(4)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off 
-     axis([1 40 1 40 1 25]),
+     axis([1 40 1 40 15 50]),
      colormap jet
      M1(i) = getframe;
      disp(i)

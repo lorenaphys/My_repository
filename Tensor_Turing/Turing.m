@@ -7,7 +7,7 @@ Nz = 70;
 cont1 = 2;
 cont2 = 351;
 cont3 = 200;
-cont4 = 20;
+cont4 = 30;
 cont5 = 20;
 
 %Condicion inicial del meristemo
@@ -64,4 +64,4 @@ multifase(cont2+cont4+cont5+3,cont2+2*cont4+cont5+3,cont3);
 
 time = toc(t)/60;
 
-save('julio27e.mat')
+save('julio27f.mat')

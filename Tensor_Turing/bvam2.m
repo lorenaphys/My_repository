@@ -13,7 +13,7 @@ dt1 = 500*dt;
 %Parametros del modelo BVAM
 
 h = -1;
-C = 1.57;
+C = 0.119;
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 

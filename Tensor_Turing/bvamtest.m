@@ -13,7 +13,7 @@ dt = 0.005;
 %Parametros del modelo BVAM
 
 h = -1;
-C = 1.57;
+C = 0.119;
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 
@@ -104,4 +104,4 @@ disp(i)
 end
 time = toc(t)/60;
 
-save('julio28b*');                 
+save('julio30a');                 

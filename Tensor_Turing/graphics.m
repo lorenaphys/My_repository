@@ -1,5 +1,4 @@
-
-load('agosto1a.mat')
+load('julio25c.mat')
 
 fl=size(Fm);
 Nx = fl(1);
@@ -24,7 +23,7 @@ figure(1)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off %de (18,10) lo cambie a (-16,24)%segundo cambio para view, antes era (-16,24)%cambié view de (-14,40) a (-16,24)
-     axis([5 35 5 35 1 14.5]),
+     axis([5 35 5 35 1 14.6]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar

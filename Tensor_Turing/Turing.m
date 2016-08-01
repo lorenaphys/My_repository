@@ -5,7 +5,7 @@ Nz = 70;
 
 %Contadores para el proceso
 cont1 = 2;
-cont2 = 351;
+cont2 = 301;
 cont3 = 200;
 cont4 = 20;
 cont5 = 20;
@@ -28,11 +28,11 @@ end
 
 %Condicion inicial para el morfogeno
 
-N = 0;
+N = 5;
 [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
 teta=atan2((Y-Ny/2),(X-Nx/2));
 rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7).^2)/80);
+u=1.5*exp(-((X-Nx/2-.5).^2+(Y-Ny/2-.5).^2+(Z-7.5).^2)/50);
 %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
 %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-1).^2)/50));
 %u=2.5*rand(Nx,Ny,Nz);
@@ -56,20 +56,12 @@ t = tic();
 
 bvam2(cont1,cont2,cont3);
 
-%Ucont2 = Um(:,:,:,cont2);
-%Fcont2 = Fm(:,:,:,1);
-%Vcont2 = Vm(:,:,:,cont2);
 multifase(cont2+1,cont2+1+cont4,cont3);
 
-%Ucont4 = Um(:,:,:,cont2+1+cont4);
-%Vcont4 = Vm(:,:,:,cont2+1+cont4);
 bvam2(cont2+cont4+2,cont2+cont4+2+cont5,cont3);
 
-%Ucont5 = Um(:,:,:,cont2+cont4+2+cont5);
-%Fcont5 = Fm(:,:,:,cont2+cont4+1);
-%Vcont5 = Vm(:,:,:,cont2+cont4+2+cont5);
 multifase(cont2+cont4+cont5+3,cont2+2*cont4+cont5+3,cont3);
 
 time = toc(t)/60;
 
-save('julio26b.mat')
+save('agosto1b.mat')

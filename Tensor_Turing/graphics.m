@@ -1,18 +1,11 @@
-<<<<<<< HEAD
-load('julio25c.mat')
-=======
+
 load('agosto1a.mat')
->>>>>>> cd1ba5b57f88eef2828baa2ee05434af7e440c73
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-<<<<<<< HEAD
 f = fl(4);
-=======
-f = 284;
->>>>>>> cd1ba5b57f88eef2828baa2ee05434af7e440c73
 M = struct('cdata',[],'colormap',[]);
 fi0(:,:,:) = Fm(:,:,:,1);
 fi(:,:,:)=Fm(:,:,:,f);
@@ -31,11 +24,7 @@ figure(1)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off %de (18,10) lo cambie a (-16,24)%segundo cambio para view, antes era (-16,24)%cambié view de (-14,40) a (-16,24)
-<<<<<<< HEAD
      axis([5 35 5 35 1 14.5]),
-=======
-     axis([1 40 1 40 1 35]),
->>>>>>> cd1ba5b57f88eef2828baa2ee05434af7e440c73
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
@@ -50,11 +39,7 @@ figure(2)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off %de (18,10) lo cambie a (-16,24)%segundo cambio para view, antes era (-16,24)%cambié view de (-14,40) a (-16,24)
-<<<<<<< HEAD
      axis([4 35 4 35 1 15]),
-=======
-     axis([1 40 1 40 1 35]),
->>>>>>> cd1ba5b57f88eef2828baa2ee05434af7e440c73
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
@@ -67,11 +52,7 @@ figure(3)
    hold on
    contour(fix0,[0 0],'r')
    axis equal
-<<<<<<< HEAD
    axis([1 17 2 37])
-=======
-   axis([1 35 1 40])
->>>>>>> cd1ba5b57f88eef2828baa2ee05434af7e440c73
    %legend('\phi','\phi_0'),
     %getframe(gcf);
 %    hold off

@@ -1,4 +1,4 @@
-load('julio30l.mat')
+load('julio31a.mat')
 
 fl=size(Fm);
 Nx = fl(1);
@@ -23,7 +23,7 @@ figure(1)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off %de (18,10) lo cambie a (-16,24)%segundo cambio para view, antes era (-16,24)%cambié view de (-14,40) a (-16,24)
-     axis([4 35 4 35 19 52]),
+     axis([3 35 3 35 19 52]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
@@ -38,7 +38,7 @@ figure(2)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off %de (18,10) lo cambie a (-16,24)%segundo cambio para view, antes era (-16,24)%cambié view de (-14,40) a (-16,24)
-     axis([4 35 4 35 19 52]),
+     axis([3 35 3 35 19 52]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar

@@ -1,4 +1,4 @@
-load('julio29a*.mat')
+load('julio30d.mat')
 
 fl=size(Fm);
 Nx = fl(1);

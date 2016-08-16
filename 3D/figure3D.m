@@ -1,4 +1,4 @@
-load('julio12k.mat')
+load('agosto16a.mat')
 
 fl=size(Fm);
 Nx = fl(1);
@@ -21,7 +21,7 @@ figure(1)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,58), axis off
-     axis([5 35 5 35 20 50]),
+     axis([5 35 5 35 1 25]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
@@ -35,7 +35,7 @@ figure(2)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,58), axis off
-     axis([2 35 2 35 20 52]),
+     axis([2 35 2 35 1 25]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
@@ -47,7 +47,7 @@ figure(3)
    hold on
    contour(fix0,[0 0],'r')
    axis equal
-   axis([18 52 1 40])
+   axis([1 18 1 37])
     %getframe(gcf);
 %    hold off
     

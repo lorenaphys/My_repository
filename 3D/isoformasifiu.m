@@ -164,7 +164,7 @@ for iter=1:NF
     disp(iter+1);   
 end
 
-time = toc(t);
+time = toc(t)/60;
  
 
 save('agosto16a.mat');

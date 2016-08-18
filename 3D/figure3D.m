@@ -1,4 +1,4 @@
-load('agosto16d.mat')
+load('agosto16c.mat')
 
 fl=size(Fm);
 Nx = fl(1);
@@ -47,7 +47,7 @@ figure(3)
    hold on
    contour(fix0,[0 0],'r')
    axis equal
-   axis([2 18 1 37])
+   axis([2 18 2.5 37])
     %getframe(gcf);
 %    hold off
     

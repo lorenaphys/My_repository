@@ -98,14 +98,14 @@ fiini=fi;
 %         
         tetar=0;   % X rotation
         fir=0;     % Z rotation
-        RX=(X)*cos(fir)-(Y)*sin(fir)*cos(tetar)+(Z)*sin(fir)*sin(tetar);
-        RY=(X)*sin(fir)+(Y)*cos(fir)*cos(tetar)-(Z)*cos(fir)*sin(tetar);
-        RZ=(Y)*sin(tetar)+(Z)*cos(tetar);
-        teta=atan2((RY-Ny/2),(RX-Nx/2));
-        rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
-        u1=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z+5).^2)/50));
+        %RX=(X)*cos(fir)-(Y)*sin(fir)*cos(tetar)+(Z)*sin(fir)*sin(tetar);
+        %RY=(X)*sin(fir)+(Y)*cos(fir)*cos(tetar)-(Z)*cos(fir)*sin(tetar);
+        %RZ=(Y)*sin(tetar)+(Z)*cos(tetar);
+        %teta=atan2((RY-Ny/2),(RX-Nx/2));
+        %rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
+        %u1=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z+5).^2)/50));
         %u1=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-(R+2)).^2)/20));
-        %u1=1.5*(exp(-((X-Nx/2).^2+(Y-Ny/3).^2+(Z-9).^2)/30));
+        u1=1.5*(exp(-((X-Nx/2-0-5).^2+(Y-Ny/3-0.5).^2+(Z-9.5).^2)/50));
 	%u1 = 2.5*rand(Nx,Ny,Nz);
        %u3=0.-u1;
   	%u1=u1+.2*(rand(Nx,Ny,Nz)-.5);
@@ -339,6 +339,6 @@ hh=max(max(max(isnan(fi(:,:,:)))));
     disp(i+1)%time loop
 end
 
-time = toc(t);
+time = toc(t)/60;
 
-save('julio11o.mat');
+save('agosto18a.mat');

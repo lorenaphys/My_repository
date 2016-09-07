@@ -49,6 +49,7 @@ Um = zeros(Nx,Ny,Nz,NF+1);
 Sm = zeros(1,NF+1);
 
 Fm(:,:,:,1) = fi;
+fi0=fi;
 
 
 %%
@@ -137,7 +138,7 @@ for iter=1:NF
 %         fi(Nx,:,:)=fi(Nx-1,:,:);
 %         fi(:,1,:)=fi(:,2,:);
 %         fi(:,Ny,:)=fi(:,Ny-1,:);
-%         %fi(:,:,1)=fi(:,:,2);
+          fi(:,:,1)=fi0(:,:,1);
 %         %fi(:,:,Nz)=fi(:,:,Nz-1);
 %         u(1,:,:)=u(2,:,:);
 %         u(Nx,:,:)=u(Nx-1,:,:);
@@ -167,4 +168,4 @@ end
 time = toc(t)/60;
  
 
-save('08-24-16b.mat');
+save('sep6f.mat');

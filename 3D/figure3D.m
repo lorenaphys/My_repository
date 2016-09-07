@@ -1,4 +1,4 @@
-load('agosto24a.mat')
+load('sep6f.mat')
 
 fl=size(Fm);
 Nx = fl(1);
@@ -41,7 +41,8 @@ figure(2)
      %colorbar
 
 figure(3)
-   fix0(:,:) = Fm(:,Ny/2,:,1);
+   fi0 = smooth3(fi0,'box',5);
+   fix0(:,:) = fi0(:,Ny/2,:);
    fix(:,:)=fi(:,Ny/2,:);
    contour(fix,[0 0],'k')
    hold on

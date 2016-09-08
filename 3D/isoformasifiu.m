@@ -17,11 +17,12 @@ Ab = 0.5;
 As = 2;
 Af = 2;
 Dfi = 1;
-Du = 1;
-lambda = 0.1;
+Du = 30;
+lambda = 1.5;
 u1 = 0;
 u2 = 1;
 u3 = 0;
+alpha = 20;
 
 
 
@@ -127,7 +128,7 @@ for iter=1:NF
 %         sigma=B/Bs;
         
         %I=120*(G)*sum(sum(sum((fi>=-.99))))/Nx/Ny/Nz;
-        I = 120*u;
+        I = alpha*u;
         I(abs(fi)>=.9)=0;
         %I(fi<=0)=0;        
         
@@ -138,7 +139,7 @@ for iter=1:NF
 %         fi(Nx,:,:)=fi(Nx-1,:,:);
 %         fi(:,1,:)=fi(:,2,:);
 %         fi(:,Ny,:)=fi(:,Ny-1,:);
-          fi(:,:,1)=fi0(:,:,1);
+          %fi(:,:,1)=fi0(:,:,1);
 %         %fi(:,:,Nz)=fi(:,:,Nz-1);
 %         u(1,:,:)=u(2,:,:);
 %         u(Nx,:,:)=u(Nx-1,:,:);
@@ -168,4 +169,4 @@ end
 time = toc(t)/60;
  
 
-save('sep7a.mat');
+save('sep7b.mat');

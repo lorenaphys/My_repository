@@ -3,7 +3,7 @@
 %clear all
 
 
-NF=200;
+NF=400;
 ep1 = 2;
 ep = ep1^2;
 sigma = -0.1;
@@ -169,4 +169,4 @@ end
 time = toc(t)/60;
  
 
-save('sep7d.mat');
+save('sep8a.mat');

@@ -22,7 +22,7 @@ lambda = 1.5;
 u1 = 0;
 u2 = 1;
 u3 = 0;
-alpha = 20;
+alpha = 120;
 
 
 
@@ -169,4 +169,4 @@ end
 time = toc(t)/60;
  
 
-save('sep7b.mat');
+save('sep7c.mat');

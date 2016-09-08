@@ -1,4 +1,4 @@
-load('sep7b.mat')
+load('sep7c.mat')
 
 fl=size(Fm);
 Nx = fl(1);

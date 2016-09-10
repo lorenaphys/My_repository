@@ -17,7 +17,7 @@ Ab = 0.5;
 As = 2;
 Af = 2;
 Dfi = 1;
-Du = 1;
+Du = 10;
 lambda = 1.5;
 u1 = 0;
 u2 = 1;
@@ -169,4 +169,4 @@ end
 time = toc(t)/60;
  
 
-save('sep9a.mat');
+save('sep10a.mat');

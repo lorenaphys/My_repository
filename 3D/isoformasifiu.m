@@ -65,7 +65,7 @@ fi0=fi;
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
         %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
         %u=2.5*rand(Nx,Ny,Nz);
-        u = 1-u;
+        %u = 1-u;
        
      Um(:,:,:,1) = u;
      %Sm(1) = sigma;

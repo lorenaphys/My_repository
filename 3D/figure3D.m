@@ -1,10 +1,10 @@
-load('oct4a.mat')
+load('oct5b.mat')
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 161;
+f = 111;
 M = struct('cdata',[],'colormap',[]);
 fi(:,:,:)=Fm(:,:,:,f);
 u(:,:,:)=Um(:,:,:,f); 
@@ -21,7 +21,7 @@ figure(1)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off
-     axis([2 39 2 39 1 20]),
+     axis([1 40 1 40 1 20]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
@@ -35,7 +35,7 @@ figure(2)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off
-     axis([2 39 2 39 1 20]),
+     axis([1 40 1 40 1 20]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar

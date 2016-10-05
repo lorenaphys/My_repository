@@ -22,7 +22,7 @@ lambda = 1.5;
 u1 = 0;
 u2 = 1;
 u3 = 0;
-alpha = 120;
+alpha = 100;
 
 
 
@@ -172,4 +172,4 @@ end
 time = toc(t)/60;
  
 
-save('oct4f.mat');
+save('oct5a.mat');

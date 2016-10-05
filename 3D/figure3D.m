@@ -1,10 +1,10 @@
-load('oct6d.mat')
+load('oct6e.mat')
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 181;
+f = 66;
 M = struct('cdata',[],'colormap',[]);
 fi(:,:,:)=Fm(:,:,:,f);
 u(:,:,:)=Um(:,:,:,f); 
@@ -21,7 +21,7 @@ figure(1)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off
-     axis([1 40 1 40 1 20]),
+     axis([2 38 2 38 20 51]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
@@ -35,7 +35,7 @@ figure(2)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off
-     axis([1 40 1 40 1 20]),
+     axis([2 38 2 38 20 51]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
@@ -48,7 +48,7 @@ figure(3)
    hold on
    contour(fix0,[0 0],'r')
    axis equal
-   axis([1 17 1 39])
+   axis([15 55 1 38])
     %getframe(gcf);
 %    hold off
     

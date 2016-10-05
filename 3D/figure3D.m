@@ -1,10 +1,10 @@
-load('oct5b.mat')
+load('oct6a.mat')
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 111;
+f = 181;
 M = struct('cdata',[],'colormap',[]);
 fi(:,:,:)=Fm(:,:,:,f);
 u(:,:,:)=Um(:,:,:,f); 
@@ -48,7 +48,7 @@ figure(3)
    hold on
    contour(fix0,[0 0],'r')
    axis equal
-   axis([1 22 1 39])
+   axis([1 17 1 39])
     %getframe(gcf);
 %    hold off
     

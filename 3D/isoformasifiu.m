@@ -61,7 +61,7 @@ fi0=fi;
     [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
         %teta=atan2((Y-Ny/2),(X-Nx/2));
         %rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
-        u=1.5*exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-6.5).^2)/50);
+        u=1.5*exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-9).^2)/50);
         %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((-X+Nx/2-.5).^2+(-Y+Ny/2-.5).^2+(-Z+R+14).^2)/80));
         %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));%pueba 2, N=2
         %u=2.5*rand(Nx,Ny,Nz);
@@ -172,4 +172,4 @@ end
 time = toc(t)/60;
  
 
-save('oct4d.mat');
+save('oct4e.mat');

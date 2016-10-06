@@ -57,7 +57,7 @@ fi0=fi;
 %Rompimiento de simetria
     R = 9;
     %[~,R1] = min(abs(fi(Nx/2,Ny/2,:)));
-    N = 4;
+    N = 5;
     [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
         teta=atan2((Y-Ny/2),(X-Nx/2));
         rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
@@ -172,4 +172,4 @@ end
 time = toc(t)/60;
  
 
-save('oct6g.mat');
+save('oct6h.mat');

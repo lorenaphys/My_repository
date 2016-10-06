@@ -52,7 +52,7 @@ figure(3)
    hold on
    contour(fix0,[0 0],'r')
    axis equal
-   axis([1 22 1 37])
+   axis([1 17 1 38])
    %legend('\phi','\phi_0'),
     %getframe(gcf);
 %    hold off

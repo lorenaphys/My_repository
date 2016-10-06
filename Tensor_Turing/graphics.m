@@ -1,10 +1,10 @@
-load('oct5f.mat')
+load('oct5g.mat')
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 170;
+f = 144;
 M = struct('cdata',[],'colormap',[]);
 fi0(:,:,:) = Fm(:,:,:,1);
 fi(:,:,:)=Fm(:,:,:,f);
@@ -52,7 +52,7 @@ figure(3)
    hold on
    contour(fix0,[0 0],'r')
    axis equal
-   axis([1 22 1 38])
+   axis([1 17 1 38])
    %legend('\phi','\phi_0'),
     %getframe(gcf);
 %    hold off

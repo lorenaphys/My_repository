@@ -11,7 +11,7 @@ sigma=0.1;
 Nx=40;
 Ny=40;
 Nz=70;
-N=5;
+N=2;
 alpha = 120;
 %%% wfi=0.5*Afi*mu.^2 + 0.5*sigma*gradfi + 0.5*AI*UI + 0.5*As*BI + 0.5*As*(fi.^2 -1).*BS + 0.5*Af*(fi.^2).*BF;
 %%Energy=chemical+ surface tension+ fi-u-interaction + u-s interaction +
@@ -86,7 +86,7 @@ ancho=2;
 for i=1:Nx
     for j=1:Ny
         for k=1:Nz
-      r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k)^2);
+      r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k-Nz/2)^2);
       if r(i,j,k)>=R
       fi(i,j,k)=-1;
       end
@@ -373,4 +373,4 @@ end
 
 time = toc(t)/60;
 
-save('oct5h.mat');
+save('oct5i.mat');

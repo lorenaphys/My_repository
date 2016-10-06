@@ -11,7 +11,6 @@ sigma=0.1;
 Nx=40;
 Ny=40;
 Nz=70;
-R=11;
 N=5;
 alpha = 120;
 %%% wfi=0.5*Afi*mu.^2 + 0.5*sigma*gradfi + 0.5*AI*UI + 0.5*As*BI + 0.5*As*(fi.^2 -1).*BS + 0.5*Af*(fi.^2).*BF;
@@ -25,10 +24,10 @@ Du1=10;
 Dfi=1;
 eta=5;
 %%%%%%%%%%%%%%%%%%%%% strength of the fields  %%%%%%%%%%%
-As=0; 
+As=0.1; 
 AI=0; 
 Afi=1;
-Af=0;
+Af=0.1;
 %%%%%%%%%%%%%%%%%% spontaneous interaction constans %%%%%%%%%%%%%%
 bet1=.5;
 %bet2=0;
@@ -79,7 +78,22 @@ u1f=0;
 %u3f=0;
 %u4f=0;
 %load dominio
-semiesf3D
+fi=ones(Nx,Ny,Nz);
+r = zeros(Nx,Ny,Nz);
+R = 15;
+
+ancho=2;
+for i=1:Nx
+    for j=1:Ny
+        for k=1:Nz
+      r(i,j,k)=sqrt((i-Nx/2)^2+(j-Ny/2)^2+(k)^2);
+      if r(i,j,k)>=R
+      fi(i,j,k)=-1;
+      end
+        end
+   
+   end
+end
 %formas3D
 %prisma3D
 fiini=fi;
@@ -105,7 +119,7 @@ fiini=fi;
         %rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
         %u1=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z+5).^2)/50));
         %u1=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-(R+2)).^2)/20));
-        u1=1.5*(exp(-((X-Nx/2-0-5).^2+(Y-Ny/3-0.5).^2+(Z-9.5).^2)/50));
+        u1=1.5*(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-7).^2)/50));
 	%u1 = 2.5*rand(Nx,Ny,Nz);
        %u3=0.-u1;
   	%u1=u1+.2*(rand(Nx,Ny,Nz)-.5);
@@ -341,4 +355,4 @@ end
 
 time = toc(t)/60;
 
-save('agosto18a.mat');
+save('oct6i.mat');

@@ -119,7 +119,8 @@ fi0=fi;
         %rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
         %u1=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z+5).^2)/50));
         %u1=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-(R+2)).^2)/20));
-        u1=1.5*(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-7).^2)/80));
+        u1=1.5*(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-7).^2)/50));
+        u1 = 1 - 2*u1;
 	%u1 = 2.5*rand(Nx,Ny,Nz);
        %u3=0.-u1;
   	%u1=u1+.2*(rand(Nx,Ny,Nz)-.5);
@@ -372,4 +373,4 @@ end
 
 time = toc(t)/60;
 
-save('oct6j.mat');
+save('oct6k.mat');

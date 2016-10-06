@@ -96,7 +96,7 @@ for i=1:Nx
 end
 %formas3D
 %prisma3D
-fiini=fi;
+fi0=fi;
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% initial conditions for u and beta %%%%%
 
@@ -328,10 +328,27 @@ for i=1:NF
         %u2=u2+dt*(Du2*lapGu2+eta*Su2);
         %u3=u3+dt*(Du3*lapGu3+eta*Su3);
         %u4=u4+dt*(Du4*lapGu4+eta*Su4);
+        
+        %Boundary conditions
+        fi(1,:,:) = fi(2,:,:);
+        fi(Nx,:,:) = fi(Nx-1,:,:);
+        fi(:,1,:) = fi(:,2,:);
+        fi(:,Ny,:) = fi(:,Ny-1,:);
+        fi(:,:,1) = fi(:,:,2);
+        fi(:,:,Nz) = fi(:,:,Nz-1);
+        
+        u1(1,:,:) = u1(2,:,:);
+        u1(Nx,:,:) = u1(Nx-1,:,:);
+        u1(:,1,:) = u1(:,2,:);
+        u1(:,Ny,:) = u1(:,Ny-1,:);
+        u1(:,:,1) = u1(:,:,2);
+        u1(:,:,Nz) = u1(:,:,Nz-1);
 
+		%Base fixed
+		%fi(:,:,1) = fi0(:,:,1);
         %uts
        % u(:,:,1)=u(:,:,2);  
-        noFlux2(fi,u1); 
+        %noFlux2(fi,u1); 
     end
     u1x(:,:)=u1(:,Ny/2,:);
     fix(:,:)=fi(Nx/2,:,:);

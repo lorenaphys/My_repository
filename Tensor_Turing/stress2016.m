@@ -12,7 +12,7 @@ Nx=40;
 Ny=40;
 Nz=70;
 N=5;
-alpha = 120;
+alpha = 100;
 %%% wfi=0.5*Afi*mu.^2 + 0.5*sigma*gradfi + 0.5*AI*UI + 0.5*As*BI + 0.5*As*(fi.^2 -1).*BS + 0.5*Af*(fi.^2).*BF;
 %%Energy=chemical+ surface tension+ fi-u-interaction + u-s interaction +
 %%membrane interaction near + far
@@ -373,4 +373,4 @@ end
 
 time = toc(t)/60;
 
-save('oct6k.mat');
+save('oct5a.mat');

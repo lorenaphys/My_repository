@@ -1,4 +1,4 @@
-load('julio27a.mat')
+load('oct6i.mat')
 
 fl=size(Fm);
 Nx = fl(1);
@@ -22,8 +22,8 @@ figure(1)
      isocolors(cdata,p4);
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
-     axis equal, view(-27,44), axis off %de (18,10) lo cambie a (-16,24)%segundo cambio para view, antes era (-16,24)%cambié view de (-14,40) a (-16,24)
-     axis([5 35 5 35 1 23]),
+     axis equal, view(-16,24), axis off %de (18,10) lo cambie a (-16,24)%segundo cambio para view, antes era (-16,24)%cambié view de (-14,40) a (-16,24)
+     axis([1 40 1 40 1 20]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
@@ -37,15 +37,16 @@ figure(2)
      isocolors(cdata,p4);
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
-     axis equal, view(-27,44), axis off %de (18,10) lo cambie a (-16,24)%segundo cambio para view, antes era (-16,24)%cambié view de (-14,40) a (-16,24)
-     axis([1 35 1 35 1 23]),
+     axis equal, view(-16,24), axis off %de (18,10) lo cambie a (-16,24)%segundo cambio para view, antes era (-16,24)%cambié view de (-14,40) a (-16,24)
+     axis([1 40 1 40 1 20]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
      
 %%
 figure(3)
-   fix0(:,:) = Fm(:,Ny/2,:,1);
+   fi0 = smooth3(fi0,'box',5);
+   fix0(:,:) = fi0(:,Ny/2,:);
    fix(:,:)=fi(:,Ny/2,:);
    contour(fix,[0 0],'k')
    hold on

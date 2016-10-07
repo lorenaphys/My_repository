@@ -76,7 +76,7 @@ for i = cont1:cont2
        u(:,:,Nz) = u(:,:,Nz-1);
        
        %fijando la base de la membrana
-%       fi(:,:,1) = fi0(:,:,1);
+       fi(:,:,1) = fi0(:,:,1);
 %       v(1,:,:) = v(2,:,:);
 %       v(Nx,:,:) = v(Nx-1,:,:);
 %       v(:,1,:) = v(:,2,:);

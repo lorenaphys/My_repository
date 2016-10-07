@@ -22,6 +22,7 @@ dt = 1e-5;
 
 %Definiendo los valores de u y fi que serás utilizados
 global Fm Um Vm
+fi0 = Fm(:,:,:,1);
 fi = Fm(:,:,:,cont1-1);
 u = Um(:,:,:,cont1-1);
 v = Vm(:,:,:,cont1-1);
@@ -61,20 +62,27 @@ for i = cont1:cont2
 %       v(fi<=-0.99) = 0;
       
       %condiciones de frontera
-%       fi(1,:,:) = fi(2,:,:);
-%       fi(Nx,:,:) = fi(Nx-1,:,:);
-%       fi(:,1,:) = fi(:,2,:);
-%       fi(:,Ny,:) = fi(:,Ny-1,:);
-%       u(1,:,:) = u(2,:,:);
-%       u(Nx,:,:) = u(Nx-1,:,:);
-%       u(:,1,:) = u(:,2,:);
-%       u(:,Ny,:) = u(:,Ny-1,:);
+       fi(1,:,:) = fi(2,:,:);
+       fi(Nx,:,:) = fi(Nx-1,:,:);
+       fi(:,1,:) = fi(:,2,:);
+       fi(:,Ny,:) = fi(:,Ny-1,:);
+       fi(:,:,1) = fi(:,:,2);
+       fi(:,:,Nz) = fi(:,:,Nz-1);
+       u(1,:,:) = u(2,:,:);
+       u(Nx,:,:) = u(Nx-1,:,:);
+       u(:,1,:) = u(:,2,:);
+       u(:,Ny,:) = u(:,Ny-1,:);
+       u(:,:,1) = u(:,:,2);
+       u(:,:,Nz) = u(:,:,Nz-1);
+       
+       %fijando la base de la membrana
+       fi(:,:,1) = fi0(:,:,1);
 %       v(1,:,:) = v(2,:,:);
 %       v(Nx,:,:) = v(Nx-1,:,:);
 %       v(:,1,:) = v(:,2,:);
 %       v(:,Ny,:) = v(:,Ny-1,:);
 %       noFlux(fi,fi);
-        noFlux2(fi,u);
+        %noFlux2(fi,u);
         
       %condicion para parar el proceso en caso de que fi tenga entradas
       %tipo NaN

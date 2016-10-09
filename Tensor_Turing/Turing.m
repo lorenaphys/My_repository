@@ -28,7 +28,7 @@ end
 
 %Condicion inicial para el morfogeno
 
-N = 2;
+N = 3;
 [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
 teta=atan2((Y-Ny/2),(X-Nx/2));
 rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
@@ -65,4 +65,4 @@ multifase(cont2+cont4+cont5+3,cont2+2*cont4+cont5+3,cont3);
 
 time = toc(t)/60;
 
-save('oct7d.mat')
+save('oct9a.mat')

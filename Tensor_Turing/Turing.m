@@ -8,7 +8,7 @@ cont1 = 2;
 cont2 = 302;
 cont3 = 200;
 cont4 = 20;
-cont5 = 50;
+cont5 = 40;
 
 %Condicion inicial del meristemo
 fi=ones(Nx,Ny,Nz);

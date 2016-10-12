@@ -1,5 +1,5 @@
-Nx = 40;
-Ny = 40;
+Nx = 50;
+Ny = 50;
 Nz = 70;
 
 
@@ -65,4 +65,4 @@ multifase(cont2+cont4+cont5+3,cont2+2*cont4+cont5+3,cont3);
 
 time = toc(t)/60;
 
-save('oct12b*.mat')
+save('oct12c.mat')

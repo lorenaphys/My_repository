@@ -1,5 +1,5 @@
-Nx=40;
-Ny=40;
+Nx=50;
+Ny=50;
 Nz=70;
 R=15;
 
@@ -21,5 +21,7 @@ for i=1:Nx
    end
 end
 
-
-%isosurface(fi,0)
+fi = smooth3(fi,'box',5);
+isosurface(fi,0)
+axis equal, view (-16,24), axis off
+axis([1 50 1 50 1 70]),

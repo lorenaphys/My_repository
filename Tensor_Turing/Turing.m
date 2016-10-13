@@ -5,7 +5,7 @@ Nz = 70;
 
 %Contadores para el proceso
 cont1 = 2;
-cont2 = 202;
+cont2 = 302;
 cont3 = 200;
 cont4 = 20;
 cont5 = 50;
@@ -65,4 +65,4 @@ multifase(cont2+cont4+cont5+3,cont2+2*cont4+cont5+3,cont3);
 
 time = toc(t)/60;
 
-save('oct12c.mat')
+save('oct12d.mat')

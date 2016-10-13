@@ -1,10 +1,12 @@
-load('oct12c.mat')
+load('oct12d.mat')
 
 fl=size(Fm);
 Nx = fl(1);
 Ny = fl(2);
 Nz = fl(3);
-f = 285;
+f = 395;
+fi0 = zeros(Nx,Ny,Nz);
+u0 = fi0;
 M = struct('cdata',[],'colormap',[]);
 fi0(:,:,:) = Fm(:,:,:,1);
 fi(:,:,:)=Fm(:,:,:,f);
@@ -23,7 +25,7 @@ figure(1)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off %de (18,10) lo cambie a (-16,24)%segundo cambio para view, antes era (-16,24)%cambié view de (-14,40) a (-16,24)
-     axis([1 40 1 40 1 19]),
+     axis([1 Nx 1 Ny 1 19]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
@@ -38,13 +40,15 @@ figure(2)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off %de (18,10) lo cambie a (-16,24)%segundo cambio para view, antes era (-16,24)%cambié view de (-14,40) a (-16,24)
-     axis([1 40 1 40 1 19]),
+     axis([1 Nx 1 Ny 1 19]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
      
 %%
 figure(3)
+   fix0 = zeros(Nx,Nz);
+   fix = fix0;
    fi0 = smooth3(fi0,'box',5);
    fix0(:,:) = fi0(:,Ny/2,:);
    fix(:,:)=fi(:,Ny/2,:);
@@ -52,7 +56,7 @@ figure(3)
    hold on
    contour(fix0,[0 0],'r')
    axis equal
-   axis([1 22 1 38])
+   axis([1 22 1 50])
    %legend('\phi','\phi_0'),
     %getframe(gcf);
 %    hold off

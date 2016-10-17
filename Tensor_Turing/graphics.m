@@ -1,4 +1,4 @@
-load('oct16f.mat')
+load('oct16g.mat')
 
 fl=size(Fm);
 Nx = fl(1);

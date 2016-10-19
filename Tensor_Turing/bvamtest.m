@@ -5,15 +5,15 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 500;
-step = 200;
+NF = 1000;
+step = 500;
 %dt = 1e-5;
 dt = 0.005;
 
 %Parametros del modelo BVAM
 
 h = -1;
-C = 1.57;
+C = 0;
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 
@@ -83,10 +83,18 @@ t = tic();
       v = v + dt*(Dv*lapv + b*v+h*u+C*u.*v+u.*v.^2);
       
       %condiciones de frontera
+      u(1,:,:) = u(2,:,:);
+      u(Nx,:,:) = u(Nx-1,:,:);
+      u(:,1,:) = u(:,2,:);
+      u(:,Ny,:) = u(:,Ny-1,:);
       u(:,:,1) = u(:,:,2);
+      u(:,:,Nz) = u(:,:,Nz-1);
+      v(1,:,:) = v(2,:,:);
+      v(Nx,:,:) = v(Nx-1,:,:);
+      v(:,1,:) = v(:,2,:);
+      v(:,Ny,:) = v(:,Ny-1,:);
       v(:,:,1) = v(:,:,2);
-      
-      
+      v(:,:,Nz) = v(:,:,Nz-1);
     end
     Um(:,:,:,i+1) = u;
     Vm(:,:,:,i+1) = v;
@@ -104,4 +112,4 @@ disp(i)
 end
 time = toc(t)/60;
 
-save('oct12f');                 
+save('oct18a');                 

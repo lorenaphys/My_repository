@@ -5,19 +5,20 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 1000;
-step = 500;
+NF = 500;
+step = 200;
 %dt = 1e-5;
 dt = 0.005;
 
 %Parametros del modelo BVAM
 
 h = -1;
-C = 0.02;
+C = 1.57;
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 
-eta = sqrt(3);
+%eta = sqrt(3);
+eta = 1.732;
 D = 0.516;
 Du = D/eta;
 Dv = 1/eta;
@@ -112,4 +113,4 @@ disp(i)
 end
 time = toc(t)/60;
 
-save('oct18b');                 
+save('oct21a');                 

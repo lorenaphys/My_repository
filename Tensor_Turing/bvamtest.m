@@ -5,7 +5,7 @@
 Nx = 40;
 Ny = 40;
 Nz = 70;
-NF = 500;
+NF = 300;
 step = 200;
 %dt = 1e-5;
 dt = 0.005;
@@ -17,8 +17,8 @@ C = 1.57;
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 
-%eta = sqrt(3);
-eta = 1.732;
+eta = sqrt(3);
+%eta = 1.732;
 D = 0.516;
 Du = D/eta;
 Dv = 1/eta;
@@ -113,4 +113,4 @@ disp(i)
 end
 time = toc(t)/60;
 
-save('oct21a');                 
+save('oct24a');                 

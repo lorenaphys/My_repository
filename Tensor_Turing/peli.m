@@ -1,4 +1,4 @@
-load('oct21a.mat');
+load('oct25a.mat');
 
 f = size(Um);
 Nx = f(1);
@@ -51,7 +51,7 @@ M = struct('cdata',[],'colormap',[]);
     %disp(k)
 %end
 
-for k = 120:120
+for k = 301:301
     clf
     u = smooth3(Um(:,:,:,k),'box',5);
 	isosurface(u,(u-min(min(min(u))))./...

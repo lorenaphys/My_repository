@@ -1,4 +1,4 @@
-load('oct17a.mat')
+load('oct25b.mat')
 
 fl=size(Fm);
 Nx = fl(1);
@@ -25,7 +25,7 @@ figure(1)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off %de (18,10) lo cambie a (-16,24)%segundo cambio para view, antes era (-16,24)%cambié view de (-14,40) a (-16,24)
-     axis([3 38 3 38 17 52]),
+     axis([1 50 1 50 1 20]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
@@ -40,7 +40,7 @@ figure(2)
      set(p4,'FaceColor','interp','EdgeColor','none'),
      camlight, lighting phong
      axis equal, view(-16,24), axis off %de (18,10) lo cambie a (-16,24)%segundo cambio para view, antes era (-16,24)%cambié view de (-14,40) a (-16,24)
-     axis([3 38 3 38 17 52]),
+     axis([1 50 1 50 1 20]),
      %axis([1 Nx 1 Ny 1 Nz])
      colormap jet
      %colorbar
@@ -56,7 +56,7 @@ figure(3)
    hold on
    contour(fix0,[0 0],'r')
    axis equal
-   axis([15 55 1 37])
+   axis([1 20 1 45])
    %legend('\phi','\phi_0'),
     %getframe(gcf);
 %    hold off

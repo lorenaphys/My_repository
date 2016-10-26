@@ -17,7 +17,7 @@ C = 0;
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 
-%eta = sqrt(3);
+eta = sqrt(3);
 %eta = 1.5;
 D = 0.516;
 Du = D/eta;

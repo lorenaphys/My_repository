@@ -1,4 +1,4 @@
-load('oct25a.mat');
+load('oct24c.mat');
 
 f = size(Um);
 Nx = f(1);
@@ -56,7 +56,7 @@ for k = 301:301
     u = smooth3(Um(:,:,:,k),'box',5);
 	isosurface(u,(u-min(min(min(u))))./...
             (max(max(max(u)))-min(min(min(u)))));
-	axis equal, view(-16,24)
+	axis off, axis equal, view(-16,24)
 	axis([1 50 1 50 1 70])
 	colormap winter
 	%camlight

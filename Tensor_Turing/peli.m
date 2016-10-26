@@ -1,4 +1,4 @@
-load('oct25j.mat');
+load('oct26a.mat');
 
 f = size(Um);
 Nx = f(1);

@@ -18,7 +18,7 @@ C = 0
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 
 %eta = sqrt(3);
-eta = 1.5;
+eta = 0.45;
 D = 0.516;
 Du = D/eta;
 Dv = 1/eta;
@@ -113,4 +113,4 @@ disp(i+1)
 end
 time = toc(t)/60;
 
-save('oct25j');                 
+save('oct26a');                 

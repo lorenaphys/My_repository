@@ -13,12 +13,12 @@ dt = 0.005;
 %Parametros del modelo BVAM
 
 h = -1;
-C = -0.1;
+C = 0
 
 %Primer conjunto, para kc = 0.46 (ac = 1.121)
 
-eta = sqrt(3);
-%eta = 1.5;
+%eta = sqrt(3);
+eta = 1.5;
 D = 0.516;
 Du = D/eta;
 Dv = 1/eta;
@@ -68,7 +68,7 @@ Vm(:,:,:,1) = v;
 
 %funcion que contabiliza el timepo de proceso
 t = tic();
-
+disp(1)
  for i = 1:NF
     for j = 1:step
 
@@ -109,8 +109,8 @@ t = tic();
 %     set(gca,[-rs,rs])
 %     colormap hsv;
 %     N(iter) = getframe;
-disp(i)
+disp(i+1)
 end
 time = toc(t)/60;
 
-save('oct25i');                 
+save('oct25j');                 

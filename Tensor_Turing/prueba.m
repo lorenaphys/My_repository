@@ -20,7 +20,8 @@ for i=1:Nx
    
    end
 end
-
+load('oct24a.mat')
+u = Um(:,:,:,301);
 % for i = 20:30
 %    for j = 20:30
 %       for k = 15:45
@@ -41,8 +42,8 @@ end
 % end
 
     %R = 9;
-    N = 0;
-    [X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
+    %N = 0;
+    %[X,Y,Z]=meshgrid(1:Nx,1:Ny,1:Nz);
         %teta=atan2((Y-Ny/2),(X-Nx/2));
         %rad=sqrt((X-Nx/2+.5).^2+(Y-Ny/2+.5).^2);
         %u=1.5*exp(-((X-Nx/3-.5).^2+(Y-Ny/3-.5).^2+(Z-13.5).^2)/50);
@@ -52,15 +53,15 @@ end
         %u = 0.2*(rand(Nx,Ny,Nz)-.5);
         %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
    %filotaxia
-        tetar=0;   % X rotation
-        fir=0;     % Z rotation
-        RX=(X)*cos(fir)-(Y)*sin(fir)*cos(tetar)+(Z)*sin(fir)*sin(tetar);
-        RY=(X)*sin(fir)+(Y)*cos(fir)*cos(tetar)-(Z)*cos(fir)*sin(tetar);
-        RZ=(Y)*sin(tetar)+(Z)*cos(tetar);
-        teta=atan2((RY-Ny/2),(RX-Nx/2));
-        rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
-        u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-(R+2)).^2)/20));
-        u0=sum(sum(sum(u)))/Nx/Ny/Nz;
+        %tetar=0;   % X rotation
+        %fir=0;     % Z rotation
+        %RX=(X)*cos(fir)-(Y)*sin(fir)*cos(tetar)+(Z)*sin(fir)*sin(tetar);
+        %RY=(X)*sin(fir)+(Y)*cos(fir)*cos(tetar)-(Z)*cos(fir)*sin(tetar);
+        %RZ=(Y)*sin(tetar)+(Z)*cos(tetar);
+        %teta=atan2((RY-Ny/2),(RX-Nx/2));
+        %rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
+        %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-(R+2)).^2)/20));
+        %u0=sum(sum(sum(u)))/Nx/Ny/Nz;
         
         
 %     u = zeros(Nx,Ny,Nz);
@@ -99,13 +100,13 @@ end
 % set(gca,'CLim',[-rs,rs])
 % colorbar;
 % %%
-    figure(4)
+    figure(1)
     
 %     u = smooth3(u,'box',3); 
     clf
        
-    %cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
-       cdata = smooth3(u,'box',3);
+    cdata = smooth3((u-min(min(min(u))))./(max(max(max(u)))-min(min(min(u)))),'box',5);
+       %cdata = smooth3(u,'box',3);
     fim = smooth3(fi,'box',3);
     p4=patch(isosurface(fim,0));
     isonormals(fim,p4);
@@ -113,13 +114,13 @@ end
     set(p4,'FaceColor','interp','EdgeColor','none'),
     camlight, lighting phong
     axis equal, axis off, 
-    axis([1 Nx 1 Ny 1 Nz]),
+    axis([5 38 5 38 1 20]),
     colormap jet
-    light
-material metal
-    colorbar
+    %light
+%material metal
+    %colorbar
 %view(-15,40)
-view(13,12)
+view(-16,24)
 
 
 %     figure(4)

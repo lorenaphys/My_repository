@@ -1,4 +1,4 @@
-load('nov1c.mat');
+load('oct7a.mat');
 
 f = size(Um);
 Nx = f(1);
@@ -17,24 +17,23 @@ h = 101;
 	%Fi(:,:,:,k) = Fm(:,:,:,cont2+cont4+1);
 %end
 M = struct('cdata',[],'colormap',[]);
-%M1 = struct('cdata',[],'colormap',[]);
 
-%for i = 1:f(4)
-     %clf
-     %cdata = smooth3((Um(:,:,:,i)-min(min(min(Um(:,:,:,i)))))./...
-             %(max(max(max(Um(:,:,:,i))))-min(min(min(Um(:,:,:,i))))),'box',5);
-     %fi = smooth3(Fm(:,:,:,i),'box',5);
-     %p4=patch(isosurface(fi,0));
-     %isonormals(fi,p4);
-     %isocolors(cdata,p4);
-     %set(p4,'FaceColor','interp','EdgeColor','none'),
-     %camlight, lighting phong
-     %axis equal, view(-16,24), axis off 
-     %axis([1 40 1 40 1 30]),
-     %colormap jet
-     %M1(i) = getframe;
-     %disp(i)
-%end
+for i = 302:302
+     clf
+     cdata = smooth3((Um(:,:,:,i)-min(min(min(Um(:,:,:,i)))))./...
+             (max(max(max(Um(:,:,:,i))))-min(min(min(Um(:,:,:,i))))),'box',5);
+     fi = smooth3(Fm(:,:,:,i),'box',5);
+     p4=patch(isosurface(fi,0));
+     isonormals(fi,p4);
+     isocolors(cdata,p4);
+     set(p4,'FaceColor','interp','EdgeColor','none'),
+     camlight, lighting phong
+     axis equal, view(-16,24), axis off 
+     axis([1 40 1 40 1 30]),
+     colormap jet
+     M(i) = getframe;
+     disp(i)
+end
 
 %for k = 1:f(4)
    %R = 11;
@@ -51,15 +50,15 @@ M = struct('cdata',[],'colormap',[]);
     %disp(k)
 %end
 
-for k = 301:301
-    clf
-    u = smooth3(Um(:,:,:,k),'box',5);
-	isosurface(u,(u-min(min(min(u))))./...
-            (max(max(max(u)))-min(min(min(u)))));
-	axis off, axis equal, view(-16,24)
-	axis([1 50 1 50 1 70])
-	colormap winter
-	%camlight
-	M(k) = getframe;
-	disp(k)
-end
+%for k = 301:301
+    %clf
+    %u = smooth3(Um(:,:,:,k),'box',5);
+	%isosurface(u,(u-min(min(min(u))))./...
+            %(max(max(max(u)))-min(min(min(u)))));
+	%axis off, axis equal, view(-16,24)
+	%axis([1 50 1 50 1 70])
+	%colormap winter
+	%%camlight
+	%M(k) = getframe;
+	%disp(k)
+%end

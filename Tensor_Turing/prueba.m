@@ -20,26 +20,8 @@ for i=1:Nx
    
    end
 end
-load('oct24a.mat')
+load('oct25e.mat')
 u = Um(:,:,:,301);
-% for i = 20:30
-%    for j = 20:30
-%       for k = 15:45
-%          %fi(i,j,k) = -1;
-%          f = rand(1);
-%         if f <= 0.5
-%             fi(i,j,k) = -1;
-%         end
-%       end
-%    end
-% end
-% for i = 10:30
-%     for j = 10:30
-%        for k = 25:45
-%           fi(i,j,k) = -1; 
-%        end
-%     end
-% end
 
     %R = 9;
     %N = 0;
@@ -51,28 +33,7 @@ u = Um(:,:,:,301);
         %u=-2.5*rad.*(cos(teta*N)+sin(teta*N)).*(Z/Nz)/max(max(max(rad)))+(exp(-((X-Nx/2).^2+(Y-Ny/2).^2+(Z-R+14).^2)/50));
         %u=2.5*rand(Nx,Ny,Nz);
         %u = 0.2*(rand(Nx,Ny,Nz)-.5);
-        %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);
-   %filotaxia
-        %tetar=0;   % X rotation
-        %fir=0;     % Z rotation
-        %RX=(X)*cos(fir)-(Y)*sin(fir)*cos(tetar)+(Z)*sin(fir)*sin(tetar);
-        %RY=(X)*sin(fir)+(Y)*cos(fir)*cos(tetar)-(Z)*cos(fir)*sin(tetar);
-        %RZ=(Y)*sin(tetar)+(Z)*cos(tetar);
-        %teta=atan2((RY-Ny/2),(RX-Nx/2));
-        %rad=sqrt((RX-Nx/2+.25).^2+(RY-Ny/2+.25).^2);
-        %u=2.5*rad.*(cos(teta*N)+sin(teta*N)).*(RZ/Nz)/max(max(max(rad)))+(exp(-((RX-Nx/2).^2+(RY-Ny/2).^2+(RZ-(R+2)).^2)/20));
-        %u0=sum(sum(sum(u)))/Nx/Ny/Nz;
-        
-        
-%     u = zeros(Nx,Ny,Nz);
-%     
-%      for i=1:Nx
-%          for j=1:Ny
-%              for k=1:Nz
-%                  u(i,j,k)=0.05*(1.5*exp(-((i-Nx/2-0.5)^2+(j-Ny/2-0.5)^2+(k-13-0.5)^2)/200)-0.1);%primera prueba
-%              end
-%          end
-%      end
+        %u=.1*u+.2*(rand(Nx,Ny,Nz)-.5);        
 
 % fix0(:,:)=fi(Nx/2,:,:);
 % 
@@ -114,7 +75,7 @@ u = Um(:,:,:,301);
     set(p4,'FaceColor','interp','EdgeColor','none'),
     camlight, lighting phong
     axis equal, axis off, 
-    axis([5 38 5 38 1 20]),
+    axis([1 40 1 40 1 20]),
     colormap jet
     %light
 %material metal
